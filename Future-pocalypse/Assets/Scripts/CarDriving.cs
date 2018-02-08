@@ -30,9 +30,13 @@ public class CarDriving : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate ()
     {
+        RaycastHit hit;
+        Physics.Raycast(transform.position, -transform.up, out hit, mybox.size.y/2);
+
+        
 
 
-        if (Input.GetAxis("Vertical") != 0 && rb.velocity.magnitude < topspeed && rb.velocity.magnitude > (-topspeed/2))
+        if (Input.GetAxis("Vertical") != 0 && rb.velocity.magnitude < topspeed && rb.velocity.magnitude > (-topspeed/2) && hit.distance != 0)
         {
             if (Input.GetAxis("Vertical") > 0)
             {
@@ -42,12 +46,14 @@ public class CarDriving : MonoBehaviour
             {
                 rb.AddForce(-transform.forward * (accel*2) - (transform.up / 2), ForceMode.Acceleration);
             }
-                
+
             if (Input.GetAxis("Horizontal") != 0)
             {
-                transform.Rotate(transform.up,Input.GetAxis("Horizontal") * turnspeed);
+                transform.Rotate(transform.up, Input.GetAxis("Horizontal") * (turnspeed - (Input.GetAxis("Vertical")*2)));
             }
         }
+
+
 
     }
 }
