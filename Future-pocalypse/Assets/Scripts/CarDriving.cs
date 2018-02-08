@@ -15,6 +15,9 @@ public class CarDriving : MonoBehaviour
     private float turnspeed;
     [SerializeField]
     private BoxCollider mybox;
+
+    [SerializeField]
+    private Camera mycam;
 	// Use this for initialization
 	void Start ()
     {
@@ -30,27 +33,43 @@ public class CarDriving : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate ()
     {
+
         RaycastHit hit;
-        Physics.Raycast(transform.position, -transform.up, out hit, mybox.size.y/2);
+        bool onfloor;
+        if (Physics.Raycast(transform.position, -transform.up, out hit, mybox.size.y/2))
+        {
+            onfloor = true;
+        }
+        else
+        {
+            onfloor = false;
+        }
 
         
 
 
-        if (Input.GetAxis("Vertical") != 0 && rb.velocity.magnitude < topspeed && rb.velocity.magnitude > (-topspeed/2) && hit.distance != 0)
+        if (Input.GetAxis("Vertical") != 0 && rb.velocity.magnitude < topspeed && rb.velocity.magnitude > (-topspeed/2) && onfloor == true)
         {
             if (Input.GetAxis("Vertical") > 0)
             {
-                rb.AddForce(transform.forward * accel -(transform.up/2), ForceMode.Acceleration);
+                rb.AddForce(transform.forward * accel, ForceMode.Acceleration);
+                mycam.fieldOfView = (rb.velocity.magnitude / 1.8f) + 70;
+
             }
             else
             {
-                rb.AddForce(-transform.forward * (accel*2) - (transform.up / 2), ForceMode.Acceleration);
+                rb.AddForce(-transform.forward * (accel*2), ForceMode.Acceleration);
+                mycam.fieldOfView = 70;
             }
 
             if (Input.GetAxis("Horizontal") != 0)
             {
                 transform.Rotate(transform.up, Input.GetAxis("Horizontal") * (turnspeed - (Input.GetAxis("Vertical")*2)));
             }
+        }
+        else
+        {
+            mycam.fieldOfView = (rb.velocity.magnitude / 1.8f) + 70;
         }
 
 

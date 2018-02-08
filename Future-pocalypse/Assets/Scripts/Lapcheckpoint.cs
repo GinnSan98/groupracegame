@@ -23,7 +23,6 @@ public class Lapcheckpoint : MonoBehaviour {
         
         if (collider.transform.tag == "Checkpoint" && Checkpoint == collider.GetComponent<Checkpoint>().checkpointnum)
         {
-            Debug.Log("Collision detected");
             Checkpoint++;
 
             if (Checkpoint == maxcheckpoints)
