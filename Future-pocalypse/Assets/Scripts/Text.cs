@@ -8,6 +8,7 @@ public class Text : Lapcheckpoint
 
     public UnityEngine.UI.Text lap;
     public int lapText;
+    internal string text;
 
     void Start ()
     {
