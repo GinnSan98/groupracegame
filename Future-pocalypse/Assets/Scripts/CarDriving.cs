@@ -13,16 +13,25 @@ public class CarDriving : MonoBehaviour
     private int topspeed;
     [SerializeField]
     private float turnspeed;
+    [SerializeField]
+    private BoxCollider mybox;
 	// Use this for initialization
 	void Start ()
     {
-		
+        rb.centerOfMass = -transform.up;	
 	}
-	
-	// Update is called once per frame
-	void FixedUpdate ()
+
+    private void OnCollisionEnter(Collision collision)
     {
-        
+
+    }
+
+
+    // Update is called once per frame
+    void FixedUpdate ()
+    {
+
+
         if (Input.GetAxis("Vertical") != 0 && rb.velocity.magnitude < topspeed && rb.velocity.magnitude > (-topspeed/2))
         {
             if (Input.GetAxis("Vertical") > 0)
@@ -39,5 +48,6 @@ public class CarDriving : MonoBehaviour
                 transform.Rotate(transform.up,Input.GetAxis("Horizontal") * turnspeed);
             }
         }
-	}
+
+    }
 }
