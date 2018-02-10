@@ -12,9 +12,59 @@ public class TimeSlowdown : MonoBehaviour
     private bool transitioning;
     [SerializeField]
     private CarDriving cd;
+    private bool tickdown;
+    [SerializeField]
+    private float currentcharge;
+    [SerializeField]
+    private bool canturnon;
+
+
+
+
+    public void missle()
+    {
+        cancelpower();
+    }
+
+    public void missledash()
+    {
+        transform.LookAt(target);
+        transform.position += transform.up;
+        GetComponent<Rigidbody>().AddForce(transform.forward * 500, ForceMode.VelocityChange);
+        targetting = false;
+        TargetButton.SetActive(false);
+        Time.timeScale = 1f;
+        Application.targetFrameRate =  Mathf.RoundToInt(60 / Time.timeScale);
+        cancelpower();
+    }
+
+    private void cancelpower()
+    {
+        Time.timeScale = 1f;
+        Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
+        canturnon = false;
+        currentcharge = 10;
+        StartCoroutine(zoomout());
+        target = null;
+    }
 
     void Update()
     {
+
+        if (tickdown == true)
+        {
+            currentcharge -= 30 * Time.deltaTime;
+
+            if (currentcharge <= 0)
+            {
+                currentcharge = 0;
+                tickdown = false;
+                cancelpower();
+            }
+        }
+
+        if (canturnon == true)
+        { 
         if (cd.cameracontrol == true)
         {
             if (Input.GetMouseButtonDown(0) == true)
@@ -24,34 +74,57 @@ public class TimeSlowdown : MonoBehaviour
                 Physics.Raycast(ray, out hit);
                 //   Physics.Raycast(mycam.transform.position, mycam.ViewportToWorldPoint(Input.mousePosition), out hit, 100f);
                 Debug.DrawRay(mycam.transform.position, ray.direction * hit.distance, Color.green, Mathf.Infinity);
-                if (hit.transform.tag == "Enemy")
-                {
-                    target = hit.transform;
-                }
+                    if (hit.transform != null)
+                    {
+                        if (hit.transform.tag == "Enemy")
+                        {
+                            target = hit.transform;
+                        }
+                    }
             }
+        }
+        else
+        {
+            if (target != null)
+            mycam.transform.LookAt(target);
         }
 
 
-        if (target != null)
-        {
-            if (Input.GetKeyDown("v") && targetting == false && transitioning == false)
+            if (target != null)
             {
-                targetting = true;
-                TargetButton.SetActive(true);
-                Time.timeScale = 0.5f;
-                Mathf.RoundToInt(60 / Time.timeScale);
-                cd.cameracontrol = false;
-                StartCoroutine(zoomin());
+                if (Input.GetKeyDown("v") && targetting == false && transitioning == false)
+                {
+                    targetting = true;
+                    TargetButton.SetActive(true);
+                    Time.timeScale = 0.5f;
+                    Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
+                    cd.cameracontrol = false;
+                    tickdown = true;
+                    StartCoroutine(zoomin());
 
+                }
+                else if (Input.GetKeyDown("v") && targetting == true && transitioning == false)
+                {
+                    targetting = false;
+                    TargetButton.SetActive(false);
+                    canturnon = false;
+                    currentcharge = 20;
+                    tickdown = false;
+                    StartCoroutine(zoomout());
+
+                }
             }
-            else if (Input.GetKeyDown("v") && targetting == true && transitioning == false)
+        }
+        else
+        {
+            if (currentcharge < 30)
             {
-                targetting = false;
-                TargetButton.SetActive(false);
-                Time.timeScale = 1f;
-                Mathf.RoundToInt(60 / Time.timeScale);
-                StartCoroutine(zoomout());
-
+                currentcharge += Time.deltaTime;
+            }
+            else
+            {
+                currentcharge = 30;
+                canturnon = true;
             }
         }
 
@@ -59,6 +132,8 @@ public class TimeSlowdown : MonoBehaviour
 
     private IEnumerator zoomout()
     {
+        targetting = false;
+        TargetButton.SetActive(false);
         transitioning = true;
         for (int i = 0; i < 30; i++)
         {
@@ -69,6 +144,7 @@ public class TimeSlowdown : MonoBehaviour
         transitioning = false;
         mycam.fieldOfView = 70;
         cd.cameracontrol = true;
+
     }
 
     private IEnumerator zoomin()

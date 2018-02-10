@@ -37,7 +37,7 @@ public class CarDriving : MonoBehaviour
 
         RaycastHit hit;
         bool onfloor;
-        if (Physics.Raycast(transform.position, -transform.up, out hit, mybox.size.y/2))
+        if (Physics.Raycast(transform.position, -transform.up, out hit, mybox.size.y))
         {
             onfloor = true;
         }
@@ -83,7 +83,10 @@ public class CarDriving : MonoBehaviour
             
         }
 
-
+        if (mycam.fieldOfView > 100)
+        {
+            mycam.fieldOfView = 100;
+        }
 
     }
 }
