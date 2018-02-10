@@ -16,6 +16,7 @@ public class CarDriving : MonoBehaviour
     [SerializeField]
     private BoxCollider mybox;
 
+    public bool cameracontrol = true;
     [SerializeField]
     private Camera mycam;
 	// Use this for initialization
@@ -53,13 +54,19 @@ public class CarDriving : MonoBehaviour
             if (Input.GetAxis("Vertical") > 0)
             {
                 rb.AddForce(transform.forward * accel, ForceMode.Acceleration);
-                mycam.fieldOfView = (rb.velocity.magnitude / 1.8f) + 70;
+                if (cameracontrol == true)
+                {
+                    mycam.fieldOfView = (rb.velocity.magnitude / 1.8f) + 70;
+                }
 
             }
             else
             {
                 rb.AddForce(-transform.forward * (accel*2), ForceMode.Acceleration);
-                mycam.fieldOfView = 70;
+                if (cameracontrol == true)
+                {
+                    mycam.fieldOfView = 70;
+                }
             }
 
             if (Input.GetAxis("Horizontal") != 0)
@@ -69,7 +76,11 @@ public class CarDriving : MonoBehaviour
         }
         else
         {
-            mycam.fieldOfView = (rb.velocity.magnitude / 1.8f) + 70;
+            if (cameracontrol == true)
+            {
+                mycam.fieldOfView = (rb.velocity.magnitude / 2f) + 70;
+            }
+            
         }
 
 
