@@ -12,11 +12,10 @@ public class TimeSlowdown : MonoBehaviour
     private bool transitioning;
     [SerializeField]
     private CarDriving cd;
-    private bool tickdown;
-    [SerializeField]
-    private float currentcharge;
-    [SerializeField]
-    private bool canturnon;
+    public bool tickdown;
+    public float currentcharge;
+    
+    public bool canturnon;
 
 
 
@@ -30,7 +29,6 @@ public class TimeSlowdown : MonoBehaviour
     public void Missledash()
     {
         transform.LookAt(target);
-        transform.position += transform.up;
         GetComponent<Rigidbody>().AddForce(transform.forward * 1000, ForceMode.VelocityChange);
         targetting = false;
         tickdown = false;
@@ -45,6 +43,7 @@ public class TimeSlowdown : MonoBehaviour
     {
         transform.LookAt(target);
         transform.position += transform.up;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
         GetComponent<Rigidbody>().AddForce(transform.forward * 300, ForceMode.VelocityChange);
         TargetButton.SetActive(false);
         Time.timeScale = 0.25f;

@@ -4,16 +4,29 @@ using UnityEngine.UI;
 using UnityEngine;
 
 public class healthTest : MonoBehaviour
-{
+{ 
     [SerializeField]
-    private Text healthText;
     private int playerHealth;
+    [SerializeField]
+    private int playermaxhealth;
     // Use this for initialization
 
+
+
+    public float Returnhealth()
+    {
+        return playerHealth;
+    }
+
+    public float ReturnMaxhealth()
+    {
+        return playermaxhealth;
+    }
     void Start()
     {
+        playermaxhealth = 100;
         playerHealth = 100;
-        SetHealthText();
+      
     }
 
     // Update is called once per frame
@@ -23,28 +36,19 @@ public class healthTest : MonoBehaviour
         if (other.gameObject.CompareTag("smallDamage"))
         {
             playerHealth -= 1;
-            SetHealthText();
+
         }
 
         if (other.gameObject.CompareTag("mediumDamage"))
         {
             playerHealth -=25;
-            SetHealthText();
+
         }
 
         if (other.gameObject.CompareTag("largeDamage"))
         {
             playerHealth -= 50;
-            SetHealthText();
-        }
-    }
 
-    void SetHealthText()
-    {
-        healthText.text = "Health: " + playerHealth.ToString();
-        if (playerHealth <= 0)
-        {
-            healthText.text = "You're dead boi";
         }
     }
 }
