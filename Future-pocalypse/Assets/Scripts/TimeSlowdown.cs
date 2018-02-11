@@ -21,20 +21,34 @@ public class TimeSlowdown : MonoBehaviour
 
 
 
-    public void missle()
+    public void Missle()
     {
+        currentcharge = 0;
         cancelpower();
     }
 
-    public void missledash()
+    public void Missledash()
     {
         transform.LookAt(target);
         transform.position += transform.up;
-        GetComponent<Rigidbody>().AddForce(transform.forward * 500, ForceMode.VelocityChange);
+        GetComponent<Rigidbody>().AddForce(transform.forward * 1000, ForceMode.VelocityChange);
         targetting = false;
+        tickdown = false;
         TargetButton.SetActive(false);
         Time.timeScale = 1f;
         Application.targetFrameRate =  Mathf.RoundToInt(60 / Time.timeScale);
+        currentcharge = 10;
+        cancelpower();
+    }
+
+    public void MobilityDash()
+    {
+        transform.LookAt(target);
+        transform.position += transform.up;
+        GetComponent<Rigidbody>().AddForce(transform.forward * 300, ForceMode.VelocityChange);
+        TargetButton.SetActive(false);
+        Time.timeScale = 0.25f;
+        Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
         cancelpower();
     }
 
@@ -43,7 +57,6 @@ public class TimeSlowdown : MonoBehaviour
         Time.timeScale = 1f;
         Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
         canturnon = false;
-        currentcharge = 10;
         StartCoroutine(zoomout());
         target = null;
     }
@@ -53,7 +66,7 @@ public class TimeSlowdown : MonoBehaviour
 
         if (tickdown == true)
         {
-            currentcharge -= 30 * Time.deltaTime;
+            currentcharge -= 10 * Time.deltaTime;
 
             if (currentcharge <= 0)
             {
@@ -71,14 +84,23 @@ public class TimeSlowdown : MonoBehaviour
             {
                 RaycastHit hit;
                 Ray ray = mycam.ScreenPointToRay(Input.mousePosition);
-                Physics.Raycast(ray, out hit);
+                Physics.Raycast(ray, out hit, 800f);
                 //   Physics.Raycast(mycam.transform.position, mycam.ViewportToWorldPoint(Input.mousePosition), out hit, 100f);
-                Debug.DrawRay(mycam.transform.position, ray.direction * hit.distance, Color.green, Mathf.Infinity);
+                
                     if (hit.transform != null)
                     {
                         if (hit.transform.tag == "Enemy")
                         {
+                            Debug.DrawRay(mycam.transform.position, ray.direction * hit.distance, Color.green, 3);
                             target = hit.transform;
+                        }
+                        if (hit.transform.tag == "DashPanel" && canturnon == true)
+                        {
+                            Debug.DrawRay(mycam.transform.position, ray.direction * hit.distance, Color.green, 3);
+                            target = hit.transform;
+                            currentcharge = 29;
+                            
+                            MobilityDash();
                         }
                     }
             }
@@ -120,6 +142,7 @@ public class TimeSlowdown : MonoBehaviour
             if (currentcharge < 30)
             {
                 currentcharge += Time.deltaTime;
+                canturnon = false;
             }
             else
             {

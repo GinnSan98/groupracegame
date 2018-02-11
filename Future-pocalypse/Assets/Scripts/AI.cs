@@ -39,10 +39,6 @@ public class AI : MonoBehaviour
         rb.centerOfMass = -transform.up;
         Vector3 left = transform.TransformPoint(0, 0, offset);
         Vector3 right = transform.TransformPoint(0, 0, -offset);
-
-        Ray rightRay = new Ray(this.transform.position, right);
-        Ray leftRay = new Ray(this.transform.position, left);
-        Ray centreRay = new Ray(this.transform.position, this.transform.forward);
         Vector3 avoid = Vector3.zero;
         
     }

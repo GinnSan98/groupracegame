@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GUIText : Lapcheckpoint
+public class GUITText : Lapcheckpoint
 {
 
     public UnityEngine.UI.Text lap;
