@@ -6,27 +6,36 @@ using UnityEngine;
 public class healthTest : MonoBehaviour
 { 
     [SerializeField]
-    private int playerHealth;
+    private int health;
     [SerializeField]
-    private int playermaxhealth;
+    private int maxHealth;
     // Use this for initialization
 
 
 
     public float Returnhealth()
     {
-        return playerHealth;
+        return health;
     }
 
     public float ReturnMaxhealth()
     {
-        return playermaxhealth;
+        return maxHealth;
     }
+
     void Start()
     {
-        playermaxhealth = 100;
-        playerHealth = 100;
+        maxHealth = 100;
+        health = maxHealth;
       
+    }
+
+     void Update()
+    {
+        if (health >= maxHealth)
+        {
+            health = maxHealth;
+        }
     }
 
     // Update is called once per frame
@@ -35,19 +44,19 @@ public class healthTest : MonoBehaviour
     {
         if (other.gameObject.CompareTag("smallDamage"))
         {
-            playerHealth -= 1;
+            health -= 1;
 
         }
 
         if (other.gameObject.CompareTag("mediumDamage"))
         {
-            playerHealth -=25;
+            health -=25;
 
         }
 
         if (other.gameObject.CompareTag("largeDamage"))
         {
-            playerHealth -= 50;
+            health -= 50;
 
         }
     }
