@@ -16,11 +16,22 @@ public class CarDriving : MonoBehaviour
     [SerializeField]
     private BoxCollider mybox;
 
-    public bool cameracontrol = true;
     [SerializeField]
     private Camera mycam;
-	// Use this for initialization
-	void Start ()
+
+    [SerializeField]
+    private GameObject carMesh;
+
+    [SerializeField]
+    private float carRotation;
+
+    [SerializeField]
+    private ParticleSystem[] sparks;
+
+    [SerializeField] private float driftClamp = 25f;
+
+    // Use this for initialization
+    void Start ()
     {
         rb.centerOfMass = -transform.up;	
 	}
@@ -34,10 +45,11 @@ public class CarDriving : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate ()
     {
-
         RaycastHit hit;
         bool onfloor;
-        if (Physics.Raycast(transform.position, -transform.up, out hit, mybox.size.y))
+
+        // Check if the car is grounded
+        if (Physics.Raycast(transform.position, -transform.up, out hit, mybox.size.y/2))
         {
             onfloor = true;
         }
@@ -46,47 +58,69 @@ public class CarDriving : MonoBehaviour
             onfloor = false;
         }
 
-        
-
-
-        if (Input.GetAxis("Vertical") != 0 && rb.velocity.magnitude < topspeed && rb.velocity.magnitude > (-topspeed/2) && onfloor == true)
+        // Check for player depth input, the car is movement, and the car is on the ground.
+        if (Input.GetAxis("Vertical") != 0 && rb.velocity.magnitude < topspeed && rb.velocity.magnitude > (-topspeed / 2) && onfloor == true)
         {
+            // Add force to car
             if (Input.GetAxis("Vertical") > 0)
             {
                 rb.AddForce(transform.forward * accel, ForceMode.Acceleration);
-                if (cameracontrol == true)
-                {
-                    mycam.fieldOfView = (rb.velocity.magnitude / 1.8f) + 70;
-                }
+                mycam.fieldOfView = (rb.velocity.magnitude / 1.8f) + 70;
 
             }
             else
             {
-                rb.AddForce(-transform.forward * (accel*2), ForceMode.Acceleration);
-                if (cameracontrol == true)
-                {
-                    mycam.fieldOfView = 70;
-                }
+                rb.AddForce(-transform.forward * (accel * 2), ForceMode.Acceleration);
+                mycam.fieldOfView = 70;
             }
 
             if (Input.GetAxis("Horizontal") != 0)
             {
-                transform.Rotate(transform.up, Input.GetAxis("Horizontal") * (turnspeed - (Input.GetAxis("Vertical")*2)));
+                if (Input.GetButton("Drift"))
+                {
+                    // Play partical system
+                    if (sparks[0].isPlaying == false)
+                    {
+                        sparks[0].Play();
+                        sparks[1].Play();
+                    }
+
+                    // Rotate mesh by the horizontal input
+                    carRotation += Input.GetAxis("Horizontal") * 1;
+                    carRotation = Mathf.Clamp(carRotation, -driftClamp, driftClamp);
+                    carMesh.transform.localRotation = Quaternion.Euler(new Vector3(0, carRotation, 0));
+                }
             }
+            else if (!Input.GetButton("Drift"))     //Make correction when player lets go of the drifting key
+            {
+                // Stop partical system
+                if (sparks[0].isPlaying == true)
+                {
+                    sparks[0].Stop();
+                    sparks[1].Stop();
+                }
+
+                // Make corection
+                if (carRotation > 0)
+                {
+                    carRotation--;
+                }
+                else if (carRotation < 0)
+                {
+                    carRotation++;
+                }
+
+                // Roate mesh back
+                carRotation = Mathf.RoundToInt(carRotation);
+                carMesh.transform.localRotation = Quaternion.Euler(new Vector3(0, carRotation, 0));
+            }
+
+            // Chanage the transfrom roation
+            transform.Rotate(transform.up, Input.GetAxis("Horizontal") * (turnspeed - (Input.GetAxis("Vertical") * 2)));
         }
         else
         {
-            if (cameracontrol == true)
-            {
-                mycam.fieldOfView = (rb.velocity.magnitude / 2f) + 70;
-            }
-            
+            mycam.fieldOfView = (rb.velocity.magnitude / 1.8f) + 70;
         }
-
-        if (mycam.fieldOfView > 100)
-        {
-            mycam.fieldOfView = 100;
-        }
-
     }
 }
