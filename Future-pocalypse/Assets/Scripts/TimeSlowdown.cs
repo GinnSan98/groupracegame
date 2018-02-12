@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class TimeSlowdown : MonoBehaviour
 {
+    public GameObject enemyHealthbar;
     public GameObject TargetButton;
     [SerializeField]
     private Camera mycam;
@@ -31,6 +33,7 @@ public class TimeSlowdown : MonoBehaviour
         GetComponent<Rigidbody>().AddForce(transform.forward * 600, ForceMode.VelocityChange);
         targetting = false;
         tickdown = false;
+        enemyHealthbar.SetActive(false);
         TargetButton.SetActive(false);
         Time.timeScale = 1f;
         Application.targetFrameRate =  Mathf.RoundToInt(60 / Time.timeScale);
@@ -44,6 +47,7 @@ public class TimeSlowdown : MonoBehaviour
         transform.position += transform.up;
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         GetComponent<Rigidbody>().AddForce(transform.forward * 500, ForceMode.VelocityChange);
+        enemyHealthbar.SetActive(false);
         TargetButton.SetActive(false);
         Time.timeScale = 0.25f;
         Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
@@ -117,6 +121,8 @@ public class TimeSlowdown : MonoBehaviour
                 if (Input.GetKeyDown("v") && targetting == false && transitioning == false)
                 {
                     targetting = true;
+                    enemyHealthbar.SetActive(true);
+                    enemyHealthbar.GetComponent<Image>().fillAmount = target.GetComponent<healthTest>().Returnhealth() / target.GetComponent<healthTest>().ReturnMaxhealth();
                     TargetButton.SetActive(true);
                     Time.timeScale = 0.5f;
                     Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
@@ -128,6 +134,7 @@ public class TimeSlowdown : MonoBehaviour
                 else if (Input.GetKeyDown("v") && targetting == true && transitioning == false)
                 {
                     targetting = false;
+                    enemyHealthbar.SetActive(false);
                     TargetButton.SetActive(false);
                     canturnon = false;
                     currentcharge = 20;
@@ -156,6 +163,7 @@ public class TimeSlowdown : MonoBehaviour
     private IEnumerator zoomout()
     {
         targetting = false;
+        enemyHealthbar.SetActive(false);
         TargetButton.SetActive(false);
         transitioning = true;
         for (int i = 0; i < 30; i++)
