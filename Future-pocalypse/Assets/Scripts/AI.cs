@@ -87,34 +87,12 @@ public class AI : MonoBehaviour
             if (rb.velocity.magnitude < vehicleSpeed)
             {
 
-                if (Physics.Raycast(transform.position, transform.forward, out hit, rayLength / 4))
-                {
-                    if (hit.transform.tag == "Checkpoint")
-                    {
-                        //transform.LookAt(hit.transform);
-                        Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.green);
-
-                    }
-
-                    else
-                    {
-                        vehicleSpeed = 60 + difficulty; 
-                        Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.yellow);
-                        dodgeShit(-25f / hit.distance);
-                    }
-
-
-                }
-                else
-                {
-
-                    vehicleSpeed = 100 + difficulty; 
-                }
+                //Right wall, left turn;
                 if (Physics.Raycast(transform.position, (transform.right + transform.forward), out hit, rayLength / 20) && hit.transform.tag != "Checkpoint")
                 {
                     if (hit.transform.tag == "Enemy")
                     {
-                        Debug.DrawRay(transform.position, (transform.right + transform.forward) * hit.distance, Color.blue);
+                        Debug.DrawRay(transform.position, (transform.right + transform.forward) * hit.distance, Color.red);
                         dodgeShit(-2f / (hit.distance + 1f));
                     }
                     else
@@ -124,6 +102,24 @@ public class AI : MonoBehaviour
                     }
 
                 }
+
+                //Right wall forward twice.
+                if (Physics.Raycast(transform.position, (transform.right + (transform.forward*2)), out hit, rayLength / 20) && hit.transform.tag != "Checkpoint")
+                {
+                    if (hit.transform.tag == "Enemy")
+                    {
+                        Debug.DrawRay(transform.position, (transform.right + (transform.forward * 2)) * hit.distance, Color.red);
+                        dodgeShit(-1f / (hit.distance + 1f));
+                    }
+                    else
+                    {
+                        Debug.DrawRay(transform.position, (transform.right + (transform.forward * 2)) * hit.distance, Color.blue);
+                        dodgeShit(-25f / (hit.distance + 1f));
+                    }
+
+                }
+
+                //Left wall right turn
                 if (Physics.Raycast(transform.position, (-transform.right + transform.forward), out hit, rayLength / 20) && hit.transform.tag != "Checkpoint")
                 {
                     if (hit.transform.tag == "Enemy")
@@ -133,11 +129,28 @@ public class AI : MonoBehaviour
                     }
                     else
                     {
-                        Debug.DrawRay(transform.position, (-transform.right + transform.forward) * hit.distance, Color.red);
+                        Debug.DrawRay(transform.position, (-transform.right + transform.forward) * hit.distance, Color.blue);
                         dodgeShit(38f / (hit.distance + 1f));
                     }
 
                 }
+
+                if (Physics.Raycast(transform.position, (-transform.right + (transform.forward * 2)), out hit, rayLength / 20) && hit.transform.tag != "Checkpoint")
+                {
+                    if (hit.transform.tag == "Enemy")
+                    {
+                        Debug.DrawRay(transform.position, (-transform.right + (transform.forward * 2)) * hit.distance, Color.red);
+                        dodgeShit(1f / (hit.distance + 1f));
+                    }
+                    else
+                    {
+                        Debug.DrawRay(transform.position, (-transform.right + (transform.forward * 2)) * hit.distance, Color.blue);
+                        dodgeShit(25f / (hit.distance + 1f));
+                    }
+
+                }
+
+
                 //rb.MovePosition(transform.position + transform.forward * vehicleSpeed * Time.deltaTime);
                 if (rb.velocity.magnitude <  maxspeed)
                 {

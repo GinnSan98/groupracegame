@@ -14,8 +14,7 @@ public class TimeSlowdown : MonoBehaviour
     private CarDriving cd;
     public bool tickdown;
     public float currentcharge;
-    
-    public bool canturnon;
+    public bool canturnon = true;
 
 
 
@@ -29,7 +28,7 @@ public class TimeSlowdown : MonoBehaviour
     public void Missledash()
     {
         transform.LookAt(target);
-        GetComponent<Rigidbody>().AddForce(transform.forward * 1000, ForceMode.VelocityChange);
+        GetComponent<Rigidbody>().AddForce(transform.forward * 600, ForceMode.VelocityChange);
         targetting = false;
         tickdown = false;
         TargetButton.SetActive(false);
@@ -44,7 +43,7 @@ public class TimeSlowdown : MonoBehaviour
         transform.LookAt(target);
         transform.position += transform.up;
         GetComponent<Rigidbody>().velocity = Vector3.zero;
-        GetComponent<Rigidbody>().AddForce(transform.forward * 300, ForceMode.VelocityChange);
+        GetComponent<Rigidbody>().AddForce(transform.forward * 500, ForceMode.VelocityChange);
         TargetButton.SetActive(false);
         Time.timeScale = 0.25f;
         Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
@@ -83,9 +82,11 @@ public class TimeSlowdown : MonoBehaviour
             {
                 RaycastHit hit;
                 Ray ray = mycam.ScreenPointToRay(Input.mousePosition);
-                Physics.Raycast(ray, out hit, 800f);
+                Physics.Raycast(ray, out hit, 1000f);
+
+                    
                 //   Physics.Raycast(mycam.transform.position, mycam.ViewportToWorldPoint(Input.mousePosition), out hit, 100f);
-                
+
                     if (hit.transform != null)
                     {
                         if (hit.transform.tag == "Enemy")

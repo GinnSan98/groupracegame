@@ -28,8 +28,10 @@ public class CarDriving : MonoBehaviour
     [SerializeField]
     private ParticleSystem[] sparks;
 
-    [SerializeField] private float driftClamp = 25f;
+    [SerializeField]
+    private float driftClamp = 25f;
 
+    public bool cameracontrol;
     // Use this for initialization
     void Start ()
     {
@@ -57,7 +59,7 @@ public class CarDriving : MonoBehaviour
         {
             onfloor = false;
         }
-
+        
         // Check for player depth input, the car is movement, and the car is on the ground.
         if (Input.GetAxis("Vertical") != 0 && rb.velocity.magnitude < topspeed && rb.velocity.magnitude > (-topspeed / 2) && onfloor == true)
         {
@@ -65,13 +67,13 @@ public class CarDriving : MonoBehaviour
             if (Input.GetAxis("Vertical") > 0)
             {
                 rb.AddForce(transform.forward * accel, ForceMode.Acceleration);
-                mycam.fieldOfView = (rb.velocity.magnitude / 1.8f) + 70;
+               
 
             }
             else
             {
                 rb.AddForce(-transform.forward * (accel * 2), ForceMode.Acceleration);
-                mycam.fieldOfView = 70;
+                
             }
 
             if (Input.GetAxis("Horizontal") != 0)
@@ -118,9 +120,17 @@ public class CarDriving : MonoBehaviour
             // Chanage the transfrom roation
             transform.Rotate(transform.up, Input.GetAxis("Horizontal") * (turnspeed - (Input.GetAxis("Vertical") * 2)));
         }
-        else
+
+        if (rb.velocity.z != 0)
+            mycam.fieldOfView = (Mathf.Abs(rb.velocity.magnitude) / 1.8f) + 70;
+
+        if (mycam.fieldOfView > 125)
         {
-            mycam.fieldOfView = (rb.velocity.magnitude / 1.8f) + 70;
+            mycam.fieldOfView = 125;
+        }
+        else if (mycam.fieldOfView < 70)
+        {
+            mycam.fieldOfView = 0;
         }
     }
 }
