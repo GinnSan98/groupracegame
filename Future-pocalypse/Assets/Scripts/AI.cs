@@ -23,7 +23,7 @@ public class AI : MonoBehaviour
     [SerializeField]
     private BoxCollider bc;
 
-    private int maxspeed = 1100;
+    private int maxspeed = 500;
 
     [SerializeField]
     private Lapcheckpoint lcp;

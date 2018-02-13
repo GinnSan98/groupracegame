@@ -86,7 +86,7 @@ public class TimeSlowdown : MonoBehaviour
             {
                 RaycastHit hit;
                 Ray ray = mycam.ScreenPointToRay(Input.mousePosition);
-                Physics.Raycast(ray, out hit, 1000f);
+                Physics.Raycast(ray, out hit, 1200f);
 
                     
                 //   Physics.Raycast(mycam.transform.position, mycam.ViewportToWorldPoint(Input.mousePosition), out hit, 100f);
