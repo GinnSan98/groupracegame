@@ -35,7 +35,7 @@ public class AI : MonoBehaviour
         difficulty = Random.Range(10, 30);
         vehicleWidth = bc.size.x;
         judgementCoeffient = 18;
-      //  vehicleSpeed = 80 + difficulty;
+        //vehicleSpeed = 80 + difficulty;
         rb.centerOfMass = -transform.up;
         Vector3 left = transform.TransformPoint(0, 0, offset);
         Vector3 right = transform.TransformPoint(0, 0, -offset);
@@ -104,7 +104,7 @@ public class AI : MonoBehaviour
                 }
 
                 //Right wall forward twice.
-                if (Physics.Raycast(transform.position, (transform.right + (transform.forward*2)), out hit, rayLength / 20) && hit.transform.tag != "Checkpoint")
+                if (Physics.Raycast(transform.position, (transform.right + (transform.forward*2)), out hit, rayLength / 10) && hit.transform.tag != "Checkpoint")
                 {
                     if (hit.transform.tag == "Enemy")
                     {
@@ -135,7 +135,7 @@ public class AI : MonoBehaviour
 
                 }
 
-                if (Physics.Raycast(transform.position, (-transform.right + (transform.forward * 2)), out hit, rayLength / 20) && hit.transform.tag != "Checkpoint")
+                if (Physics.Raycast(transform.position, (-transform.right + (transform.forward * 2)), out hit, rayLength/10) && hit.transform.tag != "Checkpoint")
                 {
                     if (hit.transform.tag == "Enemy")
                     {
