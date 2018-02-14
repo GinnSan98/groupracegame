@@ -62,7 +62,7 @@ public class AI : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
 
         if (Physics.Raycast(transform.position, -transform.up, out hit, bc.size.y/2))
@@ -169,9 +169,9 @@ public class AI : MonoBehaviour
 
 
                 //rb.MovePosition(transform.position + transform.forward * vehicleSpeed * Time.deltaTime);
-                if (rb.velocity.magnitude <  maxspeed && onfloor == true)
+                if (rb.velocity.magnitude <=  maxspeed + difficulty && onfloor == true)
                 {
-                    rb.AddForce(transform.forward * (vehicleSpeed + difficulty)/Time.deltaTime , ForceMode.Acceleration);
+                    rb.AddForce(transform.forward * vehicleSpeed  , ForceMode.Acceleration);
                 }
             }
         }
