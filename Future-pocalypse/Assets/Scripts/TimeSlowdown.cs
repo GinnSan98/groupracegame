@@ -136,6 +136,8 @@ public class TimeSlowdown : MonoBehaviour
                     targetting = false;
                     enemyHealthbar.SetActive(false);
                     TargetButton.SetActive(false);
+                    Time.timeScale = 1;
+                    Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
                     canturnon = false;
                     currentcharge = 20;
                     tickdown = false;

@@ -294,6 +294,7 @@
     <Compile Include="Assets\Scripts\TimeSlowdown.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Shaders\Shadebois.shader" />
     <None Include="Assets\TAGBOI.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -70,7 +70,7 @@ public class CarDriving : MonoBehaviour
                
 
             }
-            else
+            else if (Input.GetAxis("Vertical") < 0 && rb.velocity.magnitude < topspeed)
             {
                 rb.AddForce(-transform.forward * (accel * 2), ForceMode.Acceleration);
                 
