@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-/*
+
 public class GUITText : Lapcheckpoint
 {
 
@@ -58,4 +58,4 @@ public class GUITText : Lapcheckpoint
     {
         lapText.text = "Lap " + lcp.Lap + " / 4";
     }
-}*/
+}

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
-/*
+
 public class TimeSlowdown : MonoBehaviour
 {
     public GameObject enemyHealthbar;
@@ -195,4 +195,4 @@ public class TimeSlowdown : MonoBehaviour
     }
 
 }
-*/
+
