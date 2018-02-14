@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
 public class TimeSlowdown : MonoBehaviour
 {
     public GameObject TargetButton;
@@ -184,4 +184,4 @@ public class TimeSlowdown : MonoBehaviour
     }
 
 }
-
+*/
