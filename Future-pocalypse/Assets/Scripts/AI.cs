@@ -16,14 +16,11 @@ public class AI : MonoBehaviour
     Vector3 right;
     Vector3 avoid;
     float rayLength;
-    Ray rightRay;
-    Ray leftRay;
-    Ray centreRay;
     RaycastHit hit;
     [SerializeField]
     private BoxCollider bc;
-
-    private int maxspeed = 1100;
+    [SerializeField]
+    private int maxspeed;
 
     [SerializeField]
     private Lapcheckpoint lcp;
@@ -32,10 +29,10 @@ public class AI : MonoBehaviour
 
     void Start()
     {
-        difficulty = Random.Range(10, 30);
+        difficulty = Random.Range(10, 60);
         vehicleWidth = bc.size.x;
         judgementCoeffient = 18;
-      //  vehicleSpeed = 80 + difficulty;
+
         rb.centerOfMass = -transform.up;
         Vector3 left = transform.TransformPoint(0, 0, offset);
         Vector3 right = transform.TransformPoint(0, 0, -offset);
@@ -68,7 +65,7 @@ public class AI : MonoBehaviour
     void Update()
     {
 
-        if (Physics.Raycast(transform.position, -transform.up, out hit, bc.size.y))
+        if (Physics.Raycast(transform.position, -transform.up, out hit, bc.size.y/2))
         {
             onfloor = true;
         }
@@ -87,61 +84,94 @@ public class AI : MonoBehaviour
             if (rb.velocity.magnitude < vehicleSpeed)
             {
 
-                if (Physics.Raycast(transform.position, transform.forward, out hit, rayLength / 4))
-                {
-                    if (hit.transform.tag == "Checkpoint")
-                    {
-                        //transform.LookAt(hit.transform);
-                        Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.green);
-
-                    }
-
-                    else
-                    {
-                        vehicleSpeed = 60 + difficulty; 
-                        Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.yellow);
-                        dodgeShit(-25f / hit.distance);
-                    }
-
-
-                }
-                else
-                {
-
-                    vehicleSpeed = 100 + difficulty; 
-                }
+                //Right wall, left turn;
                 if (Physics.Raycast(transform.position, (transform.right + transform.forward), out hit, rayLength / 20) && hit.transform.tag != "Checkpoint")
                 {
                     if (hit.transform.tag == "Enemy")
                     {
-                        Debug.DrawRay(transform.position, (transform.right + transform.forward) * hit.distance, Color.blue);
-                        dodgeShit(-2f / (hit.distance + 1f));
+                        Debug.DrawRay(transform.position, (transform.right + transform.forward) * hit.distance, Color.red);
+                        dodgeShit(2f / ((hit.distance / 2) + 1f));
+                    }
+                    else if (hit.transform.tag == "Checkpoint")
+                    {
+                        Debug.DrawRay(transform.position, (-transform.right + transform.forward) * hit.distance, Color.white);
+                        dodgeShit(3f / ((hit.distance / 2) + 1f));
                     }
                     else
                     {
                         Debug.DrawRay(transform.position, (transform.right + transform.forward) * hit.distance, Color.blue);
-                        dodgeShit(-50f / (hit.distance + 1f));
+                        dodgeShit(-50f / ((hit.distance / 2) + 1f));
                     }
 
                 }
+
+                //Right wall forward twice.
+                if (Physics.Raycast(transform.position, (transform.right + (transform.forward*2)), out hit, rayLength / 10) && hit.transform.tag != "Checkpoint")
+                {
+                    if (hit.transform.tag == "Enemy")
+                    {
+                        Debug.DrawRay(transform.position, (transform.right + (transform.forward * 2)) * hit.distance, Color.red);
+                        dodgeShit(1f / ((hit.distance/2) + 1f));
+                    }
+                    else if (hit.transform.tag == "Checkpoint")
+                    {
+                        Debug.DrawRay(transform.position, (-transform.right + (transform.forward * 2)) * hit.distance, Color.white);
+                        dodgeShit(3f / ((hit.distance / 2) + 1f));
+                    }
+                    else
+                    {
+                        Debug.DrawRay(transform.position, (transform.right + (transform.forward * 2)) * hit.distance, Color.blue);
+                        dodgeShit(-25f / ((hit.distance / 2) + 1f));
+                    }
+
+                }
+
+                //Left wall right turn
                 if (Physics.Raycast(transform.position, (-transform.right + transform.forward), out hit, rayLength / 20) && hit.transform.tag != "Checkpoint")
                 {
                     if (hit.transform.tag == "Enemy")
                     {
                         Debug.DrawRay(transform.position, (-transform.right + transform.forward) * hit.distance, Color.red);
-                        dodgeShit(2f / (hit.distance + 1f));
+                        dodgeShit(-2f / ((hit.distance / 2) + 1f));
+                    }
+                    else if (hit.transform.tag == "Checkpoint")
+                    {
+                        Debug.DrawRay(transform.position, (-transform.right + transform.forward) * hit.distance, Color.white);
+                        dodgeShit(-3f / ((hit.distance / 2) + 1f));
                     }
                     else
                     {
-                        Debug.DrawRay(transform.position, (-transform.right + transform.forward) * hit.distance, Color.red);
-                        dodgeShit(38f / (hit.distance + 1f));
+                        Debug.DrawRay(transform.position, (-transform.right + transform.forward) * hit.distance, Color.blue);
+                        dodgeShit(38f / ((hit.distance / 2) + 1f));
                     }
 
                 }
-                //rb.MovePosition(transform.position + transform.forward * vehicleSpeed * Time.deltaTime);
-                if (rb.velocity.magnitude <  maxspeed)
+
+                if (Physics.Raycast(transform.position, (-transform.right + (transform.forward * 2)), out hit, rayLength/10) && hit.transform.tag != "Checkpoint")
                 {
-                    rb.AddForce(transform.forward * (vehicleSpeed), ForceMode.Acceleration);
+                    if (hit.transform.tag == "Enemy")
+                    {
+                        Debug.DrawRay(transform.position, (-transform.right + (transform.forward * 2)) * hit.distance, Color.red);
+                        dodgeShit(-1f / ((hit.distance / 2) + 1f));
+                    }
+                    else if (hit.transform.tag == "Checkpoint")
+                    {
+                        Debug.DrawRay(transform.position, (-transform.right + (transform.forward * 2)) * hit.distance, Color.white);
+                        dodgeShit(-3f / ((hit.distance / 2) + 1f));
+                    }
+                    else
+                    {
+                        Debug.DrawRay(transform.position, (-transform.right + (transform.forward * 2)) * hit.distance, Color.blue);
+                        dodgeShit(25f / ((hit.distance / 2) + 1f));
+                    }
+
+                }
+
+
+                //rb.MovePosition(transform.position + transform.forward * vehicleSpeed * Time.deltaTime);
+                if (rb.velocity.magnitude <  maxspeed && onfloor == true)
+                {
+                    rb.AddForce(transform.forward * (vehicleSpeed + difficulty)/Time.deltaTime , ForceMode.Acceleration);
                 }
             }
         }

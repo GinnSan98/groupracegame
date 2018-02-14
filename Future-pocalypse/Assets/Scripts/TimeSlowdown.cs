@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 /*
 public class TimeSlowdown : MonoBehaviour
 {
+    public GameObject enemyHealthbar;
     public GameObject TargetButton;
     [SerializeField]
     private Camera mycam;
@@ -14,8 +16,7 @@ public class TimeSlowdown : MonoBehaviour
     private CarDriving cd;
     public bool tickdown;
     public float currentcharge;
-    
-    public bool canturnon;
+    public bool canturnon = true;
 
 
 
@@ -29,9 +30,10 @@ public class TimeSlowdown : MonoBehaviour
     public void Missledash()
     {
         transform.LookAt(target);
-        GetComponent<Rigidbody>().AddForce(transform.forward * 1000, ForceMode.VelocityChange);
+        GetComponent<Rigidbody>().AddForce(transform.forward * 600, ForceMode.VelocityChange);
         targetting = false;
         tickdown = false;
+        enemyHealthbar.SetActive(false);
         TargetButton.SetActive(false);
         Time.timeScale = 1f;
         Application.targetFrameRate =  Mathf.RoundToInt(60 / Time.timeScale);
@@ -44,7 +46,8 @@ public class TimeSlowdown : MonoBehaviour
         transform.LookAt(target);
         transform.position += transform.up;
         GetComponent<Rigidbody>().velocity = Vector3.zero;
-        GetComponent<Rigidbody>().AddForce(transform.forward * 300, ForceMode.VelocityChange);
+        GetComponent<Rigidbody>().AddForce(transform.forward * 500, ForceMode.VelocityChange);
+        enemyHealthbar.SetActive(false);
         TargetButton.SetActive(false);
         Time.timeScale = 0.25f;
         Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
@@ -83,9 +86,11 @@ public class TimeSlowdown : MonoBehaviour
             {
                 RaycastHit hit;
                 Ray ray = mycam.ScreenPointToRay(Input.mousePosition);
-                Physics.Raycast(ray, out hit, 800f);
+                Physics.Raycast(ray, out hit, 1200f);
+
+                    
                 //   Physics.Raycast(mycam.transform.position, mycam.ViewportToWorldPoint(Input.mousePosition), out hit, 100f);
-                
+
                     if (hit.transform != null)
                     {
                         if (hit.transform.tag == "Enemy")
@@ -116,6 +121,8 @@ public class TimeSlowdown : MonoBehaviour
                 if (Input.GetKeyDown("v") && targetting == false && transitioning == false)
                 {
                     targetting = true;
+                    enemyHealthbar.SetActive(true);
+                    enemyHealthbar.GetComponent<Image>().fillAmount = target.GetComponent<healthTest>().Returnhealth() / target.GetComponent<healthTest>().ReturnMaxhealth();
                     TargetButton.SetActive(true);
                     Time.timeScale = 0.5f;
                     Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
@@ -127,7 +134,10 @@ public class TimeSlowdown : MonoBehaviour
                 else if (Input.GetKeyDown("v") && targetting == true && transitioning == false)
                 {
                     targetting = false;
+                    enemyHealthbar.SetActive(false);
                     TargetButton.SetActive(false);
+                    Time.timeScale = 1;
+                    Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
                     canturnon = false;
                     currentcharge = 20;
                     tickdown = false;
@@ -155,6 +165,7 @@ public class TimeSlowdown : MonoBehaviour
     private IEnumerator zoomout()
     {
         targetting = false;
+        enemyHealthbar.SetActive(false);
         TargetButton.SetActive(false);
         transitioning = true;
         for (int i = 0; i < 30; i++)
