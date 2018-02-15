@@ -39,8 +39,8 @@ public class CarDriving : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-       
 
+        Application.targetFrameRate = 60;
         rb.centerOfMass = -transform.up;	
 	}
 

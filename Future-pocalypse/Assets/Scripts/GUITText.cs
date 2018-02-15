@@ -39,7 +39,7 @@ public class GUITText : Lapcheckpoint
 	
     void setspeed()
     {
-        speedometer.fillAmount = (rb.velocity.magnitude / cd.returnmaxspeed()*2) ;
+        speedometer.fillAmount = (rb.velocity.magnitude / cd.returnmaxspeed()) ;
     }
 
 	void SetRageBar()

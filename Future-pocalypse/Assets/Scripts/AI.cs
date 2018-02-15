@@ -37,7 +37,6 @@ public class AI : MonoBehaviour
 
         difficulty = Random.Range(10, 60);
         vehicleWidth = bc.size.x;
-        judgementCoeffient = 18;
 
         rb.centerOfMass = -transform.up;
         Vector3 left = transform.TransformPoint(0, 0, offset);
