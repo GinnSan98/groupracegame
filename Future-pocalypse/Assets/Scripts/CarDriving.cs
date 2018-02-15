@@ -38,6 +38,11 @@ public class CarDriving : MonoBehaviour
         rb.centerOfMass = -transform.up;	
 	}
 
+    public int returnmaxspeed()
+    {
+        return topspeed;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
 
@@ -45,7 +50,7 @@ public class CarDriving : MonoBehaviour
 
 
     // Update is called once per frame
-    void FixedUpdate ()
+    void Update ()
     {
         RaycastHit hit;
         bool onfloor;
@@ -64,15 +69,15 @@ public class CarDriving : MonoBehaviour
         if (Input.GetAxis("Vertical") != 0 && rb.velocity.magnitude < topspeed && rb.velocity.magnitude > (-topspeed / 2) && onfloor == true)
         {
             // Add force to car
-            if (Input.GetAxis("Vertical") > 0)
+            if (Input.GetAxis("Vertical") > 0 && rb.velocity.magnitude < topspeed)
             {
-                rb.AddForce(transform.forward * accel, ForceMode.Acceleration);
+                rb.AddForce(transform.forward * (accel), ForceMode.Acceleration);
                
 
             }
             else if (Input.GetAxis("Vertical") < 0 && rb.velocity.magnitude < topspeed)
             {
-                rb.AddForce(-transform.forward * (accel * 2), ForceMode.Acceleration);
+                rb.AddForce(-transform.forward * (accel/2), ForceMode.Acceleration);
                 
             }
 

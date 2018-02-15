@@ -10,6 +10,8 @@ public class GUITText : Lapcheckpoint
     [SerializeField]
     private Lapcheckpoint lcp;
     [SerializeField]
+    private CarDriving cd;
+    [SerializeField]
     private TimeSlowdown tsd;
     [SerializeField]
     private healthTest ht;
@@ -17,7 +19,10 @@ public class GUITText : Lapcheckpoint
     private Image ragebar;
     [SerializeField]
     private Image healthbar;
-    
+    [SerializeField]
+    private Rigidbody rb;
+    [SerializeField]
+    private Image speedometer;
 
     void Start ()
     {
@@ -29,8 +34,14 @@ public class GUITText : Lapcheckpoint
         SetLapText();
         SetRageBar();
         SetHealth();
+        setspeed();
     }
 	
+    void setspeed()
+    {
+        speedometer.fillAmount = (rb.velocity.magnitude / cd.returnmaxspeed());
+    }
+
 	void SetRageBar()
     {
         ragebar.fillAmount = tsd.currentcharge / 30;
