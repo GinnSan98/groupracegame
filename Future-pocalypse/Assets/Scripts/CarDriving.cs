@@ -32,9 +32,15 @@ public class CarDriving : MonoBehaviour
     private float driftClamp = 25f;
 
     public bool cameracontrol;
+
+    //For Controlling Sound
+    [SerializeField]
+    private AudioSource audioSource;
     // Use this for initialization
     void Start ()
     {
+       
+
         rb.centerOfMass = -transform.up;	
 	}
 
@@ -52,6 +58,9 @@ public class CarDriving : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
+        //Sound of the engine
+        EngineSound();
+
         RaycastHit hit;
         bool onfloor;
 
@@ -66,19 +75,21 @@ public class CarDriving : MonoBehaviour
         }
         
         // Check for player depth input, the car is movement, and the car is on the ground.
-        if (Input.GetAxis("Vertical") != 0 && rb.velocity.magnitude < topspeed && rb.velocity.magnitude > (-topspeed / 2) && onfloor == true)
+        if (Input.GetAxis("Vertical") != 0 && onfloor == true)
         {
             // Add force to car
-            if (Input.GetAxis("Vertical") > 0 && rb.velocity.magnitude < topspeed)
+            if (Input.GetAxis("Vertical") > 0)
             {
                 rb.AddForce(transform.forward * (accel), ForceMode.Acceleration);
+                rb.velocity = Vector3.ClampMagnitude(rb.velocity, topspeed);
                
 
             }
-            else if (Input.GetAxis("Vertical") < 0 && rb.velocity.magnitude < topspeed)
+            else if (Input.GetAxis("Vertical") < 0)
             {
                 rb.AddForce(-transform.forward * (accel/2), ForceMode.Acceleration);
-                
+                rb.velocity = Vector3.ClampMagnitude(rb.velocity, topspeed);
+
             }
 
             if (Input.GetAxis("Horizontal") != 0)
@@ -137,5 +148,10 @@ public class CarDriving : MonoBehaviour
         {
             mycam.fieldOfView = 0;
         }
+    }
+    //The faster you move, the higher the pitch
+    void EngineSound()
+    {
+        audioSource.pitch = rb.velocity.magnitude / topspeed + 1;
     }
 }

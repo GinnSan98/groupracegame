@@ -27,8 +27,14 @@ public class AI : MonoBehaviour
 
     private int difficulty;
 
+    //For Controlling Sound
+    [SerializeField]
+    private AudioSource audioSource;
+
     void Start()
     {
+       
+
         difficulty = Random.Range(10, 60);
         vehicleWidth = bc.size.x;
         judgementCoeffient = 18;
@@ -64,7 +70,8 @@ public class AI : MonoBehaviour
 
     void Update()
     {
-
+        //Sound of the engine
+        EngineSound();
         if (Physics.Raycast(transform.position, -transform.up, out hit, bc.size.y/2))
         {
             onfloor = true;
@@ -81,7 +88,7 @@ public class AI : MonoBehaviour
 
         if (onfloor == true)
         {
-            if (rb.velocity.magnitude < vehicleSpeed)
+            if (rb.velocity.magnitude < maxspeed)
             {
 
                 //Right wall, left turn;
@@ -169,11 +176,17 @@ public class AI : MonoBehaviour
 
 
                 //rb.MovePosition(transform.position + transform.forward * vehicleSpeed * Time.deltaTime);
-                if (rb.velocity.magnitude <=  maxspeed + difficulty && onfloor == true)
+                if (onfloor == true)
                 {
                     rb.AddForce(transform.forward * (vehicleSpeed)  , ForceMode.Acceleration);
+                    rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxspeed + difficulty);
                 }
             }
         }
+    }
+    //The faster you move, the higher the pitch
+    void EngineSound()
+    {
+        audioSource.pitch = rb.velocity.magnitude / maxspeed + 1;
     }
 }
