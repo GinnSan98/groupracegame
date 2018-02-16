@@ -287,11 +287,11 @@
     <Compile Include="Assets\Scripts\CameraChange.cs" />
     <Compile Include="Assets\Scripts\CarDriving.cs" />
     <Compile Include="Assets\Scripts\Checkpoint.cs" />
-    <Compile Include="Assets\Scripts\GUITText.cs" />
     <Compile Include="Assets\Scripts\healthTest.cs" />
     <Compile Include="Assets\Scripts\Lapcheckpoint.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\NoSpin.cs" />
+    <Compile Include="Assets\Scripts\PlayerGUI.cs" />
     <Compile Include="Assets\Scripts\slowTime.cs" />
     <Compile Include="Assets\Scripts\TimeSlowdown.cs" />
   </ItemGroup>

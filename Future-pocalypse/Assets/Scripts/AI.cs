@@ -7,6 +7,9 @@ public class AI : MonoBehaviour
     [SerializeField]
     private Rigidbody rb;
 
+    public bool canmove;
+
+    public bool isdead;
     private bool onfloor;
     public int vehicleSpeed;
     public float vehicleWidth;
@@ -21,6 +24,8 @@ public class AI : MonoBehaviour
     private BoxCollider bc;
     [SerializeField]
     private int maxspeed;
+    [SerializeField]
+    private healthTest ht;
 
     [SerializeField]
     private Lapcheckpoint lcp;
@@ -69,117 +74,128 @@ public class AI : MonoBehaviour
 
     void Update()
     {
-        //Sound of the engine
-        EngineSound();
-        if (Physics.Raycast(transform.position, -transform.up, out hit, bc.size.y/2))
+        if (canmove == true)
         {
-            onfloor = true;
-        }
-        else
-        {
-            onfloor = false;
-        }
-
-
-        
-       
-        rayLength = vehicleSpeed * judgementCoeffient ;
-
-        if (onfloor == true)
-        {
-            if (rb.velocity.magnitude < maxspeed)
+            //Sound of the engine
+            EngineSound();
+            if (Physics.Raycast(transform.position, -transform.up, out hit, bc.size.y / 2))
             {
+                onfloor = true;
+            }
+            else
+            {
+                onfloor = false;
+            }
 
-                //Right wall, left turn;
-                if (Physics.Raycast(transform.position, (transform.right + transform.forward), out hit, rayLength / 20) && hit.transform.tag != "Checkpoint")
+
+
+
+            rayLength = vehicleSpeed * judgementCoeffient;
+
+            if (onfloor == true)
+            {
+                if (rb.velocity.magnitude < maxspeed)
                 {
-                    if (hit.transform.tag == "Enemy")
+
+                    //Right wall, left turn;
+                    if (Physics.Raycast(transform.position, (transform.right + transform.forward), out hit, rayLength / 20) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
                     {
-                        Debug.DrawRay(transform.position, (transform.right + transform.forward) * hit.distance, Color.red);
-                        dodgeShit(2f / ((hit.distance / 2) + 1f));
-                    }
-                    else if (hit.transform.tag == "Checkpoint")
-                    {
-                        Debug.DrawRay(transform.position, (-transform.right + transform.forward) * hit.distance, Color.white);
-                        dodgeShit(3f / ((hit.distance / 2) + 1f));
-                    }
-                    else
-                    {
-                        Debug.DrawRay(transform.position, (transform.right + transform.forward) * hit.distance, Color.blue);
-                        dodgeShit(-50f / ((hit.distance / 2) + 1f));
+                        if (hit.transform.tag == "Enemy")
+                        {
+                            Debug.DrawRay(transform.position, (transform.right + transform.forward) * hit.distance, Color.red);
+                            dodgeShit(2f / ((hit.distance / 2) + 1f));
+                        }
+                        else if (hit.transform.tag == "Checkpoint")
+                        {
+                            Debug.DrawRay(transform.position, (-transform.right + transform.forward) * hit.distance, Color.white);
+                            dodgeShit(3f / ((hit.distance / 2) + 1f));
+                        }
+                        else
+                        {
+                            Debug.DrawRay(transform.position, (transform.right + transform.forward) * hit.distance, Color.blue);
+                            dodgeShit(-50f / ((hit.distance / 2) + 1f));
+                        }
+
                     }
 
+                    //Right wall forward twice.
+                    if (Physics.Raycast(transform.position, (transform.right + (transform.forward * 2)), out hit, rayLength / 10) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
+                    {
+                        if (hit.transform.tag == "Enemy")
+                        {
+                            Debug.DrawRay(transform.position, (transform.right + (transform.forward * 2)) * hit.distance, Color.red);
+                            dodgeShit(1f / ((hit.distance / 2) + 1f));
+                        }
+                        else if (hit.transform.tag == "Checkpoint")
+                        {
+                            Debug.DrawRay(transform.position, (-transform.right + (transform.forward * 2)) * hit.distance, Color.white);
+                            dodgeShit(3f / ((hit.distance / 2) + 1f));
+                        }
+                        else
+                        {
+                            Debug.DrawRay(transform.position, (transform.right + (transform.forward * 2)) * hit.distance, Color.blue);
+                            dodgeShit(-25f / ((hit.distance / 2) + 1f));
+                        }
+
+                    }
+
+                    //Left wall right turn
+                    if (Physics.Raycast(transform.position, (-transform.right + transform.forward), out hit, rayLength / 20) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
+                    {
+                        if (hit.transform.tag == "Enemy")
+                        {
+                            Debug.DrawRay(transform.position, (-transform.right + transform.forward) * hit.distance, Color.red);
+                            dodgeShit(-2f / ((hit.distance / 2) + 1f));
+                        }
+                        else if (hit.transform.tag == "Checkpoint")
+                        {
+                            Debug.DrawRay(transform.position, (-transform.right + transform.forward) * hit.distance, Color.white);
+                            dodgeShit(-3f / ((hit.distance / 2) + 1f));
+                        }
+                        else
+                        {
+                            Debug.DrawRay(transform.position, (-transform.right + transform.forward) * hit.distance, Color.blue);
+                            dodgeShit(38f / ((hit.distance / 2) + 1f));
+                        }
+
+                    }
+
+                    if (Physics.Raycast(transform.position, (-transform.right + (transform.forward * 2)), out hit, rayLength / 10) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
+                    {
+                        if (hit.transform.tag == "Enemy")
+                        {
+                            Debug.DrawRay(transform.position, (-transform.right + (transform.forward * 2)) * hit.distance, Color.red);
+                            dodgeShit(-1f / ((hit.distance / 2) + 1f));
+                        }
+                        else if (hit.transform.tag == "Checkpoint")
+                        {
+                            Debug.DrawRay(transform.position, (-transform.right + (transform.forward * 2)) * hit.distance, Color.white);
+                            dodgeShit(-3f / ((hit.distance / 2) + 1f));
+                        }
+                        else
+                        {
+                            Debug.DrawRay(transform.position, (-transform.right + (transform.forward * 2)) * hit.distance, Color.blue);
+                            dodgeShit(25f / ((hit.distance / 2) + 1f));
+                        }
+
+                    }
+
+
+                    //rb.MovePosition(transform.position + transform.forward * vehicleSpeed * Time.deltaTime);
+                    if (onfloor == true)
+                    {
+                        rb.AddForce(transform.forward * (vehicleSpeed), ForceMode.Acceleration);
+                        rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxspeed + difficulty);
+                    }
                 }
-
-                //Right wall forward twice.
-                if (Physics.Raycast(transform.position, (transform.right + (transform.forward*2)), out hit, rayLength / 10) && hit.transform.tag != "Checkpoint")
-                {
-                    if (hit.transform.tag == "Enemy")
-                    {
-                        Debug.DrawRay(transform.position, (transform.right + (transform.forward * 2)) * hit.distance, Color.red);
-                        dodgeShit(1f / ((hit.distance/2) + 1f));
-                    }
-                    else if (hit.transform.tag == "Checkpoint")
-                    {
-                        Debug.DrawRay(transform.position, (-transform.right + (transform.forward * 2)) * hit.distance, Color.white);
-                        dodgeShit(3f / ((hit.distance / 2) + 1f));
-                    }
-                    else
-                    {
-                        Debug.DrawRay(transform.position, (transform.right + (transform.forward * 2)) * hit.distance, Color.blue);
-                        dodgeShit(-25f / ((hit.distance / 2) + 1f));
-                    }
-
-                }
-
-                //Left wall right turn
-                if (Physics.Raycast(transform.position, (-transform.right + transform.forward), out hit, rayLength / 20) && hit.transform.tag != "Checkpoint")
-                {
-                    if (hit.transform.tag == "Enemy")
-                    {
-                        Debug.DrawRay(transform.position, (-transform.right + transform.forward) * hit.distance, Color.red);
-                        dodgeShit(-2f / ((hit.distance / 2) + 1f));
-                    }
-                    else if (hit.transform.tag == "Checkpoint")
-                    {
-                        Debug.DrawRay(transform.position, (-transform.right + transform.forward) * hit.distance, Color.white);
-                        dodgeShit(-3f / ((hit.distance / 2) + 1f));
-                    }
-                    else
-                    {
-                        Debug.DrawRay(transform.position, (-transform.right + transform.forward) * hit.distance, Color.blue);
-                        dodgeShit(38f / ((hit.distance / 2) + 1f));
-                    }
-
-                }
-
-                if (Physics.Raycast(transform.position, (-transform.right + (transform.forward * 2)), out hit, rayLength/10) && hit.transform.tag != "Checkpoint")
-                {
-                    if (hit.transform.tag == "Enemy")
-                    {
-                        Debug.DrawRay(transform.position, (-transform.right + (transform.forward * 2)) * hit.distance, Color.red);
-                        dodgeShit(-1f / ((hit.distance / 2) + 1f));
-                    }
-                    else if (hit.transform.tag == "Checkpoint")
-                    {
-                        Debug.DrawRay(transform.position, (-transform.right + (transform.forward * 2)) * hit.distance, Color.white);
-                        dodgeShit(-3f / ((hit.distance / 2) + 1f));
-                    }
-                    else
-                    {
-                        Debug.DrawRay(transform.position, (-transform.right + (transform.forward * 2)) * hit.distance, Color.blue);
-                        dodgeShit(25f / ((hit.distance / 2) + 1f));
-                    }
-
-                }
-
-
-                //rb.MovePosition(transform.position + transform.forward * vehicleSpeed * Time.deltaTime);
-                if (onfloor == true)
-                {
-                    rb.AddForce(transform.forward * (vehicleSpeed)  , ForceMode.Acceleration);
-                    rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxspeed + difficulty);
-                }
+            }
+        }
+        else if (canmove == false && isdead == true)
+        {
+            if (ht.addhealth() == true)
+            {
+                isdead = false;
+                canmove = true;
             }
         }
     }

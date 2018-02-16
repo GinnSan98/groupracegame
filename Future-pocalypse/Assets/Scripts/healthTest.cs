@@ -23,6 +23,20 @@ public class healthTest : MonoBehaviour
         return maxHealth;
     }
 
+    public bool addhealth()
+    {
+        health++;
+
+        if (health < maxHealth)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     void Start()
     {
         maxHealth = 100;
@@ -42,22 +56,67 @@ public class healthTest : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("smallDamage"))
+        if (transform.tag == "Player")
         {
-            health -= 1;
+            if (GetComponent<CarDriving>().isdead == false)
+            {
+                if (other.gameObject.CompareTag("smallDamage"))
+                {
+                    health -= 5;
 
+                }
+
+                if (other.gameObject.CompareTag("mediumDamage"))
+                {
+                    health -= 15;
+
+                }
+
+                if (other.gameObject.CompareTag("largeDamage"))
+                {
+                    health -= 30;
+
+                }
+            }
+            if (health <= 0 && transform.tag == "Player")
+            {
+                GetComponent<CarDriving>().candrive = false;
+                GetComponent<CarDriving>().isdead = true;
+            }
+            else if (health <= 0 && transform.tag == "Enemy")
+            {
+                GetComponent<AI>().canmove = false;
+                GetComponent<AI>().isdead = true;
+            }
         }
 
-        if (other.gameObject.CompareTag("mediumDamage"))
+        if (transform.tag == "Enemy")
         {
-            health -=25;
+            if (GetComponent<AI>().isdead == false)
+            {
+                if (other.gameObject.CompareTag("smallDamage"))
+                {
+                    health -= 5;
 
-        }
+                }
 
-        if (other.gameObject.CompareTag("largeDamage"))
-        {
-            health -= 50;
+                if (other.gameObject.CompareTag("mediumDamage"))
+                {
+                    health -= 15;
 
+                }
+
+                if (other.gameObject.CompareTag("largeDamage"))
+                {
+                    health -= 30;
+
+                }
+            }
+            if (health <= 0 && transform.tag == "Enemy")
+            {
+                GetComponent<AI>().canmove = false;
+                GetComponent<AI>().isdead = true;
+            }
         }
     }
 }
