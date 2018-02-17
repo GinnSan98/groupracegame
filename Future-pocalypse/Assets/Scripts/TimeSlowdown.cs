@@ -54,6 +54,60 @@ public class TimeSlowdown : MonoBehaviour
         cancelpower();
     }
 
+    private void showenemyhealth(healthTest enemy)
+    {
+        enemyHealthbar.GetComponent<Image>().fillAmount = enemy.Returnhealth() / enemy.ReturnMaxhealth();
+    }
+
+    public void machinegunfire(GameObject machinegun)
+    {
+        StartCoroutine(actualfire(machinegun));
+    }
+
+    public IEnumerator actualfire(GameObject machinegun)
+    {
+        tickdown = false;
+        canturnon = false;
+        
+
+        RaycastHit hit;
+        machinegun.transform.LookAt(target);
+        healthTest enemyhealth = target.GetComponent<healthTest>();
+        tickdown = false;
+        int currenergy = Mathf.RoundToInt(currentcharge)/2;
+        for (int i = 0; i < currenergy; i++)
+        {
+            yield return new WaitForSeconds(0.025f);
+            Physics.Raycast(machinegun.transform.position, machinegun.transform.forward, out hit, 300);
+            if (hit.transform != null)
+            {
+                if (hit.transform.tag == "Enemy" && hit.transform == target)
+                {
+                    enemyhealth.takedamage(5);
+                    showenemyhealth(enemyhealth);
+                }
+                else if (hit.transform.tag == "Enemy" && hit.transform != target)
+                {
+                    hit.transform.GetComponent<healthTest>().takedamage(3);
+                }
+                else
+                {
+                    //Miss
+                }
+                currentcharge -= 2;
+            }
+            else
+            {
+                i = currenergy;
+            }
+            
+        }
+        cancelpower();
+        machinegun.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        yield return 0;
+    }
+
     private void cancelpower()
     {
         Time.timeScale = 1f;

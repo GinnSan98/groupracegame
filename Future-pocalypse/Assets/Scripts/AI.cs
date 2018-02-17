@@ -36,6 +36,9 @@ public class AI : MonoBehaviour
     [SerializeField]
     private AudioSource audioSource;
 
+
+
+
     void Start()
     {
        

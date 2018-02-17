@@ -11,7 +11,11 @@ public class healthTest : MonoBehaviour
     private int maxHealth;
     // Use this for initialization
 
-
+    public void takedamage(int damage)
+    {
+        health -= damage;
+        DisableVehicle();
+    }
 
     public float Returnhealth()
     {
@@ -78,16 +82,7 @@ public class healthTest : MonoBehaviour
 
                 }
             }
-            if (health <= 0 && transform.tag == "Player")
-            {
-                GetComponent<CarDriving>().candrive = false;
-                GetComponent<CarDriving>().isdead = true;
-            }
-            else if (health <= 0 && transform.tag == "Enemy")
-            {
-                GetComponent<AI>().canmove = false;
-                GetComponent<AI>().isdead = true;
-            }
+
         }
 
         if (transform.tag == "Enemy")
@@ -112,11 +107,22 @@ public class healthTest : MonoBehaviour
 
                 }
             }
-            if (health <= 0 && transform.tag == "Enemy")
-            {
-                GetComponent<AI>().canmove = false;
-                GetComponent<AI>().isdead = true;
-            }
+        }
+
+        DisableVehicle();
+    }
+
+    private void DisableVehicle()
+    {
+        if (health <= 0 && transform.tag == "Player")
+        {
+            GetComponent<CarDriving>().candrive = false;
+            GetComponent<CarDriving>().isdead = true;
+        }
+        else if (health <= 0 && transform.tag == "Enemy")
+        {
+            GetComponent<AI>().canmove = false;
+            GetComponent<AI>().isdead = true;
         }
     }
 }
