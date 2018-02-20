@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2017
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Future-pocalypse", "Future-pocalypse.csproj", "{86B6F00D-9A7D-D1C3-0BF6-7CDB901F055B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Future-pocalypse.Editor", "Future-pocalypse.Editor.csproj", "{5519F9A9-8896-4B51-5B4B-278594D04878}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{86B6F00D-9A7D-D1C3-0BF6-7CDB901F055B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86B6F00D-9A7D-D1C3-0BF6-7CDB901F055B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86B6F00D-9A7D-D1C3-0BF6-7CDB901F055B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5519F9A9-8896-4B51-5B4B-278594D04878}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5519F9A9-8896-4B51-5B4B-278594D04878}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5519F9A9-8896-4B51-5B4B-278594D04878}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5519F9A9-8896-4B51-5B4B-278594D04878}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -27,7 +27,7 @@ public class Lapcheckpoint : MonoBehaviour {
 
     void distancetonextcp()
     {
-        int distance = (int)Vector3.Distance(transform.position, GameObject.Find("Checkpoint " + Checkpoint).transform.position)/100;
+        int distance = (int)Vector3.Distance(transform.position, GameObject.Find("Checkpoint " + Checkpoint).transform.position)/400;
         totalracevalue = (Lap * 10 * maxcheckpoints) + (Checkpoint*maxcheckpoints) + distance;
     }
 

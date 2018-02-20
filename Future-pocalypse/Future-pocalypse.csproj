@@ -282,6 +282,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Kino\Motion\Motion.cs" />
+    <Compile Include="Assets\Kino\Motion\Script\FrameBlendingFilter.cs" />
+    <Compile Include="Assets\Kino\Motion\Script\ReconstructionFilter.cs" />
     <Compile Include="Assets\Scripts\AI.cs" />
     <Compile Include="Assets\Scripts\AI_Test.cs" />
     <Compile Include="Assets\Scripts\CameraChange.cs" />
@@ -297,6 +300,11 @@
     <Compile Include="Assets\Scripts\TimeSlowdown.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Kino\Motion\Shader\Common.cginc" />
+    <None Include="Assets\Kino\Motion\Shader\FrameBlending.shader" />
+    <None Include="Assets\Kino\Motion\Shader\Prefilter.cginc" />
+    <None Include="Assets\Kino\Motion\Shader\Reconstruction.cginc" />
+    <None Include="Assets\Kino\Motion\Shader\Reconstruction.shader" />
     <None Include="Assets\Shaders\Shadebois.shader" />
     <None Include="Assets\TAGBOI.txt" />
   </ItemGroup>
