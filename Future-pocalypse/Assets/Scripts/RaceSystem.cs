@@ -18,7 +18,7 @@ public class RaceSystem : MonoBehaviour {
 	void Start ()
     {
        
-        InvokeRepeating("racerposition", 0, 5f);
+        InvokeRepeating("racerposition", 0, 2f);
 	}
 
     
@@ -45,7 +45,7 @@ public class RaceSystem : MonoBehaviour {
 
     private void racerposition()
     {
-        racers = racersorgo.OrderBy(go => go.totalracevalue).ToList();
+        racers = racersorgo.OrderByDescending(go => go.totalracevalue).ToList();
         StartCoroutine(checkingpositions());
 
     }
