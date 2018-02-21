@@ -17,18 +17,18 @@ public class Lapcheckpoint : MonoBehaviour {
     private Text endtext;
     private float timestart;
 
-    public int totalracevalue;
+    public float totalracevalue;
 
     void Start ()
     {
         maxcheckpoints = GameObject.FindObjectsOfType<Checkpoint>().Length;
-        InvokeRepeating("distancetonextcp", 0, 3f);
+        InvokeRepeating("distancetonextcp", 10, 2f);
     }
 
     void distancetonextcp()
     {
-        int distance = (int)Vector3.Distance(transform.position, GameObject.Find("Checkpoint " + Checkpoint).transform.position)/400;
-        totalracevalue = (Lap * 10 * maxcheckpoints) + (Checkpoint*maxcheckpoints) + distance;
+        float distance = Vector3.Distance(transform.position, GameObject.Find("Checkpoint " + Checkpoint).transform.position)/1000;
+        totalracevalue = (Lap * 10 * maxcheckpoints) + ((Checkpoint / maxcheckpoints) * 10) + distance;
     }
 
     void Update()

@@ -14,6 +14,8 @@ public class CarDriving : MonoBehaviour
     private int topspeed;
     [SerializeField]
     private float turnspeed;
+
+    private float actualturnspeed;
     [SerializeField]
     private BoxCollider mybox;
 
@@ -99,8 +101,10 @@ public class CarDriving : MonoBehaviour
 
                 if (Input.GetAxis("Horizontal") != 0)
                 {
+                    actualturnspeed = turnspeed * 2;
                     if (Input.GetButton("Drift"))
                     {
+
                         // Play partical system
                         if (sparks[0].isPlaying == false)
                         {
@@ -116,6 +120,7 @@ public class CarDriving : MonoBehaviour
                 }
                 else if (!Input.GetButton("Drift"))     //Make correction when player lets go of the drifting key
                 {
+                    actualturnspeed = turnspeed;
                     // Stop partical system
                     if (sparks[0].isPlaying == true)
                     {
@@ -139,13 +144,13 @@ public class CarDriving : MonoBehaviour
                 }
 
                 // Chanage the transfrom roation
-                transform.Rotate(transform.up, Input.GetAxis("Horizontal") * (turnspeed - (Input.GetAxis("Vertical") * 2)));
+                transform.Rotate(transform.up, Input.GetAxis("Horizontal") * (actualturnspeed - (Input.GetAxis("Vertical"))));
             }
 
-            if (rb.velocity.z != 0)
-                mycam.fieldOfView = ((rb.velocity.magnitude) / 2.8f) + 70;
+            if (rb.velocity.z != 0 && mycam.fieldOfView < 105)
+                mycam.fieldOfView = (int)((rb.velocity.magnitude) / 2f) + 70;
 
-            if (mycam.fieldOfView > 105)
+            if (mycam.fieldOfView >= 105)
             {
                 mycam.fieldOfView = 105;
             }
