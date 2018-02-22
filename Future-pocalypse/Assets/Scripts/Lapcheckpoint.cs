@@ -16,8 +16,13 @@ public class Lapcheckpoint : MonoBehaviour {
     [SerializeField]
     private Text endtext;
     private float timestart;
-
     public float totalracevalue;
+
+
+    public bool checkLapProgress()
+    {
+        return Checkpoint == maxcheckpoints - 1;
+    }
 
     void Start ()
     {
@@ -82,4 +87,6 @@ public class Lapcheckpoint : MonoBehaviour {
             GetComponent<AI>().canmove = false;
         }
     }
+
+    
 }
