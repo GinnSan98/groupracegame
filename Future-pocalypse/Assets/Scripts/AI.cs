@@ -113,6 +113,11 @@ public class AI : MonoBehaviour
 
                             dodgeShit(3f / ((hit.distance / 2) + 1f));
                         }
+                        else if (hit.transform.tag == "Player")
+                        {
+
+                            dodgeShit(1f / ((hit.distance / 4) + 1f));
+                        }
                         else
                         {
 
@@ -133,6 +138,11 @@ public class AI : MonoBehaviour
                         {
 
                             dodgeShit(3f / ((hit.distance / 2) + 1f));
+                        }
+                        else if (hit.transform.tag == "Player")
+                        {
+
+                            dodgeShit(-1f / ((hit.distance / 4) + 1f));
                         }
                         else
                         {
@@ -155,6 +165,11 @@ public class AI : MonoBehaviour
 
                             dodgeShit(-3f / ((hit.distance / 2) + 1f));
                         }
+                        else if (hit.transform.tag == "Player")
+                        {
+
+                            dodgeShit(-1f / ((hit.distance / 4) + 1f));
+                        }
                         else
                         {
 
@@ -175,6 +190,11 @@ public class AI : MonoBehaviour
 
                             dodgeShit(-3f / ((hit.distance / 2) + 1f));
                         }
+                        else if (hit.transform.tag == "Player")
+                        {
+
+                            dodgeShit(1f / ((hit.distance / 4) + 1f));
+                        }
                         else
                         {
 
@@ -188,7 +208,8 @@ public class AI : MonoBehaviour
                     if (onfloor == true)
                     {
                         rb.AddForce(transform.forward * (vehicleSpeed), ForceMode.Acceleration);
-                        rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxspeed + difficulty);
+                        rb.velocity = Vector3.ClampMagnitude(rb.velocity, (maxspeed/2) + difficulty);
+                        
                     }
                 }
             }

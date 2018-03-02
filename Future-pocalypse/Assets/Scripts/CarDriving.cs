@@ -85,17 +85,17 @@ public class CarDriving : MonoBehaviour
             if (Input.GetAxis("Vertical") != 0 && onfloor == true)
             {
                 // Add force to car
-                if (Input.GetAxis("Vertical") > 0)
+                if (Input.GetAxis("Vertical") > 0 && rb.velocity.magnitude < topspeed / 2)
                 {
                     rb.AddForce(transform.forward * (accel), ForceMode.Acceleration);
-                    rb.velocity = Vector3.ClampMagnitude(rb.velocity, topspeed/2);
+                   
 
 
                 }
-                else if (Input.GetAxis("Vertical") < 0)
+                else if (Input.GetAxis("Vertical") < 0 && rb.velocity.magnitude > -topspeed/2)
                 {
                     rb.AddForce(-transform.forward * (accel / 2), ForceMode.Acceleration);
-                    rb.velocity = Vector3.ClampMagnitude(rb.velocity, topspeed/2);
+               
 
                 }
 
@@ -147,14 +147,14 @@ public class CarDriving : MonoBehaviour
                 transform.Rotate(transform.up, Input.GetAxis("Horizontal") * (actualturnspeed - (Input.GetAxis("Vertical"))));
             }
 
-            if (rb.velocity.z != 0 && mycam.fieldOfView < 105)
-                mycam.fieldOfView = (int)((rb.velocity.magnitude) / 2f) + 70;
+            if (rb.velocity.z >= 0 && mycam.fieldOfView < 125)
+                mycam.fieldOfView = (int)((rb.velocity.magnitude) ) + 70;
 
-            if (mycam.fieldOfView >= 105)
+            if (mycam.fieldOfView >= 125)
             {
-                mycam.fieldOfView = 105;
+                mycam.fieldOfView = 125;
             }
-            else if (mycam.fieldOfView < 70)
+            else if (mycam.fieldOfView < 0)
             {
                 mycam.fieldOfView = 0;
             }

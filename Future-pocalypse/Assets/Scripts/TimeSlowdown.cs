@@ -30,7 +30,7 @@ public class TimeSlowdown : MonoBehaviour
     public void Missledash()
     {
         transform.LookAt(target);
-        GetComponent<Rigidbody>().AddForce(transform.forward * 600, ForceMode.VelocityChange);
+        GetComponent<Rigidbody>().AddForce(transform.forward * 300, ForceMode.VelocityChange);
         targetting = false;
         tickdown = false;
         enemyHealthbar.SetActive(false);
@@ -46,7 +46,7 @@ public class TimeSlowdown : MonoBehaviour
         transform.LookAt(target);
         transform.position += transform.up;
         GetComponent<Rigidbody>().velocity = Vector3.zero;
-        GetComponent<Rigidbody>().AddForce(transform.forward * 500, ForceMode.VelocityChange);
+        GetComponent<Rigidbody>().AddForce(transform.forward * 200, ForceMode.VelocityChange);
         enemyHealthbar.SetActive(false);
         TargetButton.SetActive(false);
         Time.timeScale = 0.25f;
