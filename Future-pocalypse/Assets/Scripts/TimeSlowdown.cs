@@ -18,9 +18,14 @@ public class TimeSlowdown : MonoBehaviour
     public float currentcharge;
     public bool canturnon = true;
 
+    //For machine gun sound fx
+    AudioSource audioSource;
+    public AudioClip soundGun;
 
-
-
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     public void Missle()
     {
         currentcharge = 0;
@@ -61,6 +66,7 @@ public class TimeSlowdown : MonoBehaviour
 
     public void machinegunfire(GameObject machinegun)
     {
+        audioSource.PlayOneShot(soundGun);
         StartCoroutine(actualfire(machinegun));
     }
 
@@ -103,7 +109,7 @@ public class TimeSlowdown : MonoBehaviour
             
         }
         cancelpower();
-        machinegun.transform.rotation = Quaternion.Euler(0, 0, 0);
+        machinegun.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
         yield return 0;
     }

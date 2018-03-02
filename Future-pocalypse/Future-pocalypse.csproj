@@ -290,6 +290,7 @@
     <Compile Include="Assets\Scripts\CameraChange.cs" />
     <Compile Include="Assets\Scripts\CarDriving.cs" />
     <Compile Include="Assets\Scripts\Checkpoint.cs" />
+    <Compile Include="Assets\Scripts\CollisionSounds.cs" />
     <Compile Include="Assets\Scripts\healthTest.cs" />
     <Compile Include="Assets\Scripts\Lapcheckpoint.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />

@@ -41,10 +41,15 @@ public class CarDriving : MonoBehaviour
     //For Controlling Sound
     [SerializeField]
     private AudioSource audioSource;
+
+
+    public AudioClip soundCollision;
+
+    
     // Use this for initialization
     void Start ()
     {
-
+        audioSource = GetComponent<AudioSource>();
         Application.targetFrameRate = 60;
         rb.centerOfMass = -transform.up;	
 	}
@@ -56,7 +61,8 @@ public class CarDriving : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-
+        
+        
     }
 
 
@@ -147,16 +153,16 @@ public class CarDriving : MonoBehaviour
                 transform.Rotate(transform.up, Input.GetAxis("Horizontal") * (actualturnspeed - (Input.GetAxis("Vertical"))));
             }
 
-            if (rb.velocity.z >= 0 && mycam.fieldOfView < 125)
-                mycam.fieldOfView = (int)((rb.velocity.magnitude) ) + 70;
+           
+            mycam.fieldOfView = ((rb.velocity.magnitude) ) + 70;
 
             if (mycam.fieldOfView >= 125)
             {
                 mycam.fieldOfView = 125;
             }
-            else if (mycam.fieldOfView < 0)
+            else if (mycam.fieldOfView < 70)
             {
-                mycam.fieldOfView = 0;
+                mycam.fieldOfView = 70;
             }
         }
         else
@@ -176,4 +182,5 @@ public class CarDriving : MonoBehaviour
     {
         audioSource.pitch = rb.velocity.magnitude / topspeed + 1;
     }
+    
 }
