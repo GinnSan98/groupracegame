@@ -299,6 +299,7 @@
     <Compile Include="Assets\Scripts\PlayerGUI.cs" />
     <Compile Include="Assets\Scripts\RaceSystem.cs" />
     <Compile Include="Assets\Scripts\slowTime.cs" />
+    <Compile Include="Assets\Scripts\ThreeDText.cs" />
     <Compile Include="Assets\Scripts\TimeSlowdown.cs" />
   </ItemGroup>
   <ItemGroup>
