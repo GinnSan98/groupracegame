@@ -7,11 +7,11 @@ public class CarDriving : MonoBehaviour
     public bool candrive;
     public bool isdead;
     [SerializeField]
-    private Rigidbody rb;
+    public Rigidbody rb;
     [SerializeField]
     private int accel;
     [SerializeField]
-    private int topspeed;
+    public int topspeed;
     [SerializeField]
     private float turnspeed;
 
@@ -42,14 +42,18 @@ public class CarDriving : MonoBehaviour
     [SerializeField]
     private AudioSource audioSource;
 
+    public bool isDrifting = false;
 
-    public AudioClip soundCollision;
+
+    //public AudioClip soundCollision;
 
     
     // Use this for initialization
     void Start ()
     {
+        
         audioSource = GetComponent<AudioSource>();
+
         Application.targetFrameRate = 60;
         rb.centerOfMass = -transform.up;	
 	}
@@ -107,16 +111,20 @@ public class CarDriving : MonoBehaviour
 
                 if (Input.GetAxis("Horizontal") != 0)
                 {
+                    
+
                     actualturnspeed = turnspeed * 2;
                     if (Input.GetButton("Drift"))
                     {
 
-                        // Play partical system
+                        isDrifting = true;
+                        // Play particle system
                         if (sparks[0].isPlaying == false)
                         {
                             sparks[0].Play();
                             sparks[1].Play();
                         }
+
 
                         // Rotate mesh by the horizontal input
                         carRotation += Input.GetAxis("Horizontal") * 1;
@@ -126,12 +134,16 @@ public class CarDriving : MonoBehaviour
                 }
                 else if (!Input.GetButton("Drift"))     //Make correction when player lets go of the drifting key
                 {
+                    
+                    isDrifting = false;
                     actualturnspeed = turnspeed;
                     // Stop partical system
                     if (sparks[0].isPlaying == true)
                     {
                         sparks[0].Stop();
                         sparks[1].Stop();
+                        
+                        
                     }
 
                     // Make corection
@@ -148,7 +160,7 @@ public class CarDriving : MonoBehaviour
                     carRotation = Mathf.RoundToInt(carRotation);
                     carMesh.transform.localRotation = Quaternion.Euler(new Vector3(0, carRotation, 0));
                 }
-
+               
                 // Chanage the transfrom roation
                 transform.Rotate(transform.up, Input.GetAxis("Horizontal") * (actualturnspeed - (Input.GetAxis("Vertical"))));
             }
@@ -181,6 +193,8 @@ public class CarDriving : MonoBehaviour
     void EngineSound()
     {
         audioSource.pitch = rb.velocity.magnitude / topspeed + 1;
+        
     }
-    
 }
+    
+
