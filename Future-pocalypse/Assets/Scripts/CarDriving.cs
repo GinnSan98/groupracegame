@@ -113,10 +113,10 @@ public class CarDriving : MonoBehaviour
                 {
                     
 
-                    actualturnspeed = (turnspeed * 2); 
+                    actualturnspeed = (turnspeed); 
                     if (Input.GetButton("Drift"))
                     {
-
+                        actualturnspeed = (turnspeed *1.5f);
                         isDrifting = true;
                         // Play particle system
                         if (sparks[0].isPlaying == false)
@@ -128,7 +128,7 @@ public class CarDriving : MonoBehaviour
 
                         // Rotate mesh by the horizontal input
                         carRotation += Input.GetAxis("Horizontal") * 1;
-                        carRotation = Mathf.Clamp(carRotation, -driftClamp, driftClamp);
+                        
                         carMesh.transform.localRotation = Quaternion.Euler(new Vector3(0, carRotation, 0));
                     }
                     else if (!Input.GetButton("Drift"))     //Make correction when player lets go of the drifting key
@@ -159,6 +159,8 @@ public class CarDriving : MonoBehaviour
                         carRotation = Mathf.RoundToInt(carRotation);
                         carMesh.transform.localRotation = Quaternion.Euler(new Vector3(0, carRotation, 0));
                     }
+
+                    carRotation = Mathf.Clamp(carRotation, -driftClamp, driftClamp);
                 }
                
                
