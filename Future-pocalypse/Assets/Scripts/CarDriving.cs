@@ -113,7 +113,7 @@ public class CarDriving : MonoBehaviour
                 {
                     
 
-                    actualturnspeed = turnspeed * 2;
+                    actualturnspeed = (turnspeed * 2); 
                     if (Input.GetButton("Drift"))
                     {
 
@@ -131,35 +131,36 @@ public class CarDriving : MonoBehaviour
                         carRotation = Mathf.Clamp(carRotation, -driftClamp, driftClamp);
                         carMesh.transform.localRotation = Quaternion.Euler(new Vector3(0, carRotation, 0));
                     }
-                }
-                else if (!Input.GetButton("Drift"))     //Make correction when player lets go of the drifting key
-                {
-                    
-                    isDrifting = false;
-                    actualturnspeed = turnspeed;
-                    // Stop partical system
-                    if (sparks[0].isPlaying == true)
+                    else if (!Input.GetButton("Drift"))     //Make correction when player lets go of the drifting key
                     {
-                        sparks[0].Stop();
-                        sparks[1].Stop();
-                        
-                        
-                    }
 
-                    // Make corection
-                    if (carRotation > 0)
-                    {
-                        carRotation--;
-                    }
-                    else if (carRotation < 0)
-                    {
-                        carRotation++;
-                    }
+                        isDrifting = false;
+                        actualturnspeed = turnspeed;
+                        // Stop partical system
+                        if (sparks[0].isPlaying == true)
+                        {
+                            sparks[0].Stop();
+                            sparks[1].Stop();
 
-                    // Roate mesh back
-                    carRotation = Mathf.RoundToInt(carRotation);
-                    carMesh.transform.localRotation = Quaternion.Euler(new Vector3(0, carRotation, 0));
+
+                        }
+
+                        // Make corection
+                        if (carRotation > 0)
+                        {
+                            carRotation--;
+                        }
+                        else if (carRotation < 0)
+                        {
+                            carRotation++;
+                        }
+
+                        // Roate mesh back
+                        carRotation = Mathf.RoundToInt(carRotation);
+                        carMesh.transform.localRotation = Quaternion.Euler(new Vector3(0, carRotation, 0));
+                    }
                 }
+               
                
                 // Chanage the transfrom roation
                 transform.Rotate(transform.up, Input.GetAxis("Horizontal") * (actualturnspeed - (Input.GetAxis("Vertical"))));
@@ -168,9 +169,9 @@ public class CarDriving : MonoBehaviour
            
             mycam.fieldOfView = ((rb.velocity.magnitude) ) + 70;
 
-            if (mycam.fieldOfView >= 125)
+            if (mycam.fieldOfView >= 105)
             {
-                mycam.fieldOfView = 125;
+                mycam.fieldOfView = 105;
             }
             else if (mycam.fieldOfView < 70)
             {
