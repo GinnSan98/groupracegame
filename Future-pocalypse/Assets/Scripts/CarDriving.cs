@@ -113,11 +113,11 @@ public class CarDriving : MonoBehaviour
                 {
                     
 
-<<<<<<< HEAD
+
                     actualturnspeed = (turnspeed * 1f); 
-=======
+
                     actualturnspeed = (turnspeed); 
->>>>>>> 09d7759f5fcdfb8c598559bed96a8ecf4162bc7f
+
                     if (Input.GetButton("Drift"))
                     {
                         actualturnspeed = (turnspeed *1.5f);
