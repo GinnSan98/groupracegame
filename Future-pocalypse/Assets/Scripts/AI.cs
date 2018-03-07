@@ -41,8 +41,8 @@ public class AI : MonoBehaviour
 
     void Start()
     {
-       
 
+        
         difficulty = Random.Range(10, 60);
         vehicleWidth = bc.size.x;
 
