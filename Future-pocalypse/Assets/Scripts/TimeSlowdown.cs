@@ -6,7 +6,6 @@ using UnityEngine;
 public class TimeSlowdown : MonoBehaviour
 {
     public GameObject enemyHealthbar;
-    public GameObject TargetButton;
     [SerializeField]
     private Camera mycam;
     private bool targetting;
@@ -17,10 +16,14 @@ public class TimeSlowdown : MonoBehaviour
     public bool tickdown;
     public float currentcharge;
     public bool canturnon = true;
+    [SerializeField]
+    private RaceSystem rs;
 
     //For machine gun sound fx
     AudioSource audioSource;
     public AudioClip soundGun;
+    [SerializeField]
+    private GameObject machinegun;
 
     private void Start()
     {
@@ -32,31 +35,37 @@ public class TimeSlowdown : MonoBehaviour
         cancelpower();
     }
 
+
     public void Missledash()
     {
-        transform.LookAt(target);
         GetComponent<Rigidbody>().AddForce(transform.forward * 300, ForceMode.VelocityChange);
-        targetting = false;
-        tickdown = false;
-        enemyHealthbar.SetActive(false);
-        TargetButton.SetActive(false);
-        Time.timeScale = 1f;
-        Application.targetFrameRate =  Mathf.RoundToInt(60 / Time.timeScale);
+        Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
         currentcharge = 10;
-        cancelpower();
     }
 
-    public void MobilityDash()
+    private IEnumerator timeslowon(bool activate, float time)
     {
-        transform.LookAt(target);
-        transform.position += transform.up;
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
-        GetComponent<Rigidbody>().AddForce(transform.forward * 200, ForceMode.VelocityChange);
-        enemyHealthbar.SetActive(false);
-        TargetButton.SetActive(false);
-        Time.timeScale = 0.25f;
-        Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
-        cancelpower();
+        
+        switch (activate)
+        {
+            case (false):
+                {
+                    Time.timeScale = 0.15f;
+                    Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
+                    StartCoroutine(timeslowon(true, 2));
+                    break;
+                }
+            case (true):
+                {
+                    yield return new WaitForSeconds(time);
+                    Time.timeScale = 1f;
+                    Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
+
+                    break;
+                }
+
+        }
+        yield return 0;
     }
 
     private void showenemyhealth(healthTest enemy)
@@ -64,52 +73,66 @@ public class TimeSlowdown : MonoBehaviour
         enemyHealthbar.GetComponent<Image>().fillAmount = enemy.Returnhealth() / enemy.ReturnMaxhealth();
     }
 
-    public void machinegunfire(GameObject machinegun)
+    public void machinegunfire()
     {
-        audioSource.PlayOneShot(soundGun);
-        StartCoroutine(actualfire(machinegun));
+        
+        StartCoroutine(actualfire());
     }
 
-    public IEnumerator actualfire(GameObject machinegun)
+    public IEnumerator actualfire()
     {
         tickdown = false;
         canturnon = false;
-        
+        Lapcheckpoint me = GetComponent<Lapcheckpoint>();
+   
+        Transform temptransform = rs.returnplayerahead(me);
+        target = temptransform;
 
-        RaycastHit hit;
-        machinegun.transform.LookAt(target);
-        healthTest enemyhealth = target.GetComponent<healthTest>();
-        tickdown = false;
-        int currenergy = Mathf.RoundToInt(currentcharge)/2;
-        for (int i = 0; i < currenergy; i++)
+        if (target != null)
         {
-            yield return new WaitForSeconds(0.025f);
-            Physics.Raycast(machinegun.transform.position, machinegun.transform.forward, out hit, 300);
-            if (hit.transform != null)
+            print(target.name);
+            audioSource.PlayOneShot(soundGun);
+            RaycastHit hit;
+            machinegun.transform.LookAt(target);
+            healthTest enemyhealth = target.GetComponent<healthTest>();
+            tickdown = false;
+            int currenergy = Mathf.RoundToInt(currentcharge) / 2;
+            enemyHealthbar.SetActive(true);
+            for (int i = 0; i < currenergy; i++)
             {
-                if (hit.transform.tag == "Enemy" && hit.transform == target)
+                yield return new WaitForSeconds(0.025f);
+                Physics.Raycast(machinegun.transform.position, machinegun.transform.forward, out hit, 300);
+                if (hit.transform != null)
                 {
-                    enemyhealth.takedamage(5);
-                    showenemyhealth(enemyhealth);
-                }
-                else if (hit.transform.tag == "Enemy" && hit.transform != target)
-                {
-                    hit.transform.GetComponent<healthTest>().takedamage(3);
+                    if (hit.transform.tag == "Enemy" && hit.transform == target)
+                    {
+                        enemyhealth.takedamage(5);
+                        showenemyhealth(enemyhealth);
+                    }
+                    else if (hit.transform.tag == "Enemy" && hit.transform != target)
+                    {
+                        hit.transform.GetComponent<healthTest>().takedamage(3);
+                    }
+                    else
+                    {
+                        //Miss
+                    }
+                    currentcharge -= 2;
                 }
                 else
                 {
-                    //Miss
+                    i = currenergy;
                 }
-                currentcharge -= 2;
+
             }
-            else
-            {
-                i = currenergy;
-            }
-            
+            enemyHealthbar.SetActive(false);
+            machinegun.transform.localRotation = Quaternion.Euler(0, 0, 0);
+
         }
-        cancelpower();
-        machinegun.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        else
+        {
+            cancelpower();
+        }
 
         yield return 0;
     }
@@ -119,7 +142,6 @@ public class TimeSlowdown : MonoBehaviour
         Time.timeScale = 1f;
         Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
         canturnon = false;
-        StartCoroutine(zoomout());
         target = null;
     }
 
@@ -139,71 +161,25 @@ public class TimeSlowdown : MonoBehaviour
         }
 
         if (canturnon == true)
-        { 
-        if (cd.cameracontrol == true)
         {
-            if (Input.GetMouseButtonDown(0) == true)
+            if (Input.GetKeyDown(KeyCode.J) == true)
             {
-                RaycastHit hit;
-                Ray ray = mycam.ScreenPointToRay(Input.mousePosition);
-                Physics.Raycast(ray, out hit, 1200f);
-
-                    
-                //   Physics.Raycast(mycam.transform.position, mycam.ViewportToWorldPoint(Input.mousePosition), out hit, 100f);
-
-                    if (hit.transform != null)
-                    {
-                        if (hit.transform.tag == "Enemy")
-                        {
-                            Debug.DrawRay(mycam.transform.position, ray.direction * hit.distance, Color.green, 3);
-                            target = hit.transform;
-                        }
-                        if (hit.transform.tag == "DashPanel" && canturnon == true)
-                        {
-                            Debug.DrawRay(mycam.transform.position, ray.direction * hit.distance, Color.green, 3);
-                            target = hit.transform;
-                            currentcharge = 29;
-                            
-                            MobilityDash();
-                        }
-                    }
+                currentcharge = 0;
+                Missledash();
+                canturnon = false;
+                //Boost
             }
-        }
-        else
-        {
-            if (target != null)
-            mycam.transform.LookAt(target);
-        }
-
-
-            if (target != null)
+            else if (Input.GetKeyDown(KeyCode.K) == true)
             {
-                if (Input.GetKeyDown("v") && targetting == false && transitioning == false)
-                {
-                    targetting = true;
-                    enemyHealthbar.SetActive(true);
-                    enemyHealthbar.GetComponent<Image>().fillAmount = target.GetComponent<healthTest>().Returnhealth() / target.GetComponent<healthTest>().ReturnMaxhealth();
-                    TargetButton.SetActive(true);
-                    Time.timeScale = 0.5f;
-                    Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
-                    cd.cameracontrol = false;
-                    tickdown = true;
-                    StartCoroutine(zoomin());
-
-                }
-                else if (Input.GetKeyDown("v") && targetting == true && transitioning == false)
-                {
-                    targetting = false;
-                    enemyHealthbar.SetActive(false);
-                    TargetButton.SetActive(false);
-                    Time.timeScale = 1;
-                    Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
-                    canturnon = false;
-                    currentcharge = 20;
-                    tickdown = false;
-                    StartCoroutine(zoomout());
-
-                }
+                StartCoroutine(timeslowon(false, 0));
+                currentcharge = 0;
+                canturnon = false;
+            }
+            else if (Input.GetKeyDown(KeyCode.L) == true)
+            {
+                machinegunfire();
+                currentcharge = 0;
+                canturnon = false;
             }
         }
         else
@@ -221,38 +197,5 @@ public class TimeSlowdown : MonoBehaviour
         }
 
     }
-
-    private IEnumerator zoomout()
-    {
-        targetting = false;
-        enemyHealthbar.SetActive(false);
-        TargetButton.SetActive(false);
-        transitioning = true;
-        for (int i = 0; i < 30; i++)
-        {
-            mycam.fieldOfView++;
-            yield return new WaitForEndOfFrame();
-        }
-        mycam.transform.localRotation =  Quaternion.Euler(new Vector3(10, 0, 0)) ;
-        transitioning = false;
-        mycam.fieldOfView = 70;
-        cd.cameracontrol = true;
-
-    }
-
-    private IEnumerator zoomin()
-    {
-        transitioning = true;
-        mycam.fieldOfView = 70;
-        mycam.transform.LookAt(target);
-        for (int i = 0; i < 30;i++)
-        {
-            mycam.fieldOfView--;
-            yield return new WaitForEndOfFrame();
-        }
-        transitioning = false;
-        yield return 0;
-    }
-
 }
 

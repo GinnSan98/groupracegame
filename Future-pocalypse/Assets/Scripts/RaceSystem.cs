@@ -22,7 +22,21 @@ public class RaceSystem : MonoBehaviour {
         InvokeRepeating("racerposition", 0, 2f);
 	}
 
-    
+    public Transform returnplayerahead(Lapcheckpoint me)
+    {
+        if (me != racers[0])
+        {
+            
+            int tempnum = racers.IndexOf(me);
+
+            print(tempnum);
+            return racers[tempnum - 1].transform;
+        }
+        else
+        {
+            return null;
+        }
+    }
     
    private IEnumerator checkingpositions()
     {

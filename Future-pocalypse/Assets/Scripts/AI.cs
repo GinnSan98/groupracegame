@@ -121,7 +121,7 @@ public class AI : MonoBehaviour
                         else
                         {
 
-                            dodgeShit(-50f / ((hit.distance / 2) + 1f));
+                            dodgeShit(-18f / ((hit.distance / 2) + 1f));
                         }
 
                     }
@@ -147,7 +147,7 @@ public class AI : MonoBehaviour
                         else
                         {
 
-                            dodgeShit(-25f / ((hit.distance / 2) + 1f));
+                            dodgeShit(-15f / ((hit.distance / 2) + 1f));
                         }
 
                     }
@@ -173,7 +173,7 @@ public class AI : MonoBehaviour
                         else
                         {
 
-                            dodgeShit(38f / ((hit.distance / 2) + 1f));
+                            dodgeShit(18f / ((hit.distance / 2) + 1f));
                         }
 
                     }
@@ -198,7 +198,7 @@ public class AI : MonoBehaviour
                         else
                         {
 
-                            dodgeShit(25f / ((hit.distance / 2) + 1f));
+                            dodgeShit(15f / ((hit.distance / 2) + 1f));
                         }
 
                     }

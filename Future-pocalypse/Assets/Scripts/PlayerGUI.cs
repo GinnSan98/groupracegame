@@ -45,7 +45,7 @@ public class PlayerGUI : MonoBehaviour {
 
     void SetRageBar()
     {
-        ragebar.fillAmount = tsd.currentcharge / 30;
+        ragebar.fillAmount = tsd.currentcharge / 30f;
         if (tsd.canturnon == true && tsd.tickdown == false)
         {
             ragebar.color = Color.green;
