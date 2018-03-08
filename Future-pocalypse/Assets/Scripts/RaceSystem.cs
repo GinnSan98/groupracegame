@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
-
+//For Text Mesh Pro stuff
+using TMPro;
 public class RaceSystem : MonoBehaviour {
 
     [SerializeField]
@@ -13,7 +14,7 @@ public class RaceSystem : MonoBehaviour {
     private bool racewon = false;
 
     [SerializeField]
-    private List<Text> top5;
+    private List<TextMeshProUGUI> top5;
 	// Use this for initialization
 	void Start ()
     {

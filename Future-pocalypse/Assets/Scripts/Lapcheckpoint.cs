@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+//For Text Mesh Pro stuff
+using TMPro;
 public class Lapcheckpoint : MonoBehaviour {
 
    
@@ -14,7 +15,7 @@ public class Lapcheckpoint : MonoBehaviour {
     [SerializeField]
     private GameObject endscreen;
     [SerializeField]
-    private Text endtext;
+    private TextMeshProUGUI endtext;
     private float timestart;
     public float totalracevalue;
 

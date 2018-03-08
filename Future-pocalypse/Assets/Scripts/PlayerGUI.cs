@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+//For Text Mesh Pro stuff
+using TMPro;
 public class PlayerGUI : MonoBehaviour {
 
 
-    public Text lapText;
+    public TextMeshProUGUI lapText;
     [SerializeField]
     private Lapcheckpoint lcp;
     [SerializeField]

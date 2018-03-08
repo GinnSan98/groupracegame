@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//For Text Mesh Pro stuff
+using TMPro;
+
 public class ThreeDText : MonoBehaviour {
 
-    public TextMesh displayText;
+    public TextMeshPro displayText;
+
     public GameObject playerObject;
     public Transform playerPosition;
     public float dist;
@@ -15,6 +19,7 @@ public class ThreeDText : MonoBehaviour {
     private Vector3 direction;
     // Use this for initialization
     void Start () {
+        displayText = GetComponent<TextMeshPro>();
         playerObject = GameObject.Find("Main Camera");
         playerPosition = playerObject.transform;
 
