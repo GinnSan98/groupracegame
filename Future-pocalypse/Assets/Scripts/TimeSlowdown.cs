@@ -38,7 +38,7 @@ public class TimeSlowdown : MonoBehaviour
 
     public void Missledash()
     {
-        GetComponent<Rigidbody>().AddForce(transform.forward * 300, ForceMode.VelocityChange);
+        GetComponent<Rigidbody>().AddForce(transform.forward * 100, ForceMode.VelocityChange);
         Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
         currentcharge = 10;
     }

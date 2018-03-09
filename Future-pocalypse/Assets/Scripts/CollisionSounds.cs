@@ -14,12 +14,10 @@ public class CollisionSounds : MonoBehaviour {
 
         if(other.gameObject.tag == "Enemy")
         {
-            Debug.Log("Enemy Hit!");
             audioSource.Play();
         }
         if (other.gameObject.tag == "Environment")
         {
-            Debug.Log("Environment Hit!");
             audioSource.Play();
         }
     }
