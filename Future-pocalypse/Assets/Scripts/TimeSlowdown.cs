@@ -20,14 +20,15 @@ public class TimeSlowdown : MonoBehaviour
     private RaceSystem rs;
 
     //For machine gun sound fx
-    AudioSource audioSource;
-    public AudioClip soundGun;
+    [SerializeField]
+    private AudioSource EngineSource;
+    public AudioSource soundGun;
     [SerializeField]
     private GameObject machinegun;
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+
     }
     public void Missle()
     {
@@ -91,29 +92,34 @@ public class TimeSlowdown : MonoBehaviour
         if (target != null)
         {
             print(target.name);
-            audioSource.PlayOneShot(soundGun);
+           
             RaycastHit hit;
             machinegun.transform.LookAt(target);
             healthTest enemyhealth = target.GetComponent<healthTest>();
             tickdown = false;
             int currenergy = Mathf.RoundToInt(currentcharge) / 2;
             enemyHealthbar.SetActive(true);
+            Image Ehealth = enemyHealthbar.GetComponent<Image>();
             for (int i = 0; i < currenergy; i++)
             {
-                yield return new WaitForSeconds(0.025f);
+                soundGun.Play();
+                yield return new WaitForSeconds(0.2f);
                 Physics.Raycast(machinegun.transform.position, machinegun.transform.forward, out hit, 90);
                 if (hit.transform != null)
                 {
+                    Ehealth.fillAmount = enemyhealth.Returnhealth() / enemyhealth.ReturnMaxhealth();
                     if (hit.transform.tag == "Enemy" && hit.transform == target)
                     {
                         enemyhealth.takedamage(7);
                         showenemyhealth(enemyhealth);
+                        machinegun.transform.LookAt(hit.transform);
                     }
                     else if (hit.transform.tag == "Enemy" && hit.transform != target)
                     {
                         healthTest tempenemey = hit.transform.GetComponent<healthTest>();
                         tempenemey.takedamage(3);
                         showenemyhealth(enemyhealth);
+                        machinegun.transform.LookAt(hit.transform);
                     }
                     else
                     {
@@ -129,7 +135,7 @@ public class TimeSlowdown : MonoBehaviour
             }
             enemyHealthbar.SetActive(false);
             machinegun.transform.localRotation = Quaternion.Euler(0, 0, 0);
-            audioSource.Stop();
+            
 
         }
         else
