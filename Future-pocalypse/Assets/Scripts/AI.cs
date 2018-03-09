@@ -28,9 +28,14 @@ public class AI : MonoBehaviour
     private healthTest ht;
 
     [SerializeField]
+    private RaceSystem rs;
+
+    [SerializeField]
     private Lapcheckpoint lcp;
 
     private int difficulty;
+
+    private int position;
 
     //For Controlling Sound
     [SerializeField]
@@ -106,7 +111,7 @@ public class AI : MonoBehaviour
                         if (hit.transform.tag == "Enemy")
                         {
 
-                            dodgeShit(-2f / ((hit.distance / 2) + 1f));
+                            dodgeShit(-1f / ((hit.distance / 2) + 1f));
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
@@ -116,18 +121,18 @@ public class AI : MonoBehaviour
                         else if (hit.transform.tag == "Player")
                         {
 
-                            dodgeShit(1f / ((hit.distance / 4) + 1f));
+                            dodgeShit(-1f / ((hit.distance / 4) + 1f));
                         }
                         else
                         {
 
-                            dodgeShit(-18f / ((hit.distance / 2) + 1f));
+                            dodgeShit(-24f / ((hit.distance / 2) + 1f));
                         }
 
                     }
 
                     //Right wall forward twice.
-                    if (Physics.Raycast(transform.position, (transform.right + (transform.forward * 2)), out hit, rayLength / 5) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
+                    if (Physics.Raycast(transform.position, (transform.right + (transform.forward * 3)), out hit, rayLength / 5) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
                     {
                         if (hit.transform.tag == "Enemy")
                         {
@@ -147,7 +152,7 @@ public class AI : MonoBehaviour
                         else
                         {
 
-                            dodgeShit(-15f / ((hit.distance / 2) + 1f));
+                            dodgeShit(-24f / ((hit.distance / 2) + 1f));
                         }
 
                     }
@@ -168,17 +173,17 @@ public class AI : MonoBehaviour
                         else if (hit.transform.tag == "Player")
                         {
 
-                            dodgeShit(-1f / ((hit.distance / 4) + 1f));
+                            dodgeShit(1f / ((hit.distance / 4) + 1f));
                         }
                         else
                         {
 
-                            dodgeShit(18f / ((hit.distance / 2) + 1f));
+                            dodgeShit(24f / ((hit.distance / 2) + 1f));
                         }
 
                     }
 
-                    if (Physics.Raycast(transform.position, (-transform.right + (transform.forward * 2)), out hit, rayLength / 5) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
+                    if (Physics.Raycast(transform.position, (-transform.right + (transform.forward * 3)), out hit, rayLength / 5) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
                     {
                         if (hit.transform.tag == "Enemy")
                         {
@@ -198,7 +203,7 @@ public class AI : MonoBehaviour
                         else
                         {
 
-                            dodgeShit(15f / ((hit.distance / 2) + 1f));
+                            dodgeShit(24f / ((hit.distance / 2) + 1f));
                         }
 
                     }
@@ -207,8 +212,10 @@ public class AI : MonoBehaviour
                     //rb.MovePosition(transform.position + transform.forward * vehicleSpeed * Time.deltaTime);
                     if (onfloor == true)
                     {
-                        rb.AddForce(transform.forward * (vehicleSpeed), ForceMode.Acceleration);
-                        rb.velocity = Vector3.ClampMagnitude(rb.velocity, (maxspeed/2) + difficulty);
+                       // position = 1;
+                        position = rs.returnposition(lcp);
+                        rb.AddForce(transform.forward * (vehicleSpeed + (position * 5 )), ForceMode.Acceleration);
+                        rb.velocity = Vector3.ClampMagnitude(rb.velocity, (maxspeed/2) + (difficulty + (position * 20)));
                         
                     }
                 }

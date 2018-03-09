@@ -101,23 +101,25 @@ public class TimeSlowdown : MonoBehaviour
             for (int i = 0; i < currenergy; i++)
             {
                 yield return new WaitForSeconds(0.025f);
-                Physics.Raycast(machinegun.transform.position, machinegun.transform.forward, out hit, 300);
+                Physics.Raycast(machinegun.transform.position, machinegun.transform.forward, out hit, 90);
                 if (hit.transform != null)
                 {
                     if (hit.transform.tag == "Enemy" && hit.transform == target)
                     {
-                        enemyhealth.takedamage(5);
+                        enemyhealth.takedamage(7);
                         showenemyhealth(enemyhealth);
                     }
                     else if (hit.transform.tag == "Enemy" && hit.transform != target)
                     {
-                        hit.transform.GetComponent<healthTest>().takedamage(3);
+                        healthTest tempenemey = hit.transform.GetComponent<healthTest>();
+                        tempenemey.takedamage(3);
+                        showenemyhealth(enemyhealth);
                     }
                     else
                     {
                         //Miss
                     }
-                    currentcharge -= 2;
+                    currentcharge -= 1;
                 }
                 else
                 {
@@ -127,6 +129,7 @@ public class TimeSlowdown : MonoBehaviour
             }
             enemyHealthbar.SetActive(false);
             machinegun.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            audioSource.Stop();
 
         }
         else

@@ -19,7 +19,7 @@ public class RaceSystem : MonoBehaviour {
 	void Start ()
     {
        
-        InvokeRepeating("racerposition", 0, 2f);
+        InvokeRepeating("racerposition", 0, 0.5f);
 	}
 
     public Transform returnplayerahead(Lapcheckpoint me)
@@ -28,8 +28,6 @@ public class RaceSystem : MonoBehaviour {
         {
             
             int tempnum = racers.IndexOf(me);
-
-            print(tempnum);
             return racers[tempnum - 1].transform;
         }
         else
@@ -38,6 +36,11 @@ public class RaceSystem : MonoBehaviour {
         }
     }
     
+
+    public int returnposition(Lapcheckpoint me)
+    {
+        return racers.IndexOf(me);
+    }
    private IEnumerator checkingpositions()
     {
 
