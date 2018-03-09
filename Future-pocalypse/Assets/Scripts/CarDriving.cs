@@ -82,7 +82,7 @@ public class CarDriving : MonoBehaviour
             bool onfloor;
 
             // Check if the car is grounded
-            if (Physics.Raycast(transform.position, -transform.up, out hit, mybox.size.y / 2))
+            if (Physics.Raycast(transform.position, -transform.up, out hit, (mybox.size.y / 2)*transform.localScale.magnitude))
             {
                 onfloor = true;
             }
