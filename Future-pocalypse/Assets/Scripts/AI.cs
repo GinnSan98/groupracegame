@@ -113,6 +113,11 @@ public class AI : MonoBehaviour
 
                             dodgeShit(-1f / ((hit.distance) + 1f));
                         }
+                        if (hit.transform.tag == "Environment")
+                        {
+
+                            dodgeShit(-6f / ((hit.distance) + 1f));
+                        }
                         else if (hit.transform.tag == "Checkpoint")
                         {
 
@@ -123,11 +128,7 @@ public class AI : MonoBehaviour
 
                             dodgeShit(-1f / ((hit.distance / 4) + 1f));
                         }
-                        else
-                        {
-
-                            dodgeShit(-16f / ((hit.distance) + 1f));
-                        }
+                   
 
                     }
 
@@ -163,7 +164,12 @@ public class AI : MonoBehaviour
                         if (hit.transform.tag == "Enemy")
                         {
 
-                            dodgeShit(2f / ((hit.distance) + 1f));
+                            dodgeShit(1f / ((hit.distance) + 1f));
+                        }
+                        if (hit.transform.tag == "Environment")
+                        {
+
+                            dodgeShit(6f / ((hit.distance) + 1f));
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
