@@ -106,17 +106,12 @@ public class AI : MonoBehaviour
                 {
 
                     //Right wall, left turn;
-                    if (Physics.Raycast(transform.position, (transform.right + transform.forward * 2), out hit, rayLength / 20) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
+                    if (Physics.Raycast(transform.position, (transform.right + transform.forward * 2), out hit, rayLength / 10) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
                     {
-                        if (hit.transform.tag == "Enemy")
-                        {
-
-                            dodgeShit(-1f / ((hit.distance) + 1f));
-                        }
                         if (hit.transform.tag == "Environment")
                         {
 
-                            dodgeShit(-6f / ((hit.distance) + 1f));
+                            dodgeShit(-20f / ((hit.distance) + 1f));
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
@@ -133,12 +128,12 @@ public class AI : MonoBehaviour
                     }
 
                     //Right wall forward twice.
-                    if (Physics.Raycast(transform.position, (transform.right + (transform.forward * 8)), out hit, rayLength / 10) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
+                    if (Physics.Raycast(transform.position, (transform.right + (transform.forward * 8)), out hit, rayLength / 5) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
                     {
                         if (hit.transform.tag == "Enemy")
                         {
 
-                            dodgeShit(-1f / ((hit.distance) + 1f));
+                            dodgeShit(-1f);
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
@@ -150,26 +145,21 @@ public class AI : MonoBehaviour
 
                             dodgeShit(-1f / ((hit.distance / 4) + 1f));
                         }
-                        else
+                        //else
                         {
 
-                            dodgeShit(-16f / ((hit.distance) + 1f));
+                            dodgeShit(-32f / ((hit.distance/2) + 1f));
                         }
 
                     }
 
                     //Left wall right turn
-                    if (Physics.Raycast(transform.position, (-transform.right + transform.forward * 2), out hit, rayLength / 20) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
+                    if (Physics.Raycast(transform.position, (-transform.right + transform.forward * 2), out hit, rayLength / 5) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
                     {
-                        if (hit.transform.tag == "Enemy")
-                        {
-
-                            dodgeShit(1f / ((hit.distance) + 1f));
-                        }
                         if (hit.transform.tag == "Environment")
                         {
 
-                            dodgeShit(6f / ((hit.distance) + 1f));
+                            dodgeShit(20f / ((hit.distance) + 1f));
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
@@ -180,11 +170,6 @@ public class AI : MonoBehaviour
                         {
 
                             dodgeShit(1f / ((hit.distance / 4) + 1f));
-                        }
-                        else
-                        {
-
-                            dodgeShit(16f / ((hit.distance) + 1f));
                         }
 
                     }
@@ -194,7 +179,7 @@ public class AI : MonoBehaviour
                         if (hit.transform.tag == "Enemy")
                         {
 
-                            dodgeShit(1f / ((hit.distance) + 1f));
+                            dodgeShit(1f);
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
@@ -206,10 +191,10 @@ public class AI : MonoBehaviour
 
                             dodgeShit(1f / ((hit.distance / 4) + 1f));
                         }
-                        else
+                     //   else
                         {
 
-                            dodgeShit(16f / ((hit.distance) + 1f));
+                            dodgeShit(32f / ((hit.distance/2) + 1f));
                         }
 
                     }

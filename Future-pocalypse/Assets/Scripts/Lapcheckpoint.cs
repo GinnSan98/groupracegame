@@ -18,6 +18,8 @@ public class Lapcheckpoint : MonoBehaviour {
     private TextMeshProUGUI endtext;
     private float timestart;
     public float totalracevalue;
+    [SerializeField]
+    private RaceSystem rs;
 
 
     public bool checkLapProgress()
@@ -105,7 +107,7 @@ public class Lapcheckpoint : MonoBehaviour {
     void showendscreen()
     {
         endscreen.SetActive(true);
-        endtext.text = "You finished! " + System.Environment.NewLine + "You did all the laps in " + timestart + " seconds!";
+        endtext.text = "You finished! " + System.Environment.NewLine + rs.returnposition(this) + "place";
         if(GetComponent<CarDriving>() == true)
         {
             GetComponent<CarDriving>().candrive = false;
