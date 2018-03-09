@@ -135,7 +135,7 @@ public class TimeSlowdown : MonoBehaviour
             }
             enemyHealthbar.SetActive(false);
             machinegun.transform.localRotation = Quaternion.Euler(0, 0, 0);
-            
+            soundGun.Stop();
 
         }
         else
