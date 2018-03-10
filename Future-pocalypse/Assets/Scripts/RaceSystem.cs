@@ -18,9 +18,28 @@ public class RaceSystem : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-       
-        InvokeRepeating("racerposition", 0, 0.5f);
+        StartCoroutine(waitforstart(5));
+        
 	}
+
+    private IEnumerator waitforstart(int timetowait)
+    {
+        yield return new WaitForSeconds(timetowait);
+        for (int i = 0; i < racersorgo.Capacity;i++)
+        {
+            if (racersorgo[i].GetComponent<AI>() == true)
+            {
+                racersorgo[i].GetComponent<AI>().canmove = true;
+            }
+            else if (racersorgo[i].GetComponent<CarDriving>() == true)
+            {
+                racersorgo[i].GetComponent<CarDriving>().candrive = true;
+            }
+        }
+        InvokeRepeating("racerposition", 0, 0.5f);
+
+        yield return 0;
+    }
 
     public Transform returnplayerahead(Lapcheckpoint me)
     {
