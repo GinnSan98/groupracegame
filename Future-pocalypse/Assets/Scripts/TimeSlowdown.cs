@@ -35,13 +35,25 @@ public class TimeSlowdown : MonoBehaviour
         currentcharge = 0;
         cancelpower();
     }
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.transform.tag == "Ramp")
+        {
+            Missledash(1f);
+        }
+    }
 
     public void Missledash()
     {
         GetComponent<Rigidbody>().AddForce(transform.forward * 100, ForceMode.VelocityChange);
         Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
         currentcharge = 10;
+    }
+
+    public void Missledash(float Bonus)
+    {
+        GetComponent<Rigidbody>().AddForce(transform.forward * 100 * Bonus, ForceMode.VelocityChange);
+        Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
     }
 
     private IEnumerator timeslowon(bool activate, float time)

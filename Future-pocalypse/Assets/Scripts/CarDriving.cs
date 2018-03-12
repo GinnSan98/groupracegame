@@ -63,11 +63,6 @@ public class CarDriving : MonoBehaviour
         return topspeed;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        
-        
-    }
 
 
     // Update is called once per frame
