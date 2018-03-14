@@ -8,6 +8,8 @@ using TMPro;
 public class RaceSystem : MonoBehaviour {
 
     [SerializeField]
+    private Camera playercam;
+    [SerializeField]
     private List<Lapcheckpoint> racers;
     [SerializeField]
     private List<Lapcheckpoint> racersorgo;
@@ -18,9 +20,19 @@ public class RaceSystem : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        StartCoroutine(waitforstart(5));
-        
+        // StartCoroutine(waitforstart(5));
+        StartCoroutine(checkingpositions());
+  
 	}
+
+    public void waitstart(int timetowait)
+    {
+        StartCoroutine(waitforstart(timetowait));
+        GetComponent<Camera>().enabled = false;
+        GetComponent<AudioListener>().enabled = false;
+        playercam.enabled = true;
+        playercam.gameObject.GetComponent<AudioListener>().enabled = true;
+    }
 
     private IEnumerator waitforstart(int timetowait)
     {
