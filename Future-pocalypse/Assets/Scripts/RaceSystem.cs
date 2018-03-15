@@ -70,6 +70,7 @@ public class RaceSystem : MonoBehaviour
             else if (racersorgo[i].GetComponent<CarDriving>() == true)
             {
                 racersorgo[i].GetComponent<CarDriving>().candrive = true;
+                racersorgo[i].GetComponent<TimeSlowdown>().enabled = true;
             }
         }
         InvokeRepeating("racerposition", 0, 0.5f);
