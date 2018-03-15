@@ -5,7 +5,8 @@ using UnityEngine.UI;
 using System.Linq;
 //For Text Mesh Pro stuff
 using TMPro;
-public class RaceSystem : MonoBehaviour {
+public class RaceSystem : MonoBehaviour
+{
 
     [SerializeField]
     private Camera playercam;
@@ -14,30 +15,53 @@ public class RaceSystem : MonoBehaviour {
     [SerializeField]
     private List<Lapcheckpoint> racersorgo;
     private bool racewon = false;
+    [SerializeField]
+    private GameObject playergui;
+    [SerializeField]
+    private GameObject racegui;
+
+    [SerializeField]
+    private TextMeshProUGUI countdowntext;
 
     [SerializeField]
     private List<TextMeshProUGUI> top5;
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
         // StartCoroutine(waitforstart(5));
-        StartCoroutine(checkingpositions());
-  
-	}
+        racerposition();
+
+    }
 
     public void waitstart(int timetowait)
     {
         StartCoroutine(waitforstart(timetowait));
+        StartCoroutine(countdown(timetowait));
         GetComponent<Camera>().enabled = false;
         GetComponent<AudioListener>().enabled = false;
         playercam.enabled = true;
         playercam.gameObject.GetComponent<AudioListener>().enabled = true;
+        playergui.SetActive(true);
+        racegui.SetActive(true);
+    }
+
+    private IEnumerator countdown(int time)
+    {
+        countdowntext.gameObject.SetActive(true);
+        for (int i = 0; i < time; i++)
+        {
+            countdowntext.text = (time - i).ToString();
+            countdowntext.GetComponent<Animator>().Play("Spin", 0);
+            yield return new WaitForSeconds(1);
+        }
+        countdowntext.gameObject.SetActive(false);
+        yield return 0;
     }
 
     private IEnumerator waitforstart(int timetowait)
     {
         yield return new WaitForSeconds(timetowait);
-        for (int i = 0; i < racersorgo.Capacity;i++)
+        for (int i = 0; i < racersorgo.Capacity; i++)
         {
             if (racersorgo[i].GetComponent<AI>() == true)
             {
@@ -57,7 +81,7 @@ public class RaceSystem : MonoBehaviour {
     {
         if (me != racers[0])
         {
-            
+
             int tempnum = racers.IndexOf(me);
             return racers[tempnum - 1].transform;
         }
@@ -66,31 +90,31 @@ public class RaceSystem : MonoBehaviour {
             return null;
         }
     }
-    
+
 
     public int returnposition(Lapcheckpoint me)
     {
         return racers.IndexOf(me);
     }
-   private IEnumerator checkingpositions()
+    private IEnumerator checkingpositions()
     {
 
-     
-            for (int i = 0; i < 4; i++)
-            {
-                top5[i].text = racers[i].name;
-                yield return new WaitForSeconds(0.05f);
-            }
 
-        
-        
+        for (int i = 0; i < 4; i++)
+        {
+            top5[i].text = racers[i].name;
+            yield return new WaitForSeconds(0.05f);
+        }
+
+
+
         yield return 0;
     }
 
-	void Update ()
+    void Update()
     {
-		
-	}
+
+    }
 
     private void racerposition()
     {
