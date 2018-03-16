@@ -1,9 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-//For Text Mesh Pro stuff
-using TMPro;
+using TMPro;    //For Text Mesh Pro stuff
 
 public class ThreeDText : MonoBehaviour {
 
@@ -18,9 +16,11 @@ public class ThreeDText : MonoBehaviour {
     private Quaternion lookRotation;
     private Vector3 direction;
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         displayText = GetComponent<TextMeshPro>();
         playerObject = GameObject.Find("Main Camera");
+        playerObject = GameObject.Find("John shmid");
         playerPosition = playerObject.transform;
 
     }

@@ -11,13 +11,8 @@ public class CameraChange : MonoBehaviour
     [SerializeField]
     private Transform thirdperson;
     private bool camerastate = false;
-	// Use this for initialization
-	void Start ()
-    {
-		
-	}
 	
-    private void togglecamera()
+    private void ToggleCamera()
     {
         
         if (camerastate == true)
@@ -37,8 +32,7 @@ public class CameraChange : MonoBehaviour
     {
 		if (Input.GetButtonDown("Jump") == true)
         {
-            
-            togglecamera();
+            ToggleCamera();
         }
 	}
 }

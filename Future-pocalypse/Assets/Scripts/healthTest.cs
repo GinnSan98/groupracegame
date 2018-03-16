@@ -62,7 +62,7 @@ public class healthTest : MonoBehaviour
     {
         if (transform.tag == "Player")
         {
-            if (GetComponent<CarDriving>().isdead == false)
+            if (GetComponent<CarDriving>().isDead == false)
             {
                 if (other.gameObject.CompareTag("smallDamage"))
                 {
@@ -116,8 +116,8 @@ public class healthTest : MonoBehaviour
     {
         if (health <= 0 && transform.tag == "Player")
         {
-            GetComponent<CarDriving>().candrive = false;
-            GetComponent<CarDriving>().isdead = true;
+            GetComponent<CarDriving>().canDrive = false;
+            GetComponent<CarDriving>().isDead = true;
         }
         else if (health <= 0 && transform.tag == "Enemy")
         {

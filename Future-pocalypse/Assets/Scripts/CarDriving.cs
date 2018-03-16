@@ -4,205 +4,231 @@ using UnityEngine;
 
 public class CarDriving : MonoBehaviour
 {
-    public bool candrive;
-    public bool isdead;
-    [SerializeField]
-    public Rigidbody rb;
-    [SerializeField]
-    private int accel;
-    [SerializeField]
-    public int topspeed;
-    [SerializeField]
-    private float turnspeed;
-
-    private float actualturnspeed;
-    [SerializeField]
-    private BoxCollider mybox;
+    public bool
+        canDrive,
+        isDead,
+        cameraControl,
+        isDrifting;
 
     [SerializeField]
-    private Camera mycam;
+    private bool
+        onFloor;
 
     [SerializeField]
-    private GameObject carMesh;
+    private int
+        accel,
+        topSpeed;
 
     [SerializeField]
-    private float carRotation;
+    private float
+        turnSpeed,
+        actualTurnSpeed,
+        carRotation,
+        driftClamp,
+        midAirPitch,
+        midAirYaw;
 
     [SerializeField]
-    private ParticleSystem[] sparks;
+    public Rigidbody
+        rb;
 
     [SerializeField]
-    private float driftClamp = 15f;
+    private BoxCollider
+        myBox;
 
-    public bool cameracontrol;
     [SerializeField]
-    private healthTest ht;
+    private Camera
+        myCam;
+
+    [SerializeField]
+    private GameObject
+        carMesh;
+
+    [SerializeField]
+    private ParticleSystem[]
+        sparks;
+
+    [SerializeField]
+    private healthTest
+        ht;
 
     //For Controlling Sound
     [SerializeField]
-    private AudioSource audioSource;
-
-    public bool isDrifting = false;
-
+    private AudioSource
+        audioSource;
 
     //public AudioClip soundCollision;
 
-    
+
     // Use this for initialization
-    void Start ()
+    void Start()
     {
-        
         audioSource = GetComponent<AudioSource>();
+        myBox = GetComponent<BoxCollider>();
+        myCam = GetComponentInChildren<Camera>();
 
         Application.targetFrameRate = 60;
-        rb.centerOfMass = -transform.up;	
-	}
-
-    public int returnmaxspeed()
-    {
-        return topspeed;
+        rb.centerOfMass = -transform.up;
     }
 
+    public int TopSpeed
+    {
+        get { return topSpeed; }
+    }
 
 
     // Update is called once per frame
     void Update()
     {
-        if (candrive)
+        if (canDrive)
         {
-            //Sound of the engine
-            EngineSound();
-
-            RaycastHit hit;
-            bool onfloor;
-
-            // Check if the car is grounded
-            if (Physics.Raycast(transform.position, -transform.up, out hit, (mybox.size.y / 2)*transform.localScale.magnitude))
-            {
-                onfloor = true;
-            }
-            else
-            {
-                onfloor = false;
-            }
-
-            // Check for player depth input, the car is movement, and the car is on the ground.
-            if (Input.GetAxis("Vertical") != 0 && onfloor == true)
-            {
-                // Add force to car
-                if (Input.GetAxis("Vertical") > 0 && rb.velocity.magnitude < topspeed / 2)
-                {
-                    rb.AddForce(transform.forward * (accel), ForceMode.Acceleration);
-
-
-                }
-                else if (Input.GetAxis("Vertical") < 0 && rb.velocity.magnitude > -topspeed/2)
-                {
-                    rb.AddForce(-transform.forward * (accel / 2), ForceMode.Acceleration);
-               
-
-                }
-
-
-            }
-
-            if (rb.velocity.magnitude != 0)
-            {
-                if (Input.GetAxis("Horizontal") != 0)
-                {
-
-
-
-                    actualturnspeed = (turnspeed * 1f);
-
-                    actualturnspeed = (turnspeed);
-
-                    if (Input.GetButton("Drift"))
-                    {
-                        actualturnspeed = (turnspeed * 1.5f);
-                        isDrifting = true;
-                        // Play particle system
-                        if (sparks[0].isPlaying == false)
-                        {
-                            sparks[0].Play();
-                            sparks[1].Play();
-                        }
-
-
-                        // Rotate mesh by the horizontal input
-                        carRotation += Input.GetAxis("Horizontal") * 1;
-
-                        carMesh.transform.localRotation = Quaternion.Euler(new Vector3(0, carRotation, 0));
-                    }
-                    else if (!Input.GetButton("Drift"))     //Make correction when player lets go of the drifting key
-                    {
-
-                        isDrifting = false;
-                        actualturnspeed = turnspeed;
-                        // Stop partical system
-                        if (sparks[0].isPlaying == true)
-                        {
-                            sparks[0].Stop();
-                            sparks[1].Stop();
-
-
-                        }
-
-
-
-                        // Make corection
-                        if (carRotation > 0)
-                        {
-                            carRotation--;
-                        }
-                        else if (carRotation < 0)
-                        {
-                            carRotation++;
-                        }
-
-
-                        // Roate mesh back
-                        carRotation = Mathf.RoundToInt(carRotation);
-                        carMesh.transform.localRotation = Quaternion.Euler(new Vector3(0, carRotation, 0));
-                    }
-
-                    carRotation = Mathf.Clamp(carRotation, -driftClamp, driftClamp);
-                }
-
-                float tempfloat = Mathf.Clamp((Input.GetAxis("Vertical") / (rb.velocity.magnitude)), 1, 10);
-                // Chanage the transfrom roation
-                transform.Rotate(transform.up, Input.GetAxis("Horizontal") * (actualturnspeed - tempfloat));
-            }
-           
-            mycam.fieldOfView = ((rb.velocity.magnitude/2) ) + 70;
-
-            if (mycam.fieldOfView >= 105)
-            {
-                mycam.fieldOfView = 105;
-            }
-            else if (mycam.fieldOfView < 70)
-            {
-                mycam.fieldOfView = 70;
-            }
+            EngineSound();         // Sound of the engine
+            FloorCheck();          // Check if car is on the ground
+            Acceleration();        // Acceleration and Deceleration with keyboard
+            Steering();            // Sterring left and right with keyboard. Includes power slide.
+            MidAirControl();
+            CameraMethod();        // Changes the camra FOV when accelerating
         }
         else
         {
-            if (isdead == true)
+            if (isDead == true)
             {
                 if (ht.addhealth() == true)
                 {
-                    isdead = false;
-                    candrive = true;
+                    isDead = false;
+                    canDrive = true;
                 }
             }
         }
     }
+
     //The faster you move, the higher the pitch
     void EngineSound()
     {
-        audioSource.pitch = rb.velocity.magnitude / topspeed + 1;
-        
+        audioSource.pitch = rb.velocity.magnitude / topSpeed + 1;
+
+    }
+
+    void FloorCheck()
+    {
+        RaycastHit hit;
+
+        // Check if the car is grounded
+        if (Physics.Raycast(transform.position, -transform.up, out hit, (myBox.size.y / 2) * transform.localScale.magnitude))
+        {
+            onFloor = true;
+        }
+        else
+        {
+            onFloor = false;
+        }
+    }
+
+    void Acceleration()
+    {
+        // Check for player depth input, the car is movement, and the car is on the ground.
+        if (Input.GetAxis("Vertical") != 0 && onFloor)
+        {
+            // Add force to car
+            if (Input.GetAxis("Vertical") > 0 && rb.velocity.magnitude < topSpeed / 2)
+            {
+                rb.AddForce(transform.forward * (accel), ForceMode.Acceleration);
+            }
+            else if (Input.GetAxis("Vertical") < 0 && rb.velocity.magnitude > -topSpeed / 2)
+            {
+                rb.AddForce(-transform.forward * (accel / 2), ForceMode.Acceleration);
+            }
+        }
+    }
+
+    void Steering()
+    {
+        if (rb.velocity.magnitude != 0 && onFloor)
+        {
+            if (Input.GetAxis("Horizontal") != 0)
+            {
+                actualTurnSpeed = (turnSpeed * 1f);
+
+                actualTurnSpeed = (turnSpeed);
+
+                if (Input.GetButton("Drift"))
+                {
+                    isDrifting = true;
+                    actualTurnSpeed = (turnSpeed * 1.5f);
+
+                    // Play particle system
+                    if (sparks[0].isPlaying == false)
+                    {
+                        sparks[0].Play();
+                        sparks[1].Play();
+                    }
+
+                    // Rotate mesh by the horizontal input
+                    carRotation = Input.GetAxis("Horizontal") * 1;
+
+                    carMesh.transform.localRotation = Quaternion.Euler(new Vector3(0, carRotation, 0));
+                }
+                else if (!Input.GetButton("Drift"))     //Make correction when player lets go of the drifting key
+                {
+                    isDrifting = false;
+                    actualTurnSpeed = turnSpeed;
+
+                    // Stop partical system
+                    if (sparks[0].isPlaying)
+                    {
+                        sparks[0].Stop();
+                        sparks[1].Stop();
+                    }
+
+                    // Make corection
+                    if (carRotation > 0)
+                    {
+                        carRotation--;
+                    }
+                    else if (carRotation < 0)
+                    {
+                        carRotation++;
+                    }
+
+                    // Roate mesh back
+                    carRotation = Mathf.RoundToInt(carRotation);
+                    carMesh.transform.localRotation = Quaternion.Euler(new Vector3(0, carRotation, 0));
+                }
+
+                carRotation = Mathf.Clamp(carRotation, -driftClamp, driftClamp);
+            }
+
+            float tempfloat = Mathf.Clamp((Input.GetAxis("Vertical") / (rb.velocity.magnitude)), 1, 10);
+            // Chanage the transfrom roation
+            transform.Rotate(transform.up, Input.GetAxis("Horizontal") * (actualTurnSpeed - tempfloat));
+        }
+    }
+
+    void MidAirControl()
+    {
+        if (!onFloor)
+        {
+            if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
+            {
+                rb.AddTorque(transform.up * Input.GetAxis("Horizontal") * midAirYaw);
+                rb.AddTorque(transform.right * Input.GetAxis("Vertical") * midAirPitch);
+            }
+        }
+
+
+    }
+
+    void CameraMethod()
+    {
+        myCam.fieldOfView = ((rb.velocity.magnitude / 2)) + 70;
+
+        if (myCam.fieldOfView >= 105)
+        {
+            myCam.fieldOfView = 105;
+        }
+        else if (myCam.fieldOfView < 70)
+        {
+            myCam.fieldOfView = 70;
+        }
     }
 }
-    
-
