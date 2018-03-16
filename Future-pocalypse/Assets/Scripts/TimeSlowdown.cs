@@ -39,7 +39,7 @@ public class TimeSlowdown : MonoBehaviour
     {
         if(other.transform.tag == "Ramp")
         {
-            Missledash(1f);
+            Missledash(1f,other.transform);
         }
     }
 
@@ -50,9 +50,9 @@ public class TimeSlowdown : MonoBehaviour
         currentcharge = 10;
     }
 
-    public void Missledash(float Bonus)
+    public void Missledash(float Bonus,Transform rotate)
     {
-        GetComponent<Rigidbody>().AddForce(transform.forward * 100 * Bonus, ForceMode.VelocityChange);
+        GetComponent<Rigidbody>().AddForce(rotate.forward * 100 * Bonus, ForceMode.VelocityChange);
         Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
     }
 
@@ -130,7 +130,7 @@ public class TimeSlowdown : MonoBehaviour
                     {
                         healthTest tempenemey = hit.transform.GetComponent<healthTest>();
                         tempenemey.takedamage(3);
-                        showenemyhealth(enemyhealth);
+                        showenemyhealth(tempenemey);
                         machinegun.transform.LookAt(hit.transform);
                     }
                     else

@@ -39,7 +39,7 @@ public class PlayerGUI : MonoBehaviour {
     void SetSpeedometer()
     {
         float vel = rb.velocity.magnitude;
-        float ang = Mathf.Lerp(minSPDOMAngle, maxSPDOMAngle, Mathf.InverseLerp(0.0f, maxSPDOM, vel));
+        float ang = Mathf.Lerp(minSPDOMAngle, maxSPDOMAngle, Mathf.InverseLerp(0.0f, maxSPDOM, vel/10));
         SPDOMneedle.transform.eulerAngles = new Vector3(0, 0, ang);
     }
 

@@ -16,8 +16,8 @@ public class CarDriving : MonoBehaviour
 
     [SerializeField]
     private int
-        accel,
-        topSpeed;
+        accel;
+
 
     [SerializeField]
     private float
@@ -26,7 +26,8 @@ public class CarDriving : MonoBehaviour
         carRotation,
         driftClamp,
         midAirPitch,
-        midAirYaw;
+        midAirYaw,
+        topSpeed;
 
     [SerializeField]
     public Rigidbody
@@ -73,7 +74,7 @@ public class CarDriving : MonoBehaviour
 
     public int TopSpeed
     {
-        get { return topSpeed; }
+        get { return (int)topSpeed; }
     }
 
 
@@ -126,6 +127,8 @@ public class CarDriving : MonoBehaviour
 
     void Acceleration()
     {
+
+
         // Check for player depth input, the car is movement, and the car is on the ground.
         if (Input.GetAxis("Vertical") != 0 && onFloor)
         {
@@ -145,11 +148,21 @@ public class CarDriving : MonoBehaviour
     {
         if (rb.velocity.magnitude != 0 && onFloor)
         {
+            if (Input.GetButtonDown("Drift"))
+            {
+                topSpeed *= 0.8f;
+            }
+            else if (Input.GetButtonUp("Drift"))
+            {
+                topSpeed *= 1.25f;
+            }
+
             if (Input.GetAxis("Horizontal") != 0)
             {
                 actualTurnSpeed = (turnSpeed * 1f);
 
                 actualTurnSpeed = (turnSpeed);
+
 
                 if (Input.GetButton("Drift"))
                 {
@@ -211,7 +224,7 @@ public class CarDriving : MonoBehaviour
             if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
             {
                 rb.AddTorque(transform.up * Input.GetAxis("Horizontal") * midAirYaw);
-                rb.AddTorque(transform.right * Input.GetAxis("Vertical") * midAirPitch);
+            //    rb.AddTorque(transform.right * Input.GetAxis("Vertical") * midAirPitch);
             }
         }
 

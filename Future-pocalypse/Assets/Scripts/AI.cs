@@ -48,7 +48,7 @@ public class AI : MonoBehaviour
     {
 
         
-        difficulty = Random.Range(10, 60);
+        difficulty = Random.Range(50, 100);
         vehicleWidth = bc.size.x;
 
         rb.centerOfMass = -transform.up;
@@ -60,7 +60,7 @@ public class AI : MonoBehaviour
     private void dodgeShit(float direction)
     {
         
-        rb.MoveRotation(Quaternion.Euler(0, direction * vehicleWidth, 0) * transform.rotation);
+        rb.MoveRotation(Quaternion.Euler(0, direction * (vehicleWidth/2), 0) * transform.rotation);
         avoid = hit.normal * vehicleWidth;
 
 
@@ -98,7 +98,7 @@ public class AI : MonoBehaviour
 
 
 
-            rayLength = rb.velocity.magnitude * judgementCoeffient;
+            rayLength = (rb.velocity.magnitude/5) * judgementCoeffient;
 
             if (onfloor == true)
             {
@@ -111,39 +111,39 @@ public class AI : MonoBehaviour
                         if (hit.transform.tag == "Environment")
                         {
 
-                            dodgeShit(-20f / ((hit.distance) + 1f));
+                            dodgeShit((-25f / (hit.distance)) + 1f);
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
 
-                            dodgeShit(3f / ((hit.distance / 2) + 1f));
+                           // dodgeShit(3f / ((hit.distance * 2) + 1f));
                         }
                         else if (hit.transform.tag == "Player")
                         {
 
-                            dodgeShit(-1f / ((hit.distance / 4) + 1f));
+                            dodgeShit(-1f / ((hit.distance * 8) + 1f));
                         }
                    
 
                     }
 
                     //Right wall forward twice.
-                    if (Physics.Raycast(transform.position, (transform.right + (transform.forward * 8)), out hit, rayLength / 5) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
+                    if (Physics.Raycast(transform.position, (transform.right + (transform.forward * 4)), out hit, rayLength / 5) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
                     {
                         if (hit.transform.tag == "Enemy")
                         {
 
-                            dodgeShit(-1f);
+                           dodgeShit(-1f / (hit.distance));
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
 
-                            dodgeShit(3f / ((hit.distance / 2) + 1f));
+                           // dodgeShit(3f / ((hit.distance * 2) + 1f));
                         }
                         else if (hit.transform.tag == "Player")
                         {
 
-                            dodgeShit(-1f / ((hit.distance / 4) + 1f));
+                            dodgeShit(-10f / ((hit.distance * 8) + 1f));
                         }
                         //else
                         {
@@ -159,37 +159,36 @@ public class AI : MonoBehaviour
                         if (hit.transform.tag == "Environment")
                         {
 
-                            dodgeShit(20f / ((hit.distance) + 1f));
+                            dodgeShit((25f / (hit.distance)) + 1f);
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
 
-                            dodgeShit(-3f / ((hit.distance / 2) + 1f));
+                         //   dodgeShit(-3f / ((hit.distance * 2) + 1f));
                         }
                         else if (hit.transform.tag == "Player")
                         {
 
-                            dodgeShit(1f / ((hit.distance / 4) + 1f));
+                            dodgeShit(1f / ((hit.distance * 8) + 1f));
                         }
 
                     }
 
-                    if (Physics.Raycast(transform.position, (-transform.right + (transform.forward * 8)), out hit, rayLength / 10) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
+                    if (Physics.Raycast(transform.position, (-transform.right + (transform.forward * 4)), out hit, rayLength / 10) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
                     {
                         if (hit.transform.tag == "Enemy")
                         {
-
-                            dodgeShit(1f);
+                            dodgeShit(1f / (hit.distance));
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
 
-                            dodgeShit(-3f / ((hit.distance / 2) + 1f));
+                           // dodgeShit(-3f / ((hit.distance * 2) + 1f));
                         }
                         else if (hit.transform.tag == "Player")
                         {
 
-                            dodgeShit(1f / ((hit.distance / 4) + 1f));
+                            dodgeShit(1f / ((hit.distance * 8) + 1f));
                         }
                      //   else
                         {
@@ -205,8 +204,8 @@ public class AI : MonoBehaviour
                     {
                        // position = 1;
                         position = rs.returnposition(lcp);
-                        rb.AddForce(transform.forward * (vehicleSpeed + (position * 5 )), ForceMode.Acceleration);
-                        rb.velocity = Vector3.ClampMagnitude(rb.velocity, (maxspeed/2) + (difficulty + (position * 20)));
+                        rb.AddForce(transform.forward * (vehicleSpeed + (position * 3 )), ForceMode.Acceleration);
+                        rb.velocity = Vector3.ClampMagnitude(rb.velocity, (maxspeed/2) + (difficulty + (position * 15)));
                         
                     }
                 }
