@@ -4,59 +4,40 @@ using UnityEngine;
 
 public class CarDriving : MonoBehaviour
 {
-    public bool
-        canDrive,
-        isDead,
-        cameraControl,
-        isDrifting;
+    public bool canDrive, isDead, cameraControl, isDrifting;
 
     [SerializeField]
-    private bool
-        onFloor;
+    private bool onFloor;
 
     [SerializeField]
-    private int
-        accel;
+    private int accel;
 
 
     [SerializeField]
-    private float
-        turnSpeed,
-        actualTurnSpeed,
-        carRotation,
-        driftClamp,
-        midAirPitch,
-        midAirYaw,
-        topSpeed;
+    private float turnSpeed, actualTurnSpeed, carRotation, driftClamp, midAirPitch, midAirYaw, topSpeed;
 
     [SerializeField]
-    public Rigidbody
-        rb;
+    public Rigidbody rb;
 
     [SerializeField]
-    private BoxCollider
-        myBox;
+    private BoxCollider myBox;
 
     [SerializeField]
-    private Camera
-        myCam;
+    private Camera myCam;
 
     [SerializeField]
-    private GameObject
-        carMesh;
+    private GameObject carMesh;
 
     [SerializeField]
-    private ParticleSystem[]
-        sparks;
+    private ParticleSystem[] sparks;
 
     [SerializeField]
-    private healthTest
-        ht;
+    private healthTest ht;
 
     //For Controlling Sound
     [SerializeField]
-    private AudioSource
-        audioSource;
+    private AudioSource audioSource;
+    
 
     //public AudioClip soundCollision;
 
@@ -65,6 +46,9 @@ public class CarDriving : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        
+
+
         myBox = GetComponent<BoxCollider>();
         myCam = GetComponentInChildren<Camera>();
 
@@ -83,6 +67,7 @@ public class CarDriving : MonoBehaviour
     {
         if (canDrive)
         {
+           
             EngineSound();         // Sound of the engine
             FloorCheck();          // Check if car is on the ground
             Acceleration();        // Acceleration and Deceleration with keyboard
@@ -92,12 +77,14 @@ public class CarDriving : MonoBehaviour
         }
         else
         {
+            
             if (isDead == true)
             {
                 if (ht.addhealth() == true)
                 {
                     isDead = false;
                     canDrive = true;
+                    
                 }
             }
         }
@@ -107,6 +94,15 @@ public class CarDriving : MonoBehaviour
     void EngineSound()
     {
         audioSource.pitch = rb.velocity.magnitude / topSpeed + 1;
+        audioSource.volume = 0.200f - (rb.velocity.magnitude / topSpeed)/5;
+        if(audioSource.volume > 0.200f)
+        {
+            audioSource.volume = 0.200f;
+        }
+        else if(audioSource.volume < 0.100f)
+        {
+            audioSource.volume = 0.100f;
+        }
 
     }
 
