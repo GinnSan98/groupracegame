@@ -95,13 +95,13 @@ public class CarDriving : MonoBehaviour
     {
         audioSource.pitch = rb.velocity.magnitude / topSpeed + 1;
         audioSource.volume = 0.200f - (rb.velocity.magnitude / topSpeed)/5;
-        if(audioSource.volume > 0.200f)
+        if(audioSource.volume > 0.180f)
         {
-            audioSource.volume = 0.200f;
+            audioSource.volume = 0.180f;
         }
-        else if(audioSource.volume < 0.100f)
+        else if(audioSource.volume < 0.120f)
         {
-            audioSource.volume = 0.100f;
+            audioSource.volume = 0.120f;
         }
 
     }

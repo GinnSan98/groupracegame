@@ -44,7 +44,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 1
-  controlID: 65
+  controlID: 53
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 66
+  controlID: 54
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 81
+  controlID: 55
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 82
+  controlID: 56
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -386,9 +386,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 680
-    width: 1359
-    height: 338
+    y: 546
+    width: 1086
+    height: 256
   m_PersistentViewDataDictionary: {fileID: 0}
 --- !u!114 &15
 MonoBehaviour:
@@ -496,9 +496,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 56520000
-    m_LastClickedID: 21078
-    m_ExpandedIDs: caceffff00000000
+    m_SelectedIDs: 3ae5ffff
+    m_LastClickedID: -6854
+    m_ExpandedIDs: 9efbffff000000000a3d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -576,14 +576,14 @@ MonoBehaviour:
     height: 433
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 1943.2404508526422
+  lastFramingTime: 2970.150196449397
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 5506.1904, y: 42.937916, z: 16169.517}
+    m_Target: {x: 5510.164, y: 45.388428, z: 16207.377}
     speed: 2
-    m_Value: {x: 5506.1904, y: 42.937916, z: 16169.517}
+    m_Value: {x: 5510.164, y: 45.388428, z: 16207.377}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -607,13 +607,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.118215814, y: -0.606914, z: 0.09191706, w: -0.78054476}
+    m_Target: {x: 0.12627849, y: 0.34850013, z: -0.047443926, w: 0.9275508}
     speed: 2
-    m_Value: {x: 0.118215814, y: 0.606914, z: -0.09191706, w: 0.78054476}
+    m_Value: {x: 0.12627849, y: 0.34850013, z: -0.047443926, w: 0.9275508}
   m_Size:
-    m_Target: 530.04315
+    m_Target: 37.929054
     speed: 2
-    m_Value: 530.04315
+    m_Value: 37.929054
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -664,19 +664,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Sounds
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 71
   m_LastFolders:
-  - Assets/Sounds
+  - Assets/Scripts
   m_LastFoldersGridSize: 71
   m_LastProjectPath: C:\Users\anton\Documents\GitHub\Future-pocalypse
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 385}
-    m_SelectedIDs: b64b0000
-    m_LastClickedID: 19382
-    m_ExpandedIDs: 0000000044440000884500008c450000404700006c47000070470000b2470000444800004c4800005a480000784a00008e4b0000924b00009a4c0000064d0000084d00009a6b00009c6b00009e6b0000a06b000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 340}
+    m_SelectedIDs: 622e0000
+    m_LastClickedID: 11874
+    m_ExpandedIDs: 00000000ac2900005a2b0000622b0000d22d0000562e0000622e0000d22e0000782f00008e2f0000b62f0000e43100001233000018330000e63400002e36000030360000ae590000b0590000b2590000b459000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -704,7 +704,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000044440000884500008c450000404700006c47000070470000b2470000444800004c4800005a480000784a00008e4b0000924b00009a4c0000064d0000084d00009a6b00009c6b00009e6b0000a06b0000
+    m_ExpandedIDs: 00000000ac2900005a2b0000622b0000d22d0000562e0000622e0000d22e0000782f00008e2f0000b62f0000e43100001233000018330000e63400002e36000030360000ae590000b0590000b2590000b4590000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -821,7 +821,7 @@ MonoBehaviour:
     width: 446
     height: 710
   m_PersistentViewDataDictionary: {fileID: 0}
-  m_ScrollPosition: {x: 0, y: 1323.9551}
+  m_ScrollPosition: {x: 0, y: 0}
   m_InspectorMode: 0
   m_PreviewResizer:
     m_CachedPref: 160

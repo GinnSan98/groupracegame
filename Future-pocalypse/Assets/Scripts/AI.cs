@@ -57,10 +57,10 @@ public class AI : MonoBehaviour
         Vector3 avoid = Vector3.zero;
         
     }
-    private void dodgeShit(float direction)
+    private void dodgeShit(float  direction)
     {
         
-        rb.MoveRotation(Quaternion.Euler(0, direction * (vehicleWidth/2), 0) * transform.rotation);
+        rb.MoveRotation(Quaternion.Euler(0, Mathf.Clamp(direction,-20,20) * (vehicleWidth/2), 0) * transform.rotation);
         avoid = hit.normal * vehicleWidth;
 
 
