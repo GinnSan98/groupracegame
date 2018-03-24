@@ -37,7 +37,7 @@ public class Checkpoint : MonoBehaviour
             {
                 if(other.GetComponent<Lapcheckpoint>().checkLapProgress() == true)
                 {
-                    if (checkpointnum == GameObject.FindObjectsOfType<Checkpoint>().Length - 1)
+                    if (trapSpawns.Capacity > 0)
                     {
 
                         int randomTrap = Random.Range(0, 3);
@@ -45,7 +45,7 @@ public class Checkpoint : MonoBehaviour
                         GameObject newTrap = Instantiate(trapsToSpawn[randomTrap], trapSpawns[randomLocation].transform.position, trapSpawns[randomLocation].transform.localRotation);
                         trapSpawns.Remove(trapSpawns[randomLocation]);
                         cooldown = true;
-                        cooldownTime = 30;
+                        cooldownTime = 5;
                     }
                 }            
 
