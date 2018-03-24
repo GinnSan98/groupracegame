@@ -10,7 +10,7 @@ public class CameraChange : MonoBehaviour
     private Transform firstperson;
     [SerializeField]
     private Transform thirdperson;
-    private bool camerastate = false;
+    private bool camerastate = true;
 	
     private void ToggleCamera()
     {

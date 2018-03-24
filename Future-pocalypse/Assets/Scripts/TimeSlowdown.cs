@@ -103,7 +103,6 @@ public class TimeSlowdown : MonoBehaviour
 
         if (target != null)
         {
-            print(target.name);
            
             RaycastHit hit;
             machinegun.transform.LookAt(target);
@@ -125,19 +124,22 @@ public class TimeSlowdown : MonoBehaviour
                         enemyhealth.takedamage(7);
                         showenemyhealth(enemyhealth);
                         machinegun.transform.LookAt(hit.transform);
+                        currentcharge -= 1;
                     }
                     else if (hit.transform.tag == "Enemy" && hit.transform != target)
                     {
                         healthTest tempenemey = hit.transform.GetComponent<healthTest>();
-                        tempenemey.takedamage(3);
+                        tempenemey.takedamage(2);
                         showenemyhealth(tempenemey);
                         machinegun.transform.LookAt(hit.transform);
+                        currentcharge -= 1;
                     }
                     else
                     {
+
                         //Miss
                     }
-                    currentcharge -= 1;
+                    
                 }
                 else
                 {
@@ -147,6 +149,7 @@ public class TimeSlowdown : MonoBehaviour
             }
             enemyHealthbar.SetActive(false);
             machinegun.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            canturnon = false;
             soundGun.Stop();
 
         }
@@ -199,7 +202,6 @@ public class TimeSlowdown : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.L) == true)
             {
                 machinegunfire();
-                currentcharge = 0;
                 canturnon = false;
             }
         }
