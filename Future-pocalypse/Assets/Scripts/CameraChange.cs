@@ -14,7 +14,6 @@ public class CameraChange : MonoBehaviour
 	
     private void ToggleCamera()
     {
-        
         if (camerastate == true)
         {
             mycam.transform.position = thirdperson.position;
@@ -24,6 +23,20 @@ public class CameraChange : MonoBehaviour
         {
             mycam.transform.position = firstperson.position;
             camerastate = true;
+        }
+    }
+
+    public void Lerping(float velocity)
+    {
+        if (camerastate == true)
+        {
+            mycam.transform.position = Vector3.Lerp(thirdperson.position, thirdperson.position+thirdperson.forward*5,velocity);
+            
+        }
+        else
+        {
+            mycam.transform.position = Vector3.Lerp(firstperson.position, firstperson.position+ firstperson.forward*5, velocity);
+          
         }
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CarDriving : MonoBehaviour
 {
-    public bool canDrive, isDead, cameraControl, isDrifting;
+    public bool canDrive, isDead, cameraControl, isDrifting,firstorthird;
 
     [SerializeField]
     private bool onFloor;
@@ -37,6 +37,10 @@ public class CarDriving : MonoBehaviour
     //For Controlling Sound
     [SerializeField]
     private AudioSource audioSource;
+    [SerializeField]
+    private CameraChange camchange;
+
+   
     
 
     //public AudioClip soundCollision;
@@ -239,5 +243,6 @@ public class CarDriving : MonoBehaviour
         {
             myCam.fieldOfView = 70;
         }
+        camchange.Lerping(rb.velocity.magnitude/(topSpeed/2));
     }
 }
