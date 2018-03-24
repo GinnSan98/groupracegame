@@ -98,7 +98,7 @@ public class TimeSlowdown : MonoBehaviour
         canturnon = false;
         Lapcheckpoint me = GetComponent<Lapcheckpoint>();
    
-        Transform temptransform = rs.returnplayerahead(me);
+        Transform temptransform = rs.Returnplayerahead(me);
         target = temptransform;
 
         if (target != null)

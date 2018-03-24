@@ -29,14 +29,14 @@ public class RaceSystem : MonoBehaviour
     void Start()
     {
         // StartCoroutine(waitforstart(5));
-        racerposition();
+        Racerposition();
 
     }
 
-    public void waitstart(int timetowait)
+    public void Waitstart(int timetowait)
     {
-        StartCoroutine(waitforstart(timetowait));
-        StartCoroutine(countdown(timetowait));
+        StartCoroutine(Waitforstart(timetowait));
+        StartCoroutine(Countdown(timetowait));
         GetComponent<Camera>().enabled = false;
         GetComponent<AudioListener>().enabled = false;
         playercam.enabled = true;
@@ -45,7 +45,7 @@ public class RaceSystem : MonoBehaviour
         racegui.SetActive(true);
     }
 
-    private IEnumerator countdown(int time)
+    private IEnumerator Countdown(int time)
     {
         countdowntext.gameObject.SetActive(true);
         for (int i = 0; i < time; i++)
@@ -58,7 +58,7 @@ public class RaceSystem : MonoBehaviour
         yield return 0;
     }
 
-    private IEnumerator waitforstart(int timetowait)
+    private IEnumerator Waitforstart(int timetowait)
     {
         yield return new WaitForSeconds(timetowait);
         for (int i = 0; i < racersorgo.Capacity; i++)
@@ -73,12 +73,12 @@ public class RaceSystem : MonoBehaviour
                 racersorgo[i].GetComponent<TimeSlowdown>().enabled = true;
             }
         }
-        InvokeRepeating("racerposition", 0, 0.5f);
+        InvokeRepeating("Racerposition", 0, 0.5f);
 
         yield return 0;
     }
 
-    public Transform returnplayerahead(Lapcheckpoint me)
+    public Transform Returnplayerahead(Lapcheckpoint me)
     {
         if (me != racers[0])
         {
@@ -93,11 +93,12 @@ public class RaceSystem : MonoBehaviour
     }
 
 
-    public int returnposition(Lapcheckpoint me)
+    public int Returnposition(Lapcheckpoint me)
     {
         return racers.IndexOf(me);
     }
-    private IEnumerator checkingpositions()
+
+    private IEnumerator Checkingpositions()
     {
 
 
@@ -112,15 +113,23 @@ public class RaceSystem : MonoBehaviour
         yield return 0;
     }
 
+    public int BetweenPlayers(Lapcheckpoint me, Lapcheckpoint other)
+    {
+        int total = Returnposition(me) - Returnposition(other);
+        //5 last - 0 first = 5 bonus
+        //0 - 5 = -5
+        return total * 5;
+    }
+
     void Update()
     {
 
     }
 
-    private void racerposition()
+    private void Racerposition()
     {
         racers = racersorgo.OrderByDescending(go => go.totalracevalue).ToList();
-        StartCoroutine(checkingpositions());
+        StartCoroutine(Checkingpositions());
 
     }
 }

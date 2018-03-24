@@ -107,7 +107,7 @@ public class Lapcheckpoint : MonoBehaviour {
     void showendscreen()
     {
         endscreen.SetActive(true);
-        endtext.text = "You finished! " + System.Environment.NewLine + rs.returnposition(this) + "place";
+        endtext.text = "You finished! " + System.Environment.NewLine + rs.Returnposition(this) + "place";
         if(GetComponent<CarDriving>() == true)
         {
             GetComponent<CarDriving>().canDrive = false;

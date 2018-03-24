@@ -43,35 +43,46 @@ public class AI : MonoBehaviour
 
 
 
+    private IEnumerator Recorrect()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.1f);
+            GameObject nextcp = GameObject.Find("Checkpoint " + lcp.Checkpoint);
+
+            if (Vector3.Dot(transform.position,nextcp.transform.position) < 0)
+            {
+                yield return new WaitForSeconds(0.1f);
+                transform.LookAt(nextcp.transform);
+            }
+        }
+    }
 
     void Start()
     {
-
-        
-        difficulty = Random.Range(50, 100);
+        difficulty = Random.Range(20, 60);
         vehicleWidth = bc.size.x;
 
         rb.centerOfMass = -transform.up;
         Vector3 left = transform.TransformPoint(0, 0, offset);
         Vector3 right = transform.TransformPoint(0, 0, -offset);
         Vector3 avoid = Vector3.zero;
+
+        StartCoroutine(Recorrect());
         
     }
-    private void dodgeShit(float  direction)
+    private void DodgeShit(float  direction)
     {
-        
-        rb.MoveRotation(Quaternion.Euler(0, Mathf.Clamp(direction,-20,20) * (vehicleWidth/2), 0) * transform.rotation);
+        rb.MoveRotation(Quaternion.Euler(0, Mathf.Clamp(direction,-30 - judgementCoeffient,30 + judgementCoeffient) * (vehicleWidth), 0) * transform.rotation);
         avoid = hit.normal * vehicleWidth;
-
-
     }
 
     void OnTriggerEnter(Collider other)
     {
         GameObject nextcp = GameObject.Find("Checkpoint " + lcp.Checkpoint);
+        
         if (other.tag == "Checkpoint")
-        {
-            
+        { 
             transform.LookAt(nextcp.transform, Vector3.up);
         }
         else if (other.tag == "Correction")
@@ -111,7 +122,7 @@ public class AI : MonoBehaviour
                         if (hit.transform.tag == "Environment")
                         {
 
-                            dodgeShit((-25f / (hit.distance)) + 1f);
+                            DodgeShit((-35f / (hit.distance)) + 1f);
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
@@ -121,7 +132,7 @@ public class AI : MonoBehaviour
                         else if (hit.transform.tag == "Player")
                         {
 
-                            dodgeShit(-1f / ((hit.distance * 8) + 1f));
+                            DodgeShit(-3f / ((hit.distance * 8) + 1f));
                         }
                    
 
@@ -133,7 +144,7 @@ public class AI : MonoBehaviour
                         if (hit.transform.tag == "Enemy")
                         {
 
-                           dodgeShit(-1f / (hit.distance));
+                           DodgeShit(5f / (hit.distance));
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
@@ -143,12 +154,12 @@ public class AI : MonoBehaviour
                         else if (hit.transform.tag == "Player")
                         {
 
-                            dodgeShit(-10f / ((hit.distance * 8) + 1f));
+                            DodgeShit(-10f / ((hit.distance * 8) + 1f));
                         }
                         //else
                         {
 
-                            dodgeShit(-32f / ((hit.distance/2) + 1f));
+                            DodgeShit(-32f / ((hit.distance/2) + 1f));
                         }
 
                     }
@@ -159,7 +170,7 @@ public class AI : MonoBehaviour
                         if (hit.transform.tag == "Environment")
                         {
 
-                            dodgeShit((25f / (hit.distance)) + 1f);
+                            DodgeShit((35f / (hit.distance)) + 1f);
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
@@ -169,7 +180,7 @@ public class AI : MonoBehaviour
                         else if (hit.transform.tag == "Player")
                         {
 
-                            dodgeShit(1f / ((hit.distance * 8) + 1f));
+                            DodgeShit(3f / ((hit.distance * 8) + 1f));
                         }
 
                     }
@@ -178,7 +189,7 @@ public class AI : MonoBehaviour
                     {
                         if (hit.transform.tag == "Enemy")
                         {
-                            dodgeShit(1f / (hit.distance));
+                            DodgeShit(-5f / (hit.distance));
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
@@ -188,12 +199,12 @@ public class AI : MonoBehaviour
                         else if (hit.transform.tag == "Player")
                         {
 
-                            dodgeShit(1f / ((hit.distance * 8) + 1f));
+                            DodgeShit(3f / ((hit.distance * 8) + 1f));
                         }
                      //   else
                         {
 
-                            dodgeShit(32f / ((hit.distance/2) + 1f));
+                            DodgeShit(32f / ((hit.distance/2) + 1f));
                         }
 
                     }
@@ -202,10 +213,10 @@ public class AI : MonoBehaviour
                     //rb.MovePosition(transform.position + transform.forward * vehicleSpeed * Time.deltaTime);
                     if (onfloor == true)
                     {
-                       // position = 1;
-                        position = rs.returnposition(lcp);
-                        rb.AddForce(transform.forward * (vehicleSpeed + (position * 3 )), ForceMode.Acceleration);
-                        rb.velocity = Vector3.ClampMagnitude(rb.velocity, (maxspeed/2) + (difficulty + (position * 15)));
+                        // position = 1;
+                        position = rs.BetweenPlayers(lcp,GameObject.FindGameObjectWithTag("Player").GetComponent<Lapcheckpoint>());
+                        rb.AddForce(transform.forward * (vehicleSpeed + (position)), ForceMode.Acceleration);
+                        rb.velocity = Vector3.ClampMagnitude(rb.velocity, (maxspeed/2) + (difficulty + (position))/4);
                         
                     }
                 }
