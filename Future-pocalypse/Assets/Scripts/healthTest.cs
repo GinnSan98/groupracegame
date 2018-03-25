@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class healthTest : MonoBehaviour
 { 
-    [SerializeField]
-    private int health;
+    
+    public int health;
     [SerializeField]
     private int maxHealth;
     // Use this for initialization
