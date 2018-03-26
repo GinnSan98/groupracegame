@@ -73,7 +73,7 @@ public class AI : MonoBehaviour
     }
     private void DodgeShit(float  direction)
     {
-        rb.MoveRotation(Quaternion.Euler(0, Mathf.Clamp(direction,-30 - judgementCoeffient,30 + judgementCoeffient) * (vehicleWidth), 0) * transform.rotation);
+        rb.MoveRotation(Quaternion.Euler(0, Mathf.Clamp(direction,-10 - judgementCoeffient,10 + judgementCoeffient) * (vehicleWidth), 0) * transform.rotation);
         avoid = hit.normal * vehicleWidth;
     }
 

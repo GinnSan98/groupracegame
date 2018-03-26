@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using weapons;
 
 public class TimeSlowdown : MonoBehaviour
 {
@@ -26,25 +27,95 @@ public class TimeSlowdown : MonoBehaviour
     [SerializeField]
     private GameObject machinegun;
 
+
+    [SerializeField]
+    private PlayerWeapons.Weapontypes[] myweapons = new PlayerWeapons.Weapontypes[3];
+
+
     //For Shielding
     public healthTest hpTest;
     public int shieldHp;
     public bool isShielding;
+
     private void Start()
     {
         hpTest = GetComponent<healthTest>();
         shieldHp = hpTest.health;
+
+        PlayerWeapons.Weapontypes[] temp = new PlayerWeapons.Weapontypes[3];
+        temp[0] = PlayerWeapons.Weapontypes.TimeSlow;
+        temp[1] = PlayerWeapons.Weapontypes.Machinegunfire;
+        temp[2] = PlayerWeapons.Weapontypes.Missiledash;
+        SettingWeapons(temp);
+
     }
+
+    public void SettingWeapons(PlayerWeapons.Weapontypes[] newweapons)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            myweapons[i] = newweapons[i];
+        }
+    }
+
+    private void Newcontrols()
+    {
+        if (Input.GetKeyDown(KeyCode.J) == true)
+        {
+            Invoke(myweapons[0].ToString(), 0);
+            if (myweapons[1].ToString() == "Machinegunfure")
+            {
+                currentcharge -= 1;
+                canturnon = false;
+            }
+            else
+            {
+                currentcharge = 0;
+            }
+            canturnon = false;
+            //Boost
+        }
+        else if (Input.GetKeyDown(KeyCode.K) == true)
+        {
+            Invoke(myweapons[1].ToString(), 0);
+            if (myweapons[1].ToString() == "Machinegunfire")
+            {
+                currentcharge -= 1;
+                canturnon = false;
+            }
+            else
+            {
+                currentcharge = 0;
+            }
+
+            canturnon = false;
+        }
+        else if (Input.GetKeyDown(KeyCode.L) == true)
+        {
+            Invoke(myweapons[2].ToString(), 0);
+            if (myweapons[1].ToString() == "Machinegunfire")
+            {
+                currentcharge -= 1;
+                canturnon = false;
+            }
+            else
+            {
+                currentcharge = 0;
+            }
+            canturnon = false;
+        }
+    }
+
     public void Missile()
     {
         currentcharge = 0;
-        cancelpower();
+        Cancelpower();
     }
     private void OnTriggerEnter(Collider other)
     {
         if(other.transform.tag == "Ramp")
         {
-            Missiledash(1f,other.transform);
+          //  Missiledash(1f,other.transform);
         }
     }
 
@@ -61,7 +132,7 @@ public class TimeSlowdown : MonoBehaviour
         Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
     }
 
-    private IEnumerator timeslowon(bool activate, float time)
+    private IEnumerator Timeslow(bool activate, float time)
     {
         
         switch (activate)
@@ -70,7 +141,7 @@ public class TimeSlowdown : MonoBehaviour
                 {
                     Time.timeScale = 0.15f;
                     Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
-                    StartCoroutine(timeslowon(true, 2));
+                    StartCoroutine(Timeslow(true, 2));
                     break;
                 }
             case (true):
@@ -86,18 +157,18 @@ public class TimeSlowdown : MonoBehaviour
         yield return 0;
     }
 
-    private void showenemyhealth(healthTest enemy)
+    private void Showenemyhealth(healthTest enemy)
     {
         enemyHealthbar.GetComponent<Image>().fillAmount = enemy.Returnhealth() / enemy.ReturnMaxhealth();
     }
 
-    public void machinegunfire()
+    public void Machinegunfire()
     {
         
-        StartCoroutine(actualfire());
+        StartCoroutine(Actualfire());
     }
 
-    public IEnumerator actualfire()
+    public IEnumerator Actualfire()
     {
         tickdown = false;
         canturnon = false;
@@ -127,17 +198,17 @@ public class TimeSlowdown : MonoBehaviour
                     if (hit.transform.tag == "Enemy" && hit.transform == target)
                     {
                         enemyhealth.takedamage(7);
-                        showenemyhealth(enemyhealth);
+                        Showenemyhealth(enemyhealth);
                         machinegun.transform.LookAt(hit.transform);
-                        currentcharge -= 1;
+                        currentcharge -= 2;
                     }
                     else if (hit.transform.tag == "Enemy" && hit.transform != target)
                     {
                         healthTest tempenemey = hit.transform.GetComponent<healthTest>();
                         tempenemey.takedamage(2);
-                        showenemyhealth(tempenemey);
+                        Showenemyhealth(tempenemey);
                         machinegun.transform.LookAt(hit.transform);
-                        currentcharge -= 1;
+                        currentcharge -= 2;
                     }
                     else
                     {
@@ -160,15 +231,15 @@ public class TimeSlowdown : MonoBehaviour
         }
         else
         {
-            cancelpower();
+            Cancelpower();
         }
 
         yield return 0;
     }
 
-    public IEnumerator shieldActivate()
+    public IEnumerator Shield()
     {
-        
+        //What is this doing?
         shieldHp = hpTest.health;
         isShielding = true;
         yield return new WaitForSeconds(3);
@@ -176,7 +247,7 @@ public class TimeSlowdown : MonoBehaviour
         yield return 0;
     }
 
-    private void cancelpower()
+    private void Cancelpower()
     {
         Time.timeScale = 1f;
         Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
@@ -195,39 +266,14 @@ public class TimeSlowdown : MonoBehaviour
             {
                 currentcharge = 0;
                 tickdown = false;
-                cancelpower();
+                Cancelpower();
             }
         }
 
         if (canturnon == true)
         {
-            //Boost
-            if (Input.GetKeyDown(KeyCode.J) == true)
-            {
-                currentcharge = 0;
-                Missiledash();
-                canturnon = false; 
-            }
-            //TimeSlow
-            else if (Input.GetKeyDown(KeyCode.K) == true)
-            {
-                StartCoroutine(timeslowon(false, 0));
-                currentcharge = 0;
-                canturnon = false;
-            }
-            //MachineGun
-            else if (Input.GetKeyDown(KeyCode.L) == true)
-            {
-                machinegunfire();
-                canturnon = false;
-            }
-            //Shield
-            else if (Input.GetKeyDown(KeyCode.M) == true)
-            {
-                StartCoroutine(shieldActivate());
-                currentcharge = 0;
-                canturnon = false;
-            }
+
+            Newcontrols();
         }
         else
         {
@@ -241,11 +287,6 @@ public class TimeSlowdown : MonoBehaviour
                 currentcharge = 30;
                 canturnon = true;
             }
-        }
-        //Shield
-        if(isShielding)
-        {
-            hpTest.health = shieldHp;
         }
         
 
