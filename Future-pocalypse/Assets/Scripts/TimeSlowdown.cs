@@ -37,15 +37,23 @@ public class TimeSlowdown : MonoBehaviour
     public int shieldHp;
     public bool isShielding;
 
+    //For Continuos Boost
+    public bool canLowerCharge = true;
+    public ParticleSystem FireLeft;
+    public ParticleSystem LightLeft;
+    public ParticleSystem FireRight;
+    public ParticleSystem LightRight;
+
     private void Start()
     {
         hpTest = GetComponent<healthTest>();
         shieldHp = hpTest.health;
 
-        PlayerWeapons.Weapontypes[] temp = new PlayerWeapons.Weapontypes[3];
+        PlayerWeapons.Weapontypes[] temp = new PlayerWeapons.Weapontypes[4];
         temp[0] = PlayerWeapons.Weapontypes.TimeSlow;
         temp[1] = PlayerWeapons.Weapontypes.Machinegunfire;
         temp[2] = PlayerWeapons.Weapontypes.Missiledash;
+        temp[3] = PlayerWeapons.Weapontypes.Shield;
         SettingWeapons(temp);
 
     }
@@ -60,8 +68,33 @@ public class TimeSlowdown : MonoBehaviour
 
     private void Newcontrols()
     {
-        if (Input.GetKeyDown(KeyCode.J) == true)
+        //CONTINUOS BOOST
+        if(Input.GetKeyUp(KeyCode.J) == true)
         {
+            FireRight.Stop();
+            LightRight.Stop();
+            FireLeft.Stop();
+            LightLeft.Stop();
+            canturnon = false;
+        }
+        else if (Input.GetKey(KeyCode.J) == true)
+        {
+            if (FireRight.isPlaying == false)
+            {
+                FireRight.Play();
+            }
+            if (LightRight.isPlaying == false)
+            {
+                LightRight.Play();
+            }
+            if (FireLeft.isPlaying == false)
+            {
+                FireLeft.Play();
+            }
+            if (LightLeft.isPlaying == false)
+            {
+                LightLeft.Play();
+            }
             Invoke(myweapons[0].ToString(), 0);
             if (myweapons[1].ToString() == "Machinegunfure")
             {
@@ -70,11 +103,21 @@ public class TimeSlowdown : MonoBehaviour
             }
             else
             {
-                currentcharge = 0;
-            }
-            canturnon = false;
-            //Boost
+                if (currentcharge > 0)
+                {
+                    if (canLowerCharge == true)
+                    {
+                        StartCoroutine(contBoost());
+                        canturnon = true;
+                    }
+                }
+                else
+                {
+                    canturnon = false;
+                }
+            }    
         }
+        //MACHINEGUN FIRE
         else if (Input.GetKeyDown(KeyCode.K) == true)
         {
             Invoke(myweapons[1].ToString(), 0);
@@ -90,9 +133,27 @@ public class TimeSlowdown : MonoBehaviour
 
             canturnon = false;
         }
+        //MISSILEDASH
         else if (Input.GetKeyDown(KeyCode.L) == true)
         {
+
             Invoke(myweapons[2].ToString(), 0);
+            if (myweapons[1].ToString() == "Machinegunfire")
+            {
+                currentcharge -= 1;
+                canturnon = false;
+            }
+            else
+            {
+                currentcharge = 0;
+            }
+            canturnon = false;
+        }
+        //SHIELD
+        else if (Input.GetKeyDown(KeyCode.M) == true)
+        {
+            
+            Invoke(myweapons[3].ToString(), 0);
             if (myweapons[1].ToString() == "Machinegunfire")
             {
                 currentcharge -= 1;
@@ -154,6 +215,15 @@ public class TimeSlowdown : MonoBehaviour
                 }
 
         }
+        yield return 0;
+    }
+    //For using up rage
+    public IEnumerator contBoost()
+    {
+        currentcharge -= 1;
+        canLowerCharge = false;
+        yield return new WaitForSeconds(1);
+        canLowerCharge = true;
         yield return 0;
     }
 
@@ -240,6 +310,7 @@ public class TimeSlowdown : MonoBehaviour
     public IEnumerator Shield()
     {
         //What is this doing?
+        //Stops hp of player from changing by setting their HP to the shield value
         shieldHp = hpTest.health;
         isShielding = true;
         yield return new WaitForSeconds(3);
@@ -277,7 +348,7 @@ public class TimeSlowdown : MonoBehaviour
         }
         else
         {
-            if (currentcharge < 30)
+            if (currentcharge < 20)
             {
                 currentcharge += Time.deltaTime;
                 canturnon = false;
@@ -287,6 +358,15 @@ public class TimeSlowdown : MonoBehaviour
                 currentcharge = 30;
                 canturnon = true;
             }
+        }
+        //For Shielding
+        if(isShielding == true)
+        {
+            hpTest.health = shieldHp;
+        }
+        else
+        {
+
         }
         
 
