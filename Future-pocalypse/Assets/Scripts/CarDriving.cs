@@ -12,7 +12,6 @@ public class CarDriving : MonoBehaviour
     [SerializeField]
     private int accel;
 
-
     [SerializeField]
     private float turnSpeed, actualTurnSpeed, carRotation, driftClamp, midAirPitch, midAirYaw, topSpeed;
 
@@ -40,18 +39,17 @@ public class CarDriving : MonoBehaviour
     [SerializeField]
     private CameraChange camchange;
 
-   
-    
-
     //public AudioClip soundCollision;
 
+    public int TopSpeed
+    {
+        get { return (int)topSpeed; }
+    }
 
     // Use this for initialization
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        
-
 
         myBox = GetComponent<BoxCollider>();
         myCam = GetComponentInChildren<Camera>();
@@ -59,12 +57,6 @@ public class CarDriving : MonoBehaviour
         Application.targetFrameRate = 60;
         rb.centerOfMass = -transform.up;
     }
-
-    public int TopSpeed
-    {
-        get { return (int)topSpeed; }
-    }
-
 
     // Update is called once per frame
     void Update()
@@ -127,8 +119,6 @@ public class CarDriving : MonoBehaviour
 
     void Acceleration()
     {
-
-
         // Check for player depth input, the car is movement, and the car is on the ground.
         if (Input.GetAxis("Vertical") != 0 && onFloor)
         {
