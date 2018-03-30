@@ -37,8 +37,7 @@ public class TimeSlowdown : MonoBehaviour
     public int shieldHp;
     public bool isShielding;
 
-    //For Continuos Boost
-    public bool canLowerCharge = true;
+    //For Continuous Boost
     public ParticleSystem FireLeft;
     public ParticleSystem LightLeft;
     public ParticleSystem FireRight;
@@ -53,7 +52,7 @@ public class TimeSlowdown : MonoBehaviour
         temp[0] = PlayerWeapons.Weapontypes.TimeSlow;
         temp[1] = PlayerWeapons.Weapontypes.Machinegunfire;
         temp[2] = PlayerWeapons.Weapontypes.Missiledash;
-        temp[3] = PlayerWeapons.Weapontypes.Shield;
+      //  temp[3] = PlayerWeapons.Weapontypes.Shield;
         SettingWeapons(temp);
 
     }
@@ -68,103 +67,92 @@ public class TimeSlowdown : MonoBehaviour
 
     private void Newcontrols()
     {
-        //CONTINUOS BOOST
-        if(Input.GetKeyUp(KeyCode.J) == true)
+        if (Input.GetKeyDown(KeyCode.J) == true)
         {
-            FireRight.Stop();
-            LightRight.Stop();
-            FireLeft.Stop();
-            LightLeft.Stop();
-            canturnon = false;
-        }
-        else if (Input.GetKey(KeyCode.J) == true)
-        {
-            if (FireRight.isPlaying == false)
-            {
-                FireRight.Play();
-            }
-            if (LightRight.isPlaying == false)
-            {
-                LightRight.Play();
-            }
-            if (FireLeft.isPlaying == false)
-            {
-                FireLeft.Play();
-            }
-            if (LightLeft.isPlaying == false)
-            {
-                LightLeft.Play();
-            }
-            Invoke(myweapons[0].ToString(), 0);
-            if (myweapons[1].ToString() == "Machinegunfure")
+
+            if (myweapons[0].ToString() == "Machinegunfire")
             {
                 currentcharge -= 1;
                 canturnon = false;
+                Invoke(myweapons[0].ToString(), 0);
+            }
+            else if (myweapons[0].ToString() == "Missiledash")
+            {
+                        StartCoroutine(ContBoost(KeyCode.J));
+                        canturnon = false;
+            }
+            else if (myweapons[0].ToString() == "TimeSlow")
+            {
+                StartCoroutine(Timeslow(true, 0));
+                {
+                    canturnon = false;
+                    currentcharge = 0;
+                }
             }
             else
             {
-                if (currentcharge > 0)
-                {
-                    if (canLowerCharge == true)
-                    {
-                        StartCoroutine(contBoost());
-                        canturnon = true;
-                    }
-                }
-                else
-                {
-                    canturnon = false;
-                }
-            }    
+                Invoke(myweapons[0].ToString(), 0);
+            }
         }
         //MACHINEGUN FIRE
         else if (Input.GetKeyDown(KeyCode.K) == true)
         {
-            Invoke(myweapons[1].ToString(), 0);
+
             if (myweapons[1].ToString() == "Machinegunfire")
             {
                 currentcharge -= 1;
                 canturnon = false;
+                Invoke(myweapons[1].ToString(), 0);
+            }
+            else if (myweapons[1].ToString() == "Missiledash")
+            {
+
+                        StartCoroutine(ContBoost(KeyCode.K));
+                        canturnon = false;
+
+            }
+            else if (myweapons[1].ToString() == "TimeSlow")
+            {
+                StartCoroutine(Timeslow(true, 0));
+                {
+                    canturnon = false;
+                    currentcharge = 0;
+                }
             }
             else
             {
-                currentcharge = 0;
+                Invoke(myweapons[1].ToString(), 0);
             }
-
-            canturnon = false;
         }
         //MISSILEDASH
         else if (Input.GetKeyDown(KeyCode.L) == true)
         {
 
-            Invoke(myweapons[2].ToString(), 0);
-            if (myweapons[1].ToString() == "Machinegunfire")
+            if (myweapons[2].ToString() == "Machinegunfire")
             {
                 currentcharge -= 1;
                 canturnon = false;
+                Invoke(myweapons[2].ToString(), 0);
+            }
+            else if (myweapons[2].ToString() == "Missiledash")
+            {
+                        StartCoroutine(ContBoost(KeyCode.L));
+                        canturnon = false;
+            }
+            else if (myweapons[2].ToString() == "TimeSlow")
+            {
+                StartCoroutine(Timeslow(true, 0));
+                {
+                    canturnon = false;
+                    currentcharge = 0;
+                }
             }
             else
             {
-                currentcharge = 0;
+                Invoke(myweapons[2].ToString(), 0);
             }
-            canturnon = false;
         }
-        //SHIELD
-        else if (Input.GetKeyDown(KeyCode.M) == true)
-        {
-            
-            Invoke(myweapons[3].ToString(), 0);
-            if (myweapons[1].ToString() == "Machinegunfire")
-            {
-                currentcharge -= 1;
-                canturnon = false;
-            }
-            else
-            {
-                currentcharge = 0;
-            }
-            canturnon = false;
-        }
+        //No, M, the goal is for the player to choose a power up, for testing purposes for the shield, use the inspector to set shield.
     }
 
     public void Missile()
@@ -218,12 +206,53 @@ public class TimeSlowdown : MonoBehaviour
         yield return 0;
     }
     //For using up rage
-    public IEnumerator contBoost()
+    public IEnumerator ContBoost(KeyCode mycode)
     {
-        currentcharge -= 1;
-        canLowerCharge = false;
-        yield return new WaitForSeconds(1);
-        canLowerCharge = true;
+        if (FireRight.isPlaying == false)
+        {
+            FireRight.Play();
+        }
+        if (LightRight.isPlaying == false)
+        {
+            LightRight.Play();
+        }
+        if (FireLeft.isPlaying == false)
+        {
+            FireLeft.Play();
+        }
+        if (LightLeft.isPlaying == false)
+        {
+            LightLeft.Play();
+        }
+
+        int storedboost = 10;
+        canturnon = false;
+        int cycles = 0;
+        while (Input.GetKey(mycode) == true)
+        {
+            currentcharge -= 1;
+            storedboost += 5 + cycles ;
+            cd.TopSpeed =cd.Truetopspeed+storedboost;
+            cd.CurrentSpeed = cd.Trueaccel+storedboost;
+            //canLowerCharge = false;
+            yield return new WaitForSeconds(0.1f);
+            cycles++;
+            if (currentcharge<=0)
+            {
+                break;
+            }
+            //canLowerCharge = true;
+        }
+
+        cd.isDrifting = false;
+        cd.TopSpeed = cd.Truetopspeed;
+        cd.CurrentSpeed = cd.Trueaccel;
+        FireRight.Stop();
+        LightRight.Stop();
+        FireLeft.Stop();
+        LightLeft.Stop();
+
+
         yield return 0;
     }
 
@@ -343,12 +372,11 @@ public class TimeSlowdown : MonoBehaviour
 
         if (canturnon == true)
         {
-
             Newcontrols();
         }
         else
         {
-            if (currentcharge < 20)
+            if (currentcharge < 30)
             {
                 currentcharge += Time.deltaTime;
                 canturnon = false;

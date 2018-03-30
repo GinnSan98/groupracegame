@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class CarDriving : MonoBehaviour
 {
-    public bool canDrive, isDead, cameraControl, isDrifting,firstorthird;
+    public bool canDrive, isDead, cameraControl, isDrifting, firstorthird;
 
     [SerializeField]
     private bool onFloor;
 
     [SerializeField]
-    private int accel;
+    private int accel,trueaccel;
 
     [SerializeField]
-    private float turnSpeed, actualTurnSpeed, carRotation, driftClamp, midAirPitch, midAirYaw, topSpeed;
+    private float turnSpeed, actualTurnSpeed, carRotation, driftClamp, midAirPitch, midAirYaw, topSpeed, truetopspeed;
 
     [SerializeField]
     public Rigidbody rb;
@@ -41,16 +41,36 @@ public class CarDriving : MonoBehaviour
 
     //public AudioClip soundCollision;
 
+    public int CurrentSpeed
+    {
+        get { return (int)accel; }
+        set { accel = value; }
+    }
+
+
     public int TopSpeed
     {
         get { return (int)topSpeed; }
+        set { topSpeed = value; }
     }
+    public int Truetopspeed
+    {
+        get { return (int)truetopspeed; }
+       
+    }
+    public int Trueaccel
+    {
+        get { return (int)trueaccel; }
+    }
+
+
 
     // Use this for initialization
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-
+        truetopspeed = topSpeed;
+        trueaccel = accel;
         myBox = GetComponent<BoxCollider>();
         myCam = GetComponentInChildren<Camera>();
 
@@ -140,11 +160,13 @@ public class CarDriving : MonoBehaviour
         {
             if (Input.GetButtonDown("Drift"))
             {
+                isDrifting = true;
                 topSpeed *= 0.8f;
             }
             else if (Input.GetButtonUp("Drift"))
             {
                 topSpeed *= 1.25f;
+                isDrifting = false;
             }
 
             if (Input.GetAxis("Horizontal") != 0)
