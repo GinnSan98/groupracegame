@@ -10,10 +10,6 @@ public class MainMenu : MonoBehaviour {
         SceneManager.LoadScene(sceanName);
     }
 
-    public void ShowInstuction()
-    {
-
-    }
 
     public void QuitGame()
     {

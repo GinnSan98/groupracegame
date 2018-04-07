@@ -41,8 +41,6 @@ public class AI : MonoBehaviour
     [SerializeField]
     private AudioSource audioSource;
 
-
-
     private IEnumerator Recorrect()
     {
         while (true)
@@ -57,7 +55,7 @@ public class AI : MonoBehaviour
             }
         }
     }
-
+    
     void Start()
     {
         difficulty = Random.Range(20, 60);
