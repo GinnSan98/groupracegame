@@ -22,15 +22,25 @@ public class Lapcheckpoint : MonoBehaviour {
     private RaceSystem rs;
 
 
-    public bool checkLapProgress()
+    public bool CheckLapProgress()
     {
         return Checkpoint == maxcheckpoints - 1;
+    }
+
+    public int ReturnmyPlace()
+    {
+        return Checkpoint;
+    }
+
+    public void Setmyplace(int newnumber)
+    {
+        Checkpoint = newnumber;
     }
 
     void Start ()
     {
         //maxcheckpoints = GameObject.FindObjectsOfType<Checkpoint>().Length;
-        InvokeRepeating("distancetonextcp", 4, 0.1f);
+        InvokeRepeating("Distancetonextcp", 4, 0.1f);
     }
 
     private float Distancepercent()
@@ -56,13 +66,13 @@ public class Lapcheckpoint : MonoBehaviour {
         return distance/10f;
     }
 
-    void distancetonextcp()
+    void Distancetonextcp()
     {
         totalracevalue = (Lap * maxcheckpoints) + Checkpoint - Distancepercent();
         //Lap 2: 200 * 10 = 2000.  5/10 *100 = 50. - 30.
     }
 
-    public void showmyprogress()
+    public void Showmyprogress()
     {
         print("Name: " + name + "\n Checkpoint: " + Checkpoint + "\n Lap: " + Lap + "\n Distance: " + Distancepercent());
     }

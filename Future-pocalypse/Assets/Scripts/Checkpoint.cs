@@ -35,7 +35,7 @@ public class Checkpoint : MonoBehaviour
         {
             if (other.gameObject.transform.tag == "Player" || other.gameObject.transform.tag == "Enemy")
             {
-                if(other.GetComponent<Lapcheckpoint>().checkLapProgress() == true)
+                if(other.GetComponent<Lapcheckpoint>().CheckLapProgress() == true)
                 {
                     if (trapSpawns.Capacity > 0)
                     {

@@ -346,7 +346,7 @@
     <Compile Include="Assets\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
     <Compile Include="Assets\Scripts\AI.cs" />
-    <Compile Include="Assets\Scripts\AI_Test.cs" />
+    <Compile Include="Assets\Scripts\AI_Skills.cs" />
     <Compile Include="Assets\Scripts\ButtonManager.cs" />
     <Compile Include="Assets\Scripts\CameraChange.cs" />
     <Compile Include="Assets\Scripts\CarDriving.cs" />

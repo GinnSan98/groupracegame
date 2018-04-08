@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: e52a487ad312e3d49bb992d796112122
+timeCreated: 1523218689
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - myai: {instanceID: 0}
+  - warningcube: {fileID: 1947261179874866, guid: af915744dfa7af74b82dfa21f7bba7e8,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

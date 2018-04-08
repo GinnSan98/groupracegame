@@ -37,6 +37,13 @@ public class AI : MonoBehaviour
 
     private int position;
 
+
+    public int MyDifficulty
+    {
+        get { return difficulty; }
+       
+    }
+
     //For Controlling Sound
     [SerializeField]
     private AudioSource audioSource;

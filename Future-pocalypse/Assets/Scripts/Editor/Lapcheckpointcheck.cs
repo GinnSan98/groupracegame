@@ -14,7 +14,7 @@ public class Lapcheckpointcheck : Editor
         Lapcheckpoint myScript = (Lapcheckpoint)target;
         if (GUILayout.Button("Check my progress Senpai <3"))
         {
-            myScript.showmyprogress();
+            myScript.Showmyprogress();
         }
     }
 }
