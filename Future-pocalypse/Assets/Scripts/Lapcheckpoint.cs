@@ -50,17 +50,17 @@ public class Lapcheckpoint : MonoBehaviour {
         if (Checkpoint > 0)
         {
             distance = Vector3.Distance(GameObject.Find("Checkpoint " + Checkpoint).transform.position, GameObject.Find("Checkpoint " + (Checkpoint - 1)).transform.position);
-            Debug.DrawLine(GameObject.Find("Checkpoint " + Checkpoint).transform.position, GameObject.Find("Checkpoint " + (Checkpoint - 1)).transform.position, Color.red);
+           // Debug.DrawLine(GameObject.Find("Checkpoint " + Checkpoint).transform.position, GameObject.Find("Checkpoint " + (Checkpoint - 1)).transform.position, Color.red);
 
         }
         else
         {
             distance = Vector3.Distance(GameObject.Find("Checkpoint " + Checkpoint).transform.position, GameObject.Find("Checkpoint " + (maxcheckpoints - 1)).transform.position);
-            Debug.DrawLine(GameObject.Find("Checkpoint " + Checkpoint).transform.position, GameObject.Find("Checkpoint " + (maxcheckpoints - 1)).transform.position, Color.red);
+          //  Debug.DrawLine(GameObject.Find("Checkpoint " + Checkpoint).transform.position, GameObject.Find("Checkpoint " + (maxcheckpoints - 1)).transform.position, Color.red);
         }
         float curr = Vector3.Distance(this.transform.position,GameObject.Find("Checkpoint " + Checkpoint).transform.position);
 
-        Debug.DrawLine(transform.position, GameObject.Find("Checkpoint " + Checkpoint).transform.position, Color.green);
+        //Debug.DrawLine(transform.position, GameObject.Find("Checkpoint " + Checkpoint).transform.position, Color.green);
         distance = curr/distance;
         Mathf.Clamp(distance, 0, 1);
         return distance/10f;

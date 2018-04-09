@@ -221,7 +221,7 @@ public class AI : MonoBehaviour
                         // position = 1;
                         position = rs.BetweenPlayers(lcp,GameObject.FindGameObjectWithTag("Player").GetComponent<Lapcheckpoint>());
                         rb.AddForce(transform.forward * (vehicleSpeed + (position)), ForceMode.Acceleration);
-                        rb.velocity = Vector3.ClampMagnitude(rb.velocity, (maxspeed/2) + (difficulty + (position))/4);
+                        rb.velocity = Vector3.ClampMagnitude(rb.velocity, (maxspeed/2) + (difficulty + (position))/2);
                         
                     }
                 }
