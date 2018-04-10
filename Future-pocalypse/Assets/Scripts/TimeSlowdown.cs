@@ -83,7 +83,7 @@ public class TimeSlowdown : MonoBehaviour
             }
             else if (myweapons[0].ToString() == "TimeSlow")
             {
-                StartCoroutine(Timeslow(true, 0));
+                StartCoroutine(Timeslow(false, 0));
                 {
                     canturnon = false;
                     currentcharge = 0;
@@ -113,7 +113,7 @@ public class TimeSlowdown : MonoBehaviour
             }
             else if (myweapons[1].ToString() == "TimeSlow")
             {
-                StartCoroutine(Timeslow(true, 0));
+                StartCoroutine(Timeslow(false, 0));
                 {
                     canturnon = false;
                     currentcharge = 0;
@@ -141,7 +141,7 @@ public class TimeSlowdown : MonoBehaviour
             }
             else if (myweapons[2].ToString() == "TimeSlow")
             {
-                StartCoroutine(Timeslow(true, 0));
+                StartCoroutine(Timeslow(false, 0));
                 {
                     canturnon = false;
                     currentcharge = 0;

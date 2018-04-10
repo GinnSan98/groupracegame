@@ -14,8 +14,9 @@ public class AI_Skills : MonoBehaviour
     [SerializeField]
     private GameObject warningcube;
     private Lapcheckpoint lcp;
-    
 
+    [SerializeField]
+    private ParticleSystem[] ps;
     [SerializeField]
     private PlayerWeapons.Weapontypes myweapon;
 
@@ -25,17 +26,46 @@ public class AI_Skills : MonoBehaviour
         lcp = GetComponent<Lapcheckpoint>();
         chargespeed = (myai.MyDifficulty/10) + 1;
         StartCoroutine(Myupdate());
-	}
-	
+        StartCoroutine(CheckhowbehindIam());
+    }
+
+    private IEnumerator CheckhowbehindIam()
+    {
+        yield return new WaitUntil(() => myai.canmove == true);
+        Transform temp = rs.Returnplayerahead(lcp);
+        while (true)
+        {
+            yield return new WaitForSeconds(1);
+            if (rs.Returnplayerahead(lcp) != null)
+            {
+                temp = rs.Returnplayerahead(lcp);
+               
+
+                if (Vector3.Distance(transform.position, temp.position) > 500)
+                {
+                    myweapon = PlayerWeapons.Weapontypes.TimeSlow;
+                }
+                else
+                {
+                    myweapon = PlayerWeapons.Weapontypes.Machinegunfire;
+                }
+            }
+            else
+            {
+                myweapon = PlayerWeapons.Weapontypes.Missiledash;
+            }
+        }
+    }
 
     private IEnumerator Myupdate()
     {
-        int maxtotal = ((int)myweapon * 25) + 70;
+        int maxtotal = ((int)myweapon * 25) + 30;
         int charge = 0;
         yield return new WaitUntil(() => myai.canmove == true);
 
         while (true)
         {
+           
             charge += chargespeed;
             yield return new WaitForSeconds(2);
 
@@ -114,13 +144,21 @@ public class AI_Skills : MonoBehaviour
                 {
                     case (PlayerWeapons.Weapontypes.Missiledash):
                         {
+                            foreach(ParticleSystem myps in ps)
+                            {
+                                myps.Play();
+                            }
+                            print("Boost! " + name);
                             int oldspeed = myai.vehicleSpeed;
-                            for (int i = 0; i < 10; i++)
+                            for (int i = 0; i < 5; i++)
                             {
                                 myai.vehicleSpeed +=20;
-                                yield return new WaitForSeconds(4);
+                                yield return new WaitForSeconds(3);
                             }
-
+                            foreach (ParticleSystem myps in ps)
+                            {
+                                myps.Stop();
+                            }
                             myai.vehicleSpeed = oldspeed;
                             break;
                         }

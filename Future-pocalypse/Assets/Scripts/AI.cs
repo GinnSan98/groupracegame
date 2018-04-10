@@ -34,7 +34,6 @@ public class AI : MonoBehaviour
     private Lapcheckpoint lcp;
 
     private int difficulty;
-
     private int position;
 
 
@@ -55,7 +54,7 @@ public class AI : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             GameObject nextcp = GameObject.Find("Checkpoint " + lcp.Checkpoint);
 
-            if (Vector3.Dot(transform.position,nextcp.transform.position) < 0)
+            if (Vector3.Dot(transform.position,nextcp.transform.position) < 0.5f)
             {
                 yield return new WaitForSeconds(0.1f);
                 transform.LookAt(nextcp.transform);
@@ -78,7 +77,7 @@ public class AI : MonoBehaviour
     }
     private void DodgeShit(float  direction)
     {
-        rb.MoveRotation(Quaternion.Euler(0, Mathf.Clamp(direction,-10 - judgementCoeffient,10 + judgementCoeffient) * (vehicleWidth), 0) * transform.rotation);
+        rb.MoveRotation(Quaternion.Euler(0, Mathf.Clamp(direction,-2 - judgementCoeffient,2 + judgementCoeffient) * (vehicleWidth), 0) * transform.rotation);
         avoid = hit.normal * vehicleWidth;
     }
 
@@ -112,7 +111,7 @@ public class AI : MonoBehaviour
             }
 
 
-
+            bool turning = false;
 
             rayLength = (rb.velocity.magnitude/5) * judgementCoeffient;
 
@@ -126,7 +125,7 @@ public class AI : MonoBehaviour
                     {
                         if (hit.transform.tag == "Environment")
                         {
-
+                            //turning = true;
                             DodgeShit((-35f / (hit.distance)) + 1f);
                         }
                         else if (hit.transform.tag == "Checkpoint")
@@ -161,9 +160,9 @@ public class AI : MonoBehaviour
 
                             DodgeShit(-10f / ((hit.distance * 8) + 1f));
                         }
-                        //else
+                        else
                         {
-
+                            turning = true;
                             DodgeShit(-32f / ((hit.distance/2) + 1f));
                         }
 
@@ -174,7 +173,7 @@ public class AI : MonoBehaviour
                     {
                         if (hit.transform.tag == "Environment")
                         {
-
+                           // turning = true;
                             DodgeShit((35f / (hit.distance)) + 1f);
                         }
                         else if (hit.transform.tag == "Checkpoint")
@@ -206,9 +205,9 @@ public class AI : MonoBehaviour
 
                             DodgeShit(3f / ((hit.distance * 8) + 1f));
                         }
-                     //   else
+                        else
                         {
-
+                            turning = true;
                             DodgeShit(32f / ((hit.distance/2) + 1f));
                         }
 
@@ -221,7 +220,16 @@ public class AI : MonoBehaviour
                         // position = 1;
                         position = rs.BetweenPlayers(lcp,GameObject.FindGameObjectWithTag("Player").GetComponent<Lapcheckpoint>());
                         rb.AddForce(transform.forward * (vehicleSpeed + (position)), ForceMode.Acceleration);
-                        rb.velocity = Vector3.ClampMagnitude(rb.velocity, (maxspeed/2) + (difficulty + (position))/2);
+                        if (turning == false)
+                        {
+                            rb.velocity = Vector3.ClampMagnitude(rb.velocity, (maxspeed) + (difficulty + (position)) / 2);
+                        }
+                        else
+                        {
+                            rb.velocity = Vector3.ClampMagnitude(rb.velocity*0.8f, (maxspeed) + (difficulty + (position)) / 2);
+                        }
+
+                       
                         
                     }
                 }
