@@ -78,6 +78,20 @@ public class RaceSystem : MonoBehaviour
         yield return 0;
     }
 
+    public Transform Returnplayerbehind(Lapcheckpoint me)
+    {
+        if (me != racers[racers.Capacity - 1])
+        {
+
+            int tempnum = racers.IndexOf(me);
+            return racers[tempnum + 1].transform;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     public Transform Returnplayerahead(Lapcheckpoint me)
     {
         if (me != racers[0])

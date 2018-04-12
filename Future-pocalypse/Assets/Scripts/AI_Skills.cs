@@ -47,12 +47,12 @@ public class AI_Skills : MonoBehaviour
                 }
                 else
                 {
-                    myweapon = PlayerWeapons.Weapontypes.Machinegunfire;
+                    myweapon = PlayerWeapons.Weapontypes.Missiledash;
                 }
             }
             else
             {
-                myweapon = PlayerWeapons.Weapontypes.Missiledash;
+                myweapon = PlayerWeapons.Weapontypes.Machinegunfire;
             }
         }
     }

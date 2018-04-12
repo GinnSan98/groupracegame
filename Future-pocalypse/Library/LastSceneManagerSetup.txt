@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Blockout 4.unity
+- path: Assets/Scenes/Blockout 2.unity
   isLoaded: 1
   isActive: 1
