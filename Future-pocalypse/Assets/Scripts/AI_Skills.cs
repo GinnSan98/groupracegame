@@ -45,6 +45,10 @@ public class AI_Skills : MonoBehaviour
                 {
                     myweapon = PlayerWeapons.Weapontypes.TimeSlow;
                 }
+                else if (Vector3.Distance(transform.position, temp.position) < 500 && Vector3.Distance(transform.position, temp.position) > 250)
+                {
+                    myweapon = PlayerWeapons.Weapontypes.Machinegunfire;
+                }
                 else
                 {
                     myweapon = PlayerWeapons.Weapontypes.Missiledash;
@@ -52,7 +56,7 @@ public class AI_Skills : MonoBehaviour
             }
             else
             {
-                myweapon = PlayerWeapons.Weapontypes.Machinegunfire;
+               
             }
         }
     }
