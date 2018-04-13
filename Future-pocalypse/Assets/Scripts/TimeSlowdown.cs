@@ -49,9 +49,9 @@ public class TimeSlowdown : MonoBehaviour
         shieldHp = hpTest.health;
 
         PlayerWeapons.Weapontypes[] temp = new PlayerWeapons.Weapontypes[3];
-        temp[0] = PlayerWeapons.Weapontypes.TimeSlow;
-        temp[1] = PlayerWeapons.Weapontypes.Machinegunfire;
-        temp[2] = PlayerWeapons.Weapontypes.Missiledash;
+        temp[0] = PlayerWeapons.Weapontypes.Missiledash;
+        temp[1] = PlayerWeapons.Weapontypes.TimeSlow;
+        temp[2] = PlayerWeapons.Weapontypes.Machinegunfire;
       //  temp[3] = PlayerWeapons.Weapontypes.Shield;
         SettingWeapons(temp);
 
