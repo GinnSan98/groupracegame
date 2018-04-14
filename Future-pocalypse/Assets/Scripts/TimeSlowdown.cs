@@ -24,6 +24,7 @@ public class TimeSlowdown : MonoBehaviour
     [SerializeField]
     private AudioSource EngineSource;
     public AudioSource soundGun;
+    public AudioSource flameBoost;
     [SerializeField]
     private GameObject machinegun;
 
@@ -67,6 +68,7 @@ public class TimeSlowdown : MonoBehaviour
 
     private void Newcontrols()
     {
+        //BOOST
         if (Input.GetKeyDown(KeyCode.J) == true)
         {
 
@@ -78,8 +80,12 @@ public class TimeSlowdown : MonoBehaviour
             }
             else if (myweapons[0].ToString() == "Missiledash")
             {
-                        StartCoroutine(ContBoost(KeyCode.J));
-                        canturnon = false;
+                StartCoroutine(ContBoost(KeyCode.J));
+                if(flameBoost.isPlaying == false)
+                {
+                    flameBoost.Play();
+                }
+                canturnon = false;
             }
             else if (myweapons[0].ToString() == "TimeSlow")
             {
@@ -251,7 +257,10 @@ public class TimeSlowdown : MonoBehaviour
         LightRight.Stop();
         FireLeft.Stop();
         LightLeft.Stop();
-
+        if (flameBoost.isPlaying == true)
+        {
+            flameBoost.Stop();
+        }
 
         yield return 0;
     }

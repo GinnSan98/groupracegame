@@ -110,14 +110,14 @@ public class CarDriving : MonoBehaviour
     void EngineSound()
     {
         audioSource.pitch = rb.velocity.magnitude / topSpeed + 1;
-        audioSource.volume = 0.200f - (rb.velocity.magnitude / topSpeed)/5;
-        if(audioSource.volume > 0.180f)
+        audioSource.volume = 0.160f - (rb.velocity.magnitude / topSpeed)/5;
+        if(audioSource.volume > 0.160f)
         {
-            audioSource.volume = 0.180f;
+            audioSource.volume = 0.160f;
         }
-        else if(audioSource.volume < 0.120f)
+        else if(audioSource.volume < 0.130f)
         {
-            audioSource.volume = 0.120f;
+            audioSource.volume = 0.130f;
         }
 
     }
