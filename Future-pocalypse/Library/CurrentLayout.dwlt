@@ -44,7 +44,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 1
-  controlID: 51
+  controlID: 117
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 52
+  controlID: 118
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 53
+  controlID: 119
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 54
+  controlID: 120
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -495,24 +495,24 @@ MonoBehaviour:
     height: 522
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
-    scrollPos: {x: 0, y: 487}
+    scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00f6fcff3af1ffff00000000fe460000
+    m_ExpandedIDs: e8f0ffff000000007e4b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Mesh Parent
-      m_OriginalName: Mesh Parent
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: -13446
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 9}
     m_SearchString: 
@@ -576,14 +576,14 @@ MonoBehaviour:
     height: 522
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 4420.929451298978
+  lastFramingTime: 1422.5784778891677
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 3591.585, y: 20.999435, z: 15525.78}
+    m_Target: {x: 5571.413, y: 19.798264, z: 15800.865}
     speed: 2
-    m_Value: {x: 3591.585, y: 20.999435, z: 15525.78}
+    m_Value: {x: 5571.413, y: 19.798264, z: 15800.865}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -607,13 +607,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.35887364, y: -0.42184222, z: 0.18656535, w: -0.81145513}
+    m_Target: {x: 0.12715538, y: 0.4517707, z: -0.06522855, w: 0.8806267}
     speed: 2
-    m_Value: {x: -0.35887235, y: -0.4218407, z: 0.18656468, w: -0.8114522}
+    m_Value: {x: 0.12715389, y: 0.45176542, z: -0.06522779, w: 0.88061637}
   m_Size:
-    m_Target: 2675.952
+    m_Target: 335.95496
     speed: 2
-    m_Value: 2675.952
+    m_Value: 335.95496
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -664,19 +664,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Prefabs/Track
+    - Assets
   m_ViewMode: 1
   m_StartGridSize: 71
   m_LastFolders:
-  - Assets/Prefabs/Track
+  - Assets
   m_LastFoldersGridSize: 71
-  m_LastProjectPath: C:\Users\liamp\Documents\Racing game\Futurepocolypse\groupracegame\Future-pocalypse
+  m_LastProjectPath: C:\Users\Goncalo\Documents\GitHub\racegame\Future-pocalypse
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 242}
-    m_SelectedIDs: e6310000
-    m_LastClickedID: 12774
-    m_ExpandedIDs: 00000000ac3100006033000068330000ec35000080360000f63600009c370000b2370000da370000083a0000fa3a0000363b00003c3b0000c03e00000240000016400000184000009a410000b2640000b4640000b6640000b864000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 95}
+    m_SelectedIDs: b4310000
+    m_LastClickedID: 12724
+    m_ExpandedIDs: 00000000b43100006833000070330000f435000088360000fe360000a4370000ba370000e2370000103a0000023b00003e3b0000443b0000c23e000004400000184000001a4000009c410000b4680000b6680000b8680000ba68000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -704,7 +704,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ac3100006033000068330000ec35000080360000f63600009c370000b2370000da370000083a0000fa3a0000363b00003c3b0000c03e00000240000016400000184000009a410000b2640000b4640000b6640000b8640000
+    m_ExpandedIDs: 00000000b43100006833000070330000f435000088360000fe360000a4370000ba370000e2370000103a0000023b00003e3b0000443b0000c23e000004400000184000001a4000009c410000b4680000b6680000b8680000ba680000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
