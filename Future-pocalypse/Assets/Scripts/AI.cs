@@ -87,7 +87,7 @@ public class AI : MonoBehaviour
         
         if (other.tag == "Checkpoint")
         { 
-            transform.LookAt(nextcp.transform, Vector3.up);
+            //transform.LookAt(nextcp.transform, Vector3.up);
         }
         else if (other.tag == "Correction")
         {
@@ -121,12 +121,12 @@ public class AI : MonoBehaviour
                 {
 
                     //Right wall, left turn;
-                    if (Physics.Raycast(transform.position, (transform.right + transform.forward * 2), out hit, rayLength / 10) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
+                    if (Physics.Raycast(transform.position, (transform.right + transform.forward * 2), out hit, rayLength / 3) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
                     {
                         if (hit.transform.tag == "Environment")
                         {
                             //turning = true;
-                            DodgeShit((-35f / (hit.distance)) + 1f);
+                            DodgeShit((-15f / (hit.distance)) + 1f);
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
@@ -169,12 +169,12 @@ public class AI : MonoBehaviour
                     }
 
                     //Left wall right turn
-                    if (Physics.Raycast(transform.position, (-transform.right + transform.forward * 2), out hit, rayLength / 5) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
+                    if (Physics.Raycast(transform.position, (-transform.right + transform.forward * 2), out hit, rayLength / 3) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
                     {
                         if (hit.transform.tag == "Environment")
                         {
                            // turning = true;
-                            DodgeShit((35f / (hit.distance)) + 1f);
+                            DodgeShit((15f / (hit.distance)) + 1f);
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
@@ -222,11 +222,11 @@ public class AI : MonoBehaviour
                         rb.AddForce(transform.forward * (vehicleSpeed + (position)), ForceMode.Acceleration);
                         if (turning == false)
                         {
-                            rb.velocity = Vector3.ClampMagnitude(rb.velocity, (maxspeed) + (difficulty + (position)) / 2);
+                            rb.velocity = Vector3.ClampMagnitude(rb.velocity, (maxspeed) + (difficulty + (position)));
                         }
                         else
                         {
-                            rb.velocity = Vector3.ClampMagnitude(rb.velocity*0.8f, (maxspeed) + (difficulty + (position)) / 2);
+                            rb.velocity = Vector3.ClampMagnitude(rb.velocity*0.7f, (maxspeed) + (difficulty + (position)));
                         }
 
                        
