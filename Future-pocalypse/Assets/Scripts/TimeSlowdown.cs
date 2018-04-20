@@ -194,7 +194,7 @@ public class TimeSlowdown : MonoBehaviour
         {
             case (false):
                 {
-                    Time.timeScale = 0.15f;
+                    Time.timeScale = 0.5f;
                     Application.targetFrameRate = Mathf.RoundToInt(60 / Time.timeScale);
                     StartCoroutine(Timeslow(true, 2));
                     break;
@@ -236,8 +236,8 @@ public class TimeSlowdown : MonoBehaviour
         int cycles = 0;
         while (Input.GetKey(mycode) == true)
         {
-            currentcharge -= 1;
-            storedboost += 5 + cycles ;
+            currentcharge -= 2;
+            storedboost += 3 + cycles ;
             cd.TopSpeed =cd.Truetopspeed+storedboost;
             cd.CurrentSpeed = cd.Trueaccel+storedboost;
             //canLowerCharge = false;
@@ -305,7 +305,7 @@ public class TimeSlowdown : MonoBehaviour
                     Ehealth.fillAmount = enemyhealth.Returnhealth() / enemyhealth.ReturnMaxhealth();
                     if (hit.transform.tag == "Enemy" && hit.transform == target)
                     {
-                        enemyhealth.takedamage(7);
+                        enemyhealth.takedamage(8);
                         Showenemyhealth(enemyhealth);
                         machinegun.transform.LookAt(hit.transform);
                         currentcharge -= 2;
@@ -313,7 +313,7 @@ public class TimeSlowdown : MonoBehaviour
                     else if (hit.transform.tag == "Enemy" && hit.transform != target)
                     {
                         healthTest tempenemey = hit.transform.GetComponent<healthTest>();
-                        tempenemey.takedamage(2);
+                        tempenemey.takedamage(4);
                         Showenemyhealth(tempenemey);
                         machinegun.transform.LookAt(hit.transform);
                         currentcharge -= 2;

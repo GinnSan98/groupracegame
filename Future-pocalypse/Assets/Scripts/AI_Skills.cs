@@ -116,6 +116,7 @@ public class AI_Skills : MonoBehaviour
                                     }
                                     warning.transform.parent = nextthing;
                                     lcp.Setmyplace(nextthing.GetComponent<Lapcheckpoint>().ReturnmyPlace());
+                                    
                                 }
 
                                 break;
@@ -174,20 +175,22 @@ public class AI_Skills : MonoBehaviour
                                 if (Physics.Raycast(nextthing.transform.position + (nextthing.transform.right * 10), nextthing.transform.right,10) == false)
                                 {
                                     Debug.DrawRay(nextthing.transform.position, nextthing.transform.right * 10);
-                                    transform.position = nextthing.transform.position + (nextthing.transform.right*10);
+                                    transform.position = nextthing.transform.position + (nextthing.transform.right*5);
                                 }
                                 else if (Physics.Raycast(nextthing.transform.position - (nextthing.transform.right * 10), -nextthing.transform.right,10) == false)
                                 {
                                     Debug.DrawRay(nextthing.transform.position, -nextthing.transform.right * 10);
-                                    transform.position = nextthing.transform.position - (nextthing.transform.right*10);
+                                    transform.position = nextthing.transform.position - (nextthing.transform.right*5);
                                 }
                                 else
                                 {
-                                    transform.position = nextthing.transform.position - (nextthing.transform.forward*10);
+                                    transform.position = nextthing.transform.position + (nextthing.transform.forward*10);
                                 }
                             }
                             transform.rotation = nextthing.rotation;
+                            GetComponent<Rigidbody>().velocity = nextthing.GetComponent<Rigidbody>().velocity;
                             GetComponent<Rigidbody>().AddForce(transform.forward * 10, ForceMode.VelocityChange);
+
                             break;
                         }
                     case (PlayerWeapons.Weapontypes.Machinegunfire):
@@ -198,9 +201,9 @@ public class AI_Skills : MonoBehaviour
                                 healthTest ht = nextthing.gameObject.GetComponent<healthTest>();
                                 for (int i = 0; i < 5; i++)
                                 {
-                                    if (Vector3.Distance(transform.position, nextthing.position) < 75)
+                                    if (Vector3.Distance(transform.position, nextthing.position) < 275)
                                     {
-                                        ht.takedamage(5);
+                                        ht.takedamage(12);
                                         yield return new WaitForSeconds(0.5f);
                                     }
                                     else

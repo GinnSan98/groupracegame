@@ -77,7 +77,7 @@ public class AI : MonoBehaviour
     }
     private void DodgeShit(float  direction)
     {
-        rb.MoveRotation(Quaternion.Euler(0, Mathf.Clamp(direction,-2 - judgementCoeffient,2 + judgementCoeffient) * (vehicleWidth), 0) * transform.rotation);
+        rb.MoveRotation(Quaternion.Euler(0, Mathf.Clamp(direction,-2 - (judgementCoeffient/10),2 + (judgementCoeffient/10)) * (vehicleWidth), 0) * transform.rotation);
         avoid = hit.normal * vehicleWidth;
     }
 
@@ -148,7 +148,7 @@ public class AI : MonoBehaviour
                         if (hit.transform.tag == "Enemy")
                         {
 
-                           DodgeShit(5f / (hit.distance));
+                           DodgeShit(-1f / (hit.distance));
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
@@ -163,7 +163,7 @@ public class AI : MonoBehaviour
                         else
                         {
                             turning = true;
-                            DodgeShit(-32f / ((hit.distance/2) + 1f));
+                            DodgeShit(-22f / ((hit.distance/2) + 1f));
                         }
 
                     }
@@ -193,7 +193,7 @@ public class AI : MonoBehaviour
                     {
                         if (hit.transform.tag == "Enemy")
                         {
-                            DodgeShit(-5f / (hit.distance));
+                            DodgeShit(1f / (hit.distance));
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
@@ -208,7 +208,7 @@ public class AI : MonoBehaviour
                         else
                         {
                             turning = true;
-                            DodgeShit(32f / ((hit.distance/2) + 1f));
+                            DodgeShit(22f / ((hit.distance/2) + 1f));
                         }
 
                     }
