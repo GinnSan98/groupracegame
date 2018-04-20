@@ -384,7 +384,6 @@
     <None Include="Assets\PostProcessing\Resources\Shaders\Uber.shader" />
     <None Include="Assets\PostProcessing\Resources\Shaders\UberSecondPass.cginc" />
     <None Include="Assets\Shaders\Shadebois.shader" />
-    <None Include="Assets\SkySerie Freebie\Hdri setup.txt" />
     <None Include="Assets\TAGBOI.txt" />
     <None Include="Assets\TextMesh Pro\Examples _ Extras\Fonts\Anton OFL.txt" />
     <None Include="Assets\TextMesh Pro\Examples _ Extras\Fonts\Bangers - OFL.txt" />
