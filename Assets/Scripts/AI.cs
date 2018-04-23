@@ -77,7 +77,7 @@ public class AI : MonoBehaviour
     }
     private void DodgeShit(float  direction)
     {
-       // rb.MoveRotation(Quaternion.Euler(0, Mathf.Clamp(direction,-2 - (judgementCoeffient/10),2 + (judgementCoeffient/10)) * (vehicleWidth), 0) * transform.rotation);
+        rb.MoveRotation(Quaternion.Euler(0, Mathf.Clamp(direction,-2 - (judgementCoeffient/10),2 + (judgementCoeffient/10)) * (vehicleWidth), 0) * transform.rotation);
         avoid = hit.normal * vehicleWidth;
     }
 
@@ -100,7 +100,7 @@ public class AI : MonoBehaviour
         if (canmove == true)
         {
             //Sound of the engine
-            EngineSound();
+          //  EngineSound();
             if (Physics.Raycast(transform.position, -transform.up, out hit, (bc.size.y/2) * transform.localScale.magnitude))
             {
                 onfloor = true;

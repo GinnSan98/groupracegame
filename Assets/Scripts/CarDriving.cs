@@ -143,7 +143,7 @@ public class CarDriving : MonoBehaviour
         if (Input.GetAxis("Vertical") != 0 && onFloor)
         {
             // Add force to car
-            if (Input.GetAxis("Vertical") > 0 && rb.velocity.magnitude < topSpeed / 2)
+            if (Input.GetAxis("Vertical") > 0 && rb.velocity.magnitude < topSpeed)
             {
                 rb.AddForce(transform.forward * (accel), ForceMode.Acceleration);
             }
@@ -223,9 +223,9 @@ public class CarDriving : MonoBehaviour
                 carRotation = Mathf.Clamp(carRotation, -driftClamp, driftClamp);
             }
 
-            float tempfloat = Mathf.Clamp((Input.GetAxis("Vertical") / (rb.velocity.magnitude)), 1, 10);
+           // float tempfloat = Mathf.Clamp((Input.GetAxis("Vertical") / (rb.velocity.magnitude)), 1, 10);
             // Chanage the transfrom roation
-            transform.Rotate(transform.up, Input.GetAxis("Horizontal") * (actualTurnSpeed - tempfloat));
+            transform.Rotate(transform.up, Input.GetAxis("Horizontal") * (actualTurnSpeed));
         }
     }
 
