@@ -72,7 +72,7 @@ public class CarDriving : MonoBehaviour
         truetopspeed = topSpeed;
         trueaccel = accel;
         myBox = GetComponent<BoxCollider>();
-        myCam = GetComponentInChildren<Camera>();
+       // myCam = GetComponentInChildren<Camera>();
 
         Application.targetFrameRate = 60;
         //rb.centerOfMass = -transform.up;
@@ -81,6 +81,7 @@ public class CarDriving : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+     
         if (canDrive)
         {
            
@@ -89,7 +90,7 @@ public class CarDriving : MonoBehaviour
             Acceleration();        // Acceleration and Deceleration with keyboard
             Steering();            // Sterring left and right with keyboard. Includes power slide.
             MidAirControl();
-            CameraMethod();        // Changes the camra FOV when accelerating
+            //CameraMethod();        // Changes the camra FOV when accelerating
         }
         else
         {
@@ -245,7 +246,7 @@ public class CarDriving : MonoBehaviour
 
     }
 
-    void CameraMethod()
+    /*void CameraMethod()
     {
         myCam.fieldOfView = ((rb.velocity.magnitude / 2)) + 70;
 
@@ -258,5 +259,5 @@ public class CarDriving : MonoBehaviour
             myCam.fieldOfView = 70;
         }
         //camchange.Lerping(rb.velocity.magnitude/(topSpeed/2));
-    }
+    }*/
 }
