@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "groupracegame", "groupracegame.csproj", "{9F96BCF9-30D0-B43B-0C81-D19024195AC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "groupracegame.Editor", "groupracegame.Editor.csproj", "{BCA97237-3DAF-400E-6F40-9EBA2817B1D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F96BCF9-30D0-B43B-0C81-D19024195AC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F96BCF9-30D0-B43B-0C81-D19024195AC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F96BCF9-30D0-B43B-0C81-D19024195AC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F96BCF9-30D0-B43B-0C81-D19024195AC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCA97237-3DAF-400E-6F40-9EBA2817B1D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCA97237-3DAF-400E-6F40-9EBA2817B1D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCA97237-3DAF-400E-6F40-9EBA2817B1D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCA97237-3DAF-400E-6F40-9EBA2817B1D9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

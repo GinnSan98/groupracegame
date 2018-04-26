@@ -83,7 +83,7 @@ public class AI_Skills : MonoBehaviour
                     {
                         case (PlayerWeapons.Weapontypes.Missiledash):
                             {
-                                warning.transform.localScale = new Vector3(3, 2, 60);
+                                warning.transform.localScale = new Vector3(1.5f, 1, 20);
                                 warning.transform.position = transform.position + (transform.forward*warning.transform.localScale.z/2);
                                 warning.transform.parent = this.transform;
 
@@ -96,23 +96,23 @@ public class AI_Skills : MonoBehaviour
 
                                 if (nextthing != null)
                                 {
-                                    warning.transform.localScale = new Vector3(5, 5, 15);
+                                    warning.transform.localScale = new Vector3(1, 1, 5);
                                     warning.transform.rotation = nextthing.transform.rotation;
-                                    if (Physics.Raycast(nextthing.transform.position + (nextthing.transform.right * 10), nextthing.transform.right,10) == false)
+                                    if (Physics.Raycast(nextthing.transform.position + (nextthing.transform.right *3), nextthing.transform.right,10) == false)
                                     {
-                                        Debug.DrawRay(nextthing.transform.position, nextthing.transform.right*10);
-                                        warning.transform.position = nextthing.transform.position + (nextthing.transform.right*10);
+                                        Debug.DrawRay(nextthing.transform.position, nextthing.transform.right*3);
+                                        warning.transform.position = nextthing.transform.position + (nextthing.transform.right*3);
                                     }
-                                    else if (Physics.Raycast(nextthing.transform.position - (nextthing.transform.right * 10), -nextthing.transform.right,10) == false)
+                                    else if (Physics.Raycast(nextthing.transform.position - (nextthing.transform.right * 3), -nextthing.transform.right,10) == false)
                                     {
                                         Debug.DrawRay(nextthing.transform.position, -nextthing.transform.right*10);
-                                        warning.transform.position = nextthing.transform.position - (nextthing.transform.right * 10);
+                                        warning.transform.position = nextthing.transform.position - (nextthing.transform.right *3);
                                     }
                                     else
                                     {
-                                        warning.transform.position = nextthing.transform.position + (nextthing.transform.forward * 10);
-                                        Debug.DrawRay(nextthing.transform.position, nextthing.transform.right * 10);
-                                        Debug.DrawRay(nextthing.transform.position, -nextthing.transform.right * 10);
+                                        warning.transform.position = nextthing.transform.position + (nextthing.transform.forward * 3);
+                                        Debug.DrawRay(nextthing.transform.position, nextthing.transform.right * 3);
+                                        Debug.DrawRay(nextthing.transform.position, -nextthing.transform.right * 3);
                                     }
                                     warning.transform.parent = nextthing;
                                     lcp.Setmyplace(nextthing.GetComponent<Lapcheckpoint>().ReturnmyPlace());
@@ -127,7 +127,7 @@ public class AI_Skills : MonoBehaviour
                                 if (nextthing != null)
                                 {
                                     warning.transform.position = nextthing.position;
-                                    warning.transform.localScale = new Vector3(5, 5, 5);
+                                    warning.transform.localScale = new Vector3(2, 1, 2);
                                 }
                                 
                                 break;
@@ -172,19 +172,19 @@ public class AI_Skills : MonoBehaviour
                             Transform nextthing = rs.Returnplayerahead(lcp);
                             if (nextthing != null)
                             {
-                                if (Physics.Raycast(nextthing.transform.position + (nextthing.transform.right * 10), nextthing.transform.right,10) == false)
+                                if (Physics.Raycast(nextthing.transform.position + (nextthing.transform.right * 3), nextthing.transform.right,10) == false)
                                 {
-                                    Debug.DrawRay(nextthing.transform.position, nextthing.transform.right * 10);
-                                    transform.position = nextthing.transform.position + (nextthing.transform.right*5);
+                                    Debug.DrawRay(nextthing.transform.position, nextthing.transform.right * 3);
+                                    transform.position = nextthing.transform.position + (nextthing.transform.right*3);
                                 }
-                                else if (Physics.Raycast(nextthing.transform.position - (nextthing.transform.right * 10), -nextthing.transform.right,10) == false)
+                                else if (Physics.Raycast(nextthing.transform.position - (nextthing.transform.right * 3), -nextthing.transform.right,10) == false)
                                 {
-                                    Debug.DrawRay(nextthing.transform.position, -nextthing.transform.right * 10);
-                                    transform.position = nextthing.transform.position - (nextthing.transform.right*5);
+                                    Debug.DrawRay(nextthing.transform.position, -nextthing.transform.right * 3);
+                                    transform.position = nextthing.transform.position - (nextthing.transform.right*3);
                                 }
                                 else
                                 {
-                                    transform.position = nextthing.transform.position + (nextthing.transform.forward*10);
+                                    transform.position = nextthing.transform.position + (nextthing.transform.forward*3);
                                 }
                             }
                             transform.rotation = nextthing.rotation;
@@ -201,7 +201,7 @@ public class AI_Skills : MonoBehaviour
                                 healthTest ht = nextthing.gameObject.GetComponent<healthTest>();
                                 for (int i = 0; i < 5; i++)
                                 {
-                                    if (Vector3.Distance(transform.position, nextthing.position) < 275)
+                                    if (Vector3.Distance(transform.position, nextthing.position) < 475)
                                     {
                                         ht.takedamage(12);
                                         yield return new WaitForSeconds(0.5f);

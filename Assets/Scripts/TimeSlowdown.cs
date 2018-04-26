@@ -231,12 +231,12 @@ public class TimeSlowdown : MonoBehaviour
             LightLeft.Play();
         }
 
-        int storedboost = 2;
+        int storedboost = 3;
         canturnon = false;
         int cycles = 0;
         while (Input.GetKey(mycode) == true)
         {
-            currentcharge -= 3;
+            currentcharge -= 6;
             storedboost += 1 + cycles ;
             cd.TopSpeed =cd.Truetopspeed+storedboost;
             cd.CurrentSpeed = cd.Trueaccel+storedboost;
