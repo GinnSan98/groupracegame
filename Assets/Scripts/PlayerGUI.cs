@@ -23,7 +23,7 @@ public class PlayerGUI : MonoBehaviour {
     [SerializeField]
     private float
         maxSPDOMAngle = 360,
-        minSPDOMAngle = 0,
+        minSPDOMAngle = 180,
         maxSPDOM = 100,
         topSpeed = 170;
 
