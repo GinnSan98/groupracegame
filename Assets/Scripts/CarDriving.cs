@@ -153,6 +153,7 @@ public class CarDriving : MonoBehaviour
                 rb.AddForce(-transform.forward * (accel / 2), ForceMode.Acceleration);
             }
         }
+       
     }
 
     void Steering()

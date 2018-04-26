@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour
     {
         position = transform.position;
     }
-    void LateUpdate()
+    void FixedUpdate()
     {
         Vector3 smooth = rb.velocity;
         Vector3 wantedPosition;
@@ -27,13 +27,7 @@ public class CameraController : MonoBehaviour
         wantedPosition = target.TransformPoint(0, height, -distance);
 
        transform.position = Vector3.SmoothDamp(transform.position, wantedPosition, ref smooth, damping);
-        
-        
-        if (smoothRotation == true)
-        {
-            Quaternion wantedRotation = Quaternion.LookRotation(target.position - transform.position, target.up);
-            transform.rotation = Quaternion.Slerp(transform.rotation, wantedRotation, Time.deltaTime * rotationDamping);
-        }
-        else transform.LookAt(target, target.up);
+       Quaternion wantedRotation = Quaternion.LookRotation(target.position - transform.position, target.up);
+       transform.rotation = Quaternion.Slerp(transform.rotation, wantedRotation, Time.smoothDeltaTime * rotationDamping);
     }
 }

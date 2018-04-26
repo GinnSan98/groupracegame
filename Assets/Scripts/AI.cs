@@ -87,7 +87,7 @@ public class AI : MonoBehaviour
         
         if (other.tag == "Checkpoint")
         { 
-            //transform.LookAt(nextcp.transform, Vector3.up);
+            transform.LookAt(nextcp.transform, Vector3.up);
         }
         else if (other.tag == "Correction")
         {
@@ -125,13 +125,13 @@ public class AI : MonoBehaviour
                     {
                         if (hit.transform.tag == "Environment")
                         {
-                            //turning = true;
+                            turning = true;
                             DodgeShit((-15f / (hit.distance)) + 1f);
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
 
-                           // dodgeShit(3f / ((hit.distance * 2) + 1f));
+                          DodgeShit(3f / ((hit.distance * 2) + 1f));
                         }
                         else if (hit.transform.tag == "Player")
                         {
@@ -153,7 +153,7 @@ public class AI : MonoBehaviour
                         else if (hit.transform.tag == "Checkpoint")
                         {
 
-                           // dodgeShit(3f / ((hit.distance * 2) + 1f));
+                           DodgeShit(3f / ((hit.distance * 2) + 1f));
                         }
                         else if (hit.transform.tag == "Player")
                         {
@@ -173,13 +173,13 @@ public class AI : MonoBehaviour
                     {
                         if (hit.transform.tag == "Environment")
                         {
-                           // turning = true;
+                           turning = true;
                             DodgeShit((15f / (hit.distance)) + 1f);
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
 
-                         //   dodgeShit(-3f / ((hit.distance * 2) + 1f));
+                         DodgeShit(-3f / ((hit.distance * 2) + 1f));
                         }
                         else if (hit.transform.tag == "Player")
                         {
@@ -198,7 +198,7 @@ public class AI : MonoBehaviour
                         else if (hit.transform.tag == "Checkpoint")
                         {
 
-                           // dodgeShit(-3f / ((hit.distance * 2) + 1f));
+                           DodgeShit(-3f / ((hit.distance * 2) + 1f));
                         }
                         else if (hit.transform.tag == "Player")
                         {
@@ -214,7 +214,7 @@ public class AI : MonoBehaviour
                     }
 
 
-                    //rb.MovePosition(transform.position + transform.forward * vehicleSpeed * Time.deltaTime);
+                    rb.MovePosition(transform.position + transform.forward * vehicleSpeed * Time.deltaTime);
                     if (onfloor == true)
                     {
                         // position = 1;

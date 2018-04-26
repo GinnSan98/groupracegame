@@ -399,6 +399,7 @@
     <Compile Include="Assets\Scripts\PlayerWeapons.cs" />
     <Compile Include="Assets\Scripts\RaceSystem.cs" />
     <Compile Include="Assets\Scripts\slowTime.cs" />
+    <Compile Include="Assets\Scripts\SunScript.cs" />
     <Compile Include="Assets\Scripts\ThreeDText.cs" />
     <Compile Include="Assets\Scripts\TimeSlowdown.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples _ Extras\Scripts\Benchmark01.cs" />
