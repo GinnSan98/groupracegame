@@ -58,7 +58,6 @@ public class AI : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.1f);
                 transform.LookAt(nextcp.transform);
-                Debug.Log("Looking at next");
             }
         }
     }
@@ -88,7 +87,7 @@ public class AI : MonoBehaviour
         
         if (other.tag == "Checkpoint")
         { 
-            transform.LookAt(nextcp.transform, Vector3.up);
+            //transform.LookAt(nextcp.transform, Vector3.up);
         }
         else if (other.tag == "Correction")
         {
@@ -126,13 +125,13 @@ public class AI : MonoBehaviour
                     {
                         if (hit.transform.tag == "Environment")
                         {
-                            turning = true;
+                            //turning = true;
                             DodgeShit((-15f / (hit.distance)) + 1f);
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
 
-                           DodgeShit(3f / ((hit.distance * 2) + 1f));
+                           // dodgeShit(3f / ((hit.distance * 2) + 1f));
                         }
                         else if (hit.transform.tag == "Player")
                         {
@@ -154,7 +153,7 @@ public class AI : MonoBehaviour
                         else if (hit.transform.tag == "Checkpoint")
                         {
 
-                           DodgeShit(3f / ((hit.distance * 2) + 1f));
+                           // dodgeShit(3f / ((hit.distance * 2) + 1f));
                         }
                         else if (hit.transform.tag == "Player")
                         {
@@ -174,15 +173,13 @@ public class AI : MonoBehaviour
                     {
                         if (hit.transform.tag == "Environment")
                         {
-                            turning = true;
+                           // turning = true;
                             DodgeShit((15f / (hit.distance)) + 1f);
-                            Debug.DrawRay(transform.position, -transform.right + transform.forward * 2, Color.green);
-                            Debug.Log("Oof");
                         }
                         else if (hit.transform.tag == "Checkpoint")
                         {
 
-                         DodgeShit(-3f / ((hit.distance * 2) + 1f));
+                         //   dodgeShit(-3f / ((hit.distance * 2) + 1f));
                         }
                         else if (hit.transform.tag == "Player")
                         {
@@ -201,7 +198,7 @@ public class AI : MonoBehaviour
                         else if (hit.transform.tag == "Checkpoint")
                         {
 
-                           DodgeShit(-3f / ((hit.distance * 2) + 1f));
+                           // dodgeShit(-3f / ((hit.distance * 2) + 1f));
                         }
                         else if (hit.transform.tag == "Player")
                         {
@@ -217,10 +214,10 @@ public class AI : MonoBehaviour
                     }
 
 
-                    rb.MovePosition(transform.position + transform.forward * vehicleSpeed * Time.deltaTime);
+                    //rb.MovePosition(transform.position + transform.forward * vehicleSpeed * Time.deltaTime);
                     if (onfloor == true)
                     {
-                        //position = 1;
+                        // position = 1;
                         if (rb.velocity.magnitude < maxspeed)
                         {
                             rb.AddForce((transform.forward * vehicleSpeed), ForceMode.Acceleration);
@@ -229,11 +226,11 @@ public class AI : MonoBehaviour
 
                         if (turning == false)
                         {
-                            rb.velocity = Vector3.ClampMagnitude(rb.velocity, (vehicleSpeed/2) + (difficulty + (position)));
+                            rb.velocity = Vector3.ClampMagnitude(rb.velocity, (maxspeed/2) + (difficulty + (position)));
                         }
                         else
                         {
-                            rb.velocity = Vector3.ClampMagnitude(rb.velocity, (vehicleSpeed/3) + (difficulty + (position)));
+                            rb.velocity = Vector3.ClampMagnitude(rb.velocity, (maxspeed/3) + (difficulty + (position)));
                         }
 
                        

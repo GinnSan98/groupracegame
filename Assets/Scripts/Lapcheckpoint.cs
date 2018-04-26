@@ -41,8 +41,6 @@ public class Lapcheckpoint : MonoBehaviour {
     {
         //maxcheckpoints = GameObject.FindObjectsOfType<Checkpoint>().Length;
         InvokeRepeating("Distancetonextcp", 4, 0.1f);
-
-        maxcheckpoints = FindObjectsOfType<Checkpoint>().Length;
     }
 
     private float Distancepercent()
