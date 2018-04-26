@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +12,7 @@ public class NoSpin : MonoBehaviour {
 
         float currentPosition = carMesh.transform.localPosition.y;
         carMesh.transform.localRotation = Quaternion.identity;
-        currentPosition = Mathf.Clamp(currentPosition, -0.6f, 0.9f);
+        currentPosition = Mathf.Clamp(currentPosition, -0.07f, 1f);
         carMesh.transform.localPosition = new Vector3(0,currentPosition,0);
 	}
 
