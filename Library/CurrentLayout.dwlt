@@ -225,8 +225,8 @@ MonoBehaviour:
     y: 0
     width: 464
     height: 588
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 204, y: 221}
+  m_MaxSize: {x: 4004, y: 4021}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -416,10 +416,10 @@ MonoBehaviour:
     height: 567
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
-    scrollPos: {x: 0, y: 120}
+    scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 82faffff00000000f83e00006a450000
+    m_ExpandedIDs: 52faffff00000000543f00004640000062440000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -470,14 +470,14 @@ MonoBehaviour:
     height: 567
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 0
-  lastFramingTime: 1584.0569728834253
+  lastFramingTime: 2512.8519875919205
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 697.3438, y: 344.30817, z: 25.935783}
+    m_Target: {x: 60.626427, y: 938.0643, z: 10.188122}
     speed: 2
-    m_Value: {x: 697.3438, y: 344.30817, z: 25.935783}
+    m_Value: {x: 60.626427, y: 938.0643, z: 10.188122}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -501,13 +501,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.12348317, y: 0.8637221, z: -0.25675046, w: -0.41572636}
+    m_Target: {x: 0.2103107, y: -0.58423734, z: -0.16028011, w: -0.7673419}
     speed: 2
-    m_Value: {x: -0.12348236, y: 0.8637164, z: -0.2567488, w: -0.41572365}
+    m_Value: {x: 0.21030363, y: -0.5842177, z: -0.16027471, w: -0.7673161}
   m_Size:
-    m_Target: 52.813232
+    m_Target: 714.0543
     speed: 2
-    m_Value: 52.813232
+    m_Value: 714.0543
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -662,19 +662,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Scripts
+    - Assets/Materials
   m_ViewMode: 1
   m_StartGridSize: 71
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Materials
   m_LastFoldersGridSize: 71
-  m_LastProjectPath: C:\Users\liamp\Documents\Racing game\Futurepocolypse\groupracegame
+  m_LastProjectPath: C:\Users\Goncalo\Documents\GitHub\racegame
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 75}
-    m_SelectedIDs: 9c340000
-    m_LastClickedID: 13468
-    m_ExpandedIDs: 000000004e3100008a34000018350000d4350000fe350000183600000a37000046370000dc370000ea370000043b00005e3c0000c23d00005c6000005e600000606000006260000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 155}
+    m_SelectedIDs: 82310000
+    m_LastClickedID: 12674
+    m_ExpandedIDs: 000000004e3100008a34000018350000d4350000fe350000183600000a37000046370000dc370000ea370000043b00005e3c0000c23d00006060000062600000646000006660000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -702,7 +702,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000004e3100008a34000018350000d4350000fe350000183600000a37000046370000dc370000ea370000043b00005e3c0000c23d00005c6000005e6000006060000062600000
+    m_ExpandedIDs: 000000004e3100008a34000018350000d4350000fe350000183600000a37000046370000dc370000ea370000043b00005e3c0000c23d000060600000626000006460000066600000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
