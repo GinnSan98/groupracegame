@@ -83,7 +83,7 @@ public class AI_Skills : MonoBehaviour
                     {
                         case (PlayerWeapons.Weapontypes.Missiledash):
                             {
-                                warning.transform.localScale = new Vector3(1.5f, 1, 20);
+                                warning.transform.localScale = new Vector3(0.75f, 1, 10);
                                 warning.transform.position = transform.position + (transform.forward*warning.transform.localScale.z/2);
                                 warning.transform.parent = this.transform;
 
@@ -127,7 +127,7 @@ public class AI_Skills : MonoBehaviour
                                 if (nextthing != null)
                                 {
                                     warning.transform.position = nextthing.position;
-                                    warning.transform.localScale = new Vector3(2, 1, 2);
+                                    warning.transform.localScale = new Vector3(0.5f, 0.3f, 0.5f);
                                 }
                                 
                                 break;
@@ -155,10 +155,13 @@ public class AI_Skills : MonoBehaviour
                             }
                             print("Boost! " + name);
                             int oldspeed = myai.vehicleSpeed;
-                            for (int i = 0; i < 5; i++)
+                            transform.localEulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
+                            GetComponent<Rigidbody>().AddForce(transform.forward * 5, ForceMode.VelocityChange);
+                            for (int i = 0; i < 2; i++)
                             {
-                                myai.vehicleSpeed +=20;
-                                yield return new WaitForSeconds(3);
+
+                                myai.vehicleSpeed +=15;
+                                yield return new WaitForSeconds(1);
                             }
                             foreach (ParticleSystem myps in ps)
                             {

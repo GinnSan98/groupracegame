@@ -236,7 +236,7 @@ public class TimeSlowdown : MonoBehaviour
         int cycles = 0;
         while (Input.GetKey(mycode) == true)
         {
-            currentcharge -= 6;
+            currentcharge -= 4;
             storedboost += 1 + cycles ;
             cd.TopSpeed =cd.Truetopspeed+storedboost;
             cd.CurrentSpeed = cd.Trueaccel+storedboost;

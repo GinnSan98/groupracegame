@@ -24,6 +24,7 @@ public class AI : MonoBehaviour
     private BoxCollider bc;
     [SerializeField]
     private int maxspeed;
+    private int truetopspeed;
     [SerializeField]
     private healthTest ht;
 
@@ -66,7 +67,7 @@ public class AI : MonoBehaviour
     {
         difficulty = Random.Range(20, 30);
         vehicleWidth = bc.size.x;
-
+        truetopspeed = maxspeed;
         rb.centerOfMass = -transform.up;
         Vector3 left = transform.TransformPoint(0, 0, offset);
         Vector3 right = transform.TransformPoint(0, 0, -offset);
@@ -101,19 +102,21 @@ public class AI : MonoBehaviour
         {
             //Sound of the engine
           //  EngineSound();
-            if (Physics.Raycast(transform.position, -transform.up, out hit, (bc.size.y/2) * transform.localScale.magnitude))
+            if (Physics.Raycast(transform.position, -transform.up, out hit, (bc.size.y) * transform.localScale.magnitude) || Physics.Raycast(transform.position - transform.forward, -transform.up, out hit, (bc.size.y) * transform.localScale.magnitude))
             {
                 onfloor = true;
             }
-            else
+            else if(Physics.Raycast(transform.position, -transform.up, out hit, (bc.size.y) * transform.localScale.magnitude) == false && onfloor == true|| Physics.Raycast(transform.position - transform.forward, -transform.up, out hit, (bc.size.y) * transform.localScale.magnitude) == false && onfloor == true)
             {
+                rb.AddForce(transform.forward * 5);
                 onfloor = false;
             }
+         
 
 
             bool turning = false;
 
-            rayLength = (rb.velocity.magnitude/5) * judgementCoeffient;
+            rayLength = (rb.velocity.magnitude / 50) * judgementCoeffient;
 
             if (onfloor == true)
             {
@@ -121,29 +124,25 @@ public class AI : MonoBehaviour
                 {
 
                     //Right wall, left turn;
-                    if (Physics.Raycast(transform.position, (transform.right + transform.forward * 2), out hit, rayLength / 100) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
+                    if (Physics.Raycast(transform.position, (transform.right + transform.forward * 4), out hit, rayLength) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
                     {
                         if (hit.transform.tag == "Environment")
                         {
                             turning = true;
-                            DodgeShit((-15f / (hit.distance)) + 1f);
+                            DodgeShit((-15f / (hit.distance)) - 1f);
                         }
-                        else if (hit.transform.tag == "Checkpoint")
-                        {
-
-                          DodgeShit(3f / ((hit.distance * 2) + 1f));
-                        }
+                       
                         else if (hit.transform.tag == "Player")
                         {
 
-                            DodgeShit(-3f / ((hit.distance * 8) + 1f));
+                            DodgeShit(3f / ((hit.distance * 8) - 1f));
                         }
                    
 
                     }
 
                     //Right wall forward twice.
-                    if (Physics.Raycast(transform.position, (transform.right + (transform.forward * 4)), out hit, rayLength / 100) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
+                    /*if (Physics.Raycast(transform.position, (transform.right + (transform.forward * 4)), out hit, rayLength / 60) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
                     {
                         if (hit.transform.tag == "Enemy")
                         {
@@ -166,30 +165,26 @@ public class AI : MonoBehaviour
                             DodgeShit(-22f / ((hit.distance/2) + 1f));
                         }
 
-                    }
+                    }*/
 
                     //Left wall right turn
-                    if (Physics.Raycast(transform.position, (-transform.right + transform.forward * 2), out hit, rayLength / 100) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
+                    if (Physics.Raycast(transform.position, (-transform.right + transform.forward * 4), out hit, rayLength) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
                     {
                         if (hit.transform.tag == "Environment")
                         {
                            turning = true;
-                            DodgeShit((15f / (hit.distance)) + 1f);
+                           DodgeShit((15f / (hit.distance)) - 1f);
                         }
-                        else if (hit.transform.tag == "Checkpoint")
-                        {
-
-                         DodgeShit(-3f / ((hit.distance * 2) + 1f));
-                        }
+                
                         else if (hit.transform.tag == "Player")
                         {
 
-                            DodgeShit(3f / ((hit.distance * 8) + 1f));
+                            DodgeShit(-3f / ((hit.distance * 8) + 1f));
                         }
 
                     }
 
-                    if (Physics.Raycast(transform.position, (-transform.right + (transform.forward * 4)), out hit, rayLength / 100) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
+                    /*if (Physics.Raycast(transform.position, (-transform.right + (transform.forward * 1.5f)), out hit, rayLength / 75) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
                     {
                         if (hit.transform.tag == "Enemy")
                         {
@@ -211,7 +206,7 @@ public class AI : MonoBehaviour
                             DodgeShit(22f / ((hit.distance/2) + 1f));
                         }
 
-                    }
+                    }*/
 
 
                     rb.MovePosition(transform.position + transform.forward * vehicleSpeed * Time.deltaTime);
@@ -226,16 +221,24 @@ public class AI : MonoBehaviour
 
                         if (turning == false)
                         {
-                            rb.velocity = Vector3.ClampMagnitude(rb.velocity, (maxspeed/2) + (difficulty + (position)));
+                            maxspeed = truetopspeed;
                         }
                         else
                         {
-                            rb.velocity = Vector3.ClampMagnitude(rb.velocity, (maxspeed/3) + (difficulty + (position)));
+                            maxspeed = truetopspeed / 2;
+                            
                         }
 
                        
                         
                     }
+                    else
+                    {
+                        float newLocalAnglesx;
+                        newLocalAnglesx = Mathf.Clamp(transform.localEulerAngles.x, -10, 10);
+                        transform.localEulerAngles = new Vector3(newLocalAnglesx, transform.eulerAngles.y, transform.eulerAngles.z);
+                    }
+
                 }
             }
         }

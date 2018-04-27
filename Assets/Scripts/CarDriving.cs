@@ -181,7 +181,7 @@ public class CarDriving : MonoBehaviour
                 if (Input.GetButton("Drift"))
                 {
                     isDrifting = true;
-                    actualTurnSpeed = (turnSpeed * 1.5f);
+                    actualTurnSpeed = (turnSpeed * 2.5f);
 
                     // Play particle system
                     if (sparks[0].isPlaying == false)
