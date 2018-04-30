@@ -69,7 +69,7 @@ public class TimeSlowdown : MonoBehaviour
     private void Newcontrols()
     {
         //BOOST
-        if (Input.GetKeyDown(KeyCode.J) == true)
+        if (Input.GetButtonDown("Boost") == true)
         {
 
             if (myweapons[0].ToString() == "Machinegunfire")
@@ -101,7 +101,7 @@ public class TimeSlowdown : MonoBehaviour
             }
         }
         //MACHINEGUN FIRE
-        else if (Input.GetKeyDown(KeyCode.K) == true)
+        else if (Input.GetButtonDown("MachineGun") == true)
         {
 
             if (myweapons[1].ToString() == "Machinegunfire")
@@ -131,7 +131,7 @@ public class TimeSlowdown : MonoBehaviour
             }
         }
         //MISSILEDASH
-        else if (Input.GetKeyDown(KeyCode.L) == true)
+        else if (Input.GetButtonDown("MissileDash") == true)
         {
 
             if (myweapons[2].ToString() == "Machinegunfire")
@@ -234,7 +234,7 @@ public class TimeSlowdown : MonoBehaviour
         int storedboost = 3;
         canturnon = false;
         int cycles = 0;
-        while (Input.GetKey(mycode) == true)
+        while (Input.GetButton("Boost") == true)
         {
             currentcharge -= 4;
             storedboost += 1 + cycles ;
