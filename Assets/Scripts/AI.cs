@@ -126,10 +126,11 @@ public class AI : MonoBehaviour
                     //Right wall, left turn;
                     if (Physics.Raycast(transform.position, (transform.right + transform.forward * 4), out hit, rayLength) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
                     {
+                        float temp = Random.Range(0f, 1f);
                         if (hit.transform.tag == "Environment")
                         {
                             turning = true;
-                            DodgeShit((-15f / (hit.distance)) - 1f);
+                            DodgeShit((-15f / (hit.distance)) - temp);
                         }
                        
                         else if (hit.transform.tag == "Player")
@@ -170,10 +171,11 @@ public class AI : MonoBehaviour
                     //Left wall right turn
                     if (Physics.Raycast(transform.position, (-transform.right + transform.forward * 4), out hit, rayLength) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
                     {
+                        float temp = Random.Range(0f, 1f);
                         if (hit.transform.tag == "Environment")
                         {
                            turning = true;
-                           DodgeShit((15f / (hit.distance)) - 1f);
+                           DodgeShit((15f / (hit.distance)) + temp);
                         }
                 
                         else if (hit.transform.tag == "Player")
