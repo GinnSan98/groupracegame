@@ -288,7 +288,6 @@ public class TimeSlowdown : MonoBehaviour
         {
            
             RaycastHit hit;
-            machinegun.transform.LookAt(target);
             healthTest enemyhealth = target.GetComponent<healthTest>();
             tickdown = false;
             int currenergy = Mathf.RoundToInt(currentcharge) / 2;
@@ -298,7 +297,7 @@ public class TimeSlowdown : MonoBehaviour
             {
                 soundGun.Play();
                 yield return new WaitForSeconds(0.2f);
-                Physics.Raycast(machinegun.transform.position, machinegun.transform.forward, out hit, 90);
+                Physics.Raycast(transform.position, transform.forward, out hit, 90);
                 if (hit.transform != null)
                 {
                     Ehealth.fillAmount = enemyhealth.Returnhealth() / enemyhealth.ReturnMaxhealth();
@@ -306,7 +305,6 @@ public class TimeSlowdown : MonoBehaviour
                     {
                         enemyhealth.takedamage(8);
                         Showenemyhealth(enemyhealth);
-                        machinegun.transform.LookAt(hit.transform);
                         currentcharge -= 2;
                     }
                     else if (hit.transform.tag == "Enemy" && hit.transform != target)
@@ -314,7 +312,6 @@ public class TimeSlowdown : MonoBehaviour
                         healthTest tempenemey = hit.transform.GetComponent<healthTest>();
                         tempenemey.takedamage(4);
                         Showenemyhealth(tempenemey);
-                        machinegun.transform.LookAt(hit.transform);
                         currentcharge -= 2;
                     }
                     else
@@ -331,7 +328,6 @@ public class TimeSlowdown : MonoBehaviour
 
             }
             enemyHealthbar.SetActive(false);
-            machinegun.transform.localRotation = Quaternion.Euler(0, 0, 0);
             canturnon = false;
             soundGun.Stop();
 
