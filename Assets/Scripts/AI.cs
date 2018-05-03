@@ -126,7 +126,7 @@ public class AI : MonoBehaviour
                     //Right wall, left turn;
                     if (Physics.Raycast(transform.position, (transform.right + transform.forward * 4), out hit, rayLength) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
                     {
-                        float temp = Random.Range(0f, 1f);
+                        float temp = Random.Range(0f, 0f);
                         if (hit.transform.tag == "Environment")
                         {
                             turning = true;
@@ -171,7 +171,7 @@ public class AI : MonoBehaviour
                     //Left wall right turn
                     if (Physics.Raycast(transform.position, (-transform.right + transform.forward * 4), out hit, rayLength) && hit.transform.tag != "Checkpoint" && hit.transform.tag != "smallDamage" && hit.transform.tag != "mediumDamage")
                     {
-                        float temp = Random.Range(0f, 1f);
+                        float temp = Random.Range(0f, -1f);
                         if (hit.transform.tag == "Environment")
                         {
                            turning = true;
